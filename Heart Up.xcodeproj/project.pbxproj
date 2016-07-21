@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CDE1D41666C007C808E /* AppDelegate.swift */; };
+		32195CE11D41666C007C808E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CE01D41666C007C808E /* ViewController.swift */; };
+		32195CE41D41666C007C808E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE21D41666C007C808E /* Main.storyboard */; };
+		32195CE61D41666C007C808E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE51D41666C007C808E /* Assets.xcassets */; };
+		32195CE91D41666C007C808E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE71D41666C007C808E /* LaunchScreen.storyboard */; };
+		32195CF41D41666C007C808E /* Heart_UpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CF31D41666C007C808E /* Heart_UpTests.swift */; };
+		32195CF91D41666C007C808E /* Heart Up WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 32195CF81D41666C007C808E /* Heart Up WatchKit App.app */; };
+		32195CFF1D41666C007C808E /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32195CFD1D41666C007C808E /* Interface.storyboard */; };
+		32195D011D41666C007C808E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32195D001D41666C007C808E /* Assets.xcassets */; };
+		32195D081D41666D007C808E /* Heart Up WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32195D071D41666D007C808E /* Heart Up WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32195D0F1D41666D007C808E /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195D0E1D41666D007C808E /* InterfaceController.swift */; };
+		32195D111D41666D007C808E /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195D101D41666D007C808E /* ExtensionDelegate.swift */; };
+		32195D131D41666D007C808E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195D121D41666D007C808E /* NotificationController.swift */; };
+		32195D151D41666D007C808E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32195D141D41666D007C808E /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		32195CF01D41666C007C808E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32195CD31D41666C007C808E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32195CDA1D41666C007C808E;
+			remoteInfo = "Heart Up";
+		};
+		32195CFA1D41666C007C808E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32195CD31D41666C007C808E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32195CF71D41666C007C808E;
+			remoteInfo = "Heart Up WatchKit App";
+		};
+		32195D091D41666D007C808E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32195CD31D41666C007C808E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32195D061D41666D007C808E;
+			remoteInfo = "Heart Up WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32195D1C1D41666D007C808E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				32195D081D41666D007C808E /* Heart Up WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195D201D41666D007C808E /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				32195CF91D41666C007C808E /* Heart Up WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		32195CDB1D41666C007C808E /* Heart Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heart Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32195CDE1D41666C007C808E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		32195CE01D41666C007C808E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		32195CE31D41666C007C808E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		32195CE51D41666C007C808E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32195CE81D41666C007C808E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		32195CEA1D41666C007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32195CEF1D41666C007C808E /* Heart UpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Heart UpTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32195CF31D41666C007C808E /* Heart_UpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart_UpTests.swift; sourceTree = "<group>"; };
+		32195CF51D41666C007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32195CF81D41666C007C808E /* Heart Up WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heart Up WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32195CFE1D41666C007C808E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		32195D001D41666C007C808E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32195D021D41666C007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32195D071D41666D007C808E /* Heart Up WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Heart Up WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32195D0D1D41666D007C808E /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		32195D0E1D41666D007C808E /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		32195D101D41666D007C808E /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		32195D121D41666D007C808E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		32195D141D41666D007C808E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32195D161D41666D007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		32195CD81D41666C007C808E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195CEC1D41666C007C808E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195D041D41666D007C808E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		32195CD21D41666C007C808E = {
+			isa = PBXGroup;
+			children = (
+				32195CDD1D41666C007C808E /* Heart Up */,
+				32195CF21D41666C007C808E /* Heart UpTests */,
+				32195CFC1D41666C007C808E /* Heart Up WatchKit App */,
+				32195D0B1D41666D007C808E /* Heart Up WatchKit Extension */,
+				32195CDC1D41666C007C808E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		32195CDC1D41666C007C808E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32195CDB1D41666C007C808E /* Heart Up.app */,
+				32195CEF1D41666C007C808E /* Heart UpTests.xctest */,
+				32195CF81D41666C007C808E /* Heart Up WatchKit App.app */,
+				32195D071D41666D007C808E /* Heart Up WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32195CDD1D41666C007C808E /* Heart Up */ = {
+			isa = PBXGroup;
+			children = (
+				32195CDE1D41666C007C808E /* AppDelegate.swift */,
+				32195CE01D41666C007C808E /* ViewController.swift */,
+				32195CE21D41666C007C808E /* Main.storyboard */,
+				32195CE51D41666C007C808E /* Assets.xcassets */,
+				32195CE71D41666C007C808E /* LaunchScreen.storyboard */,
+				32195CEA1D41666C007C808E /* Info.plist */,
+			);
+			path = "Heart Up";
+			sourceTree = "<group>";
+		};
+		32195CF21D41666C007C808E /* Heart UpTests */ = {
+			isa = PBXGroup;
+			children = (
+				32195CF31D41666C007C808E /* Heart_UpTests.swift */,
+				32195CF51D41666C007C808E /* Info.plist */,
+			);
+			path = "Heart UpTests";
+			sourceTree = "<group>";
+		};
+		32195CFC1D41666C007C808E /* Heart Up WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				32195CFD1D41666C007C808E /* Interface.storyboard */,
+				32195D001D41666C007C808E /* Assets.xcassets */,
+				32195D021D41666C007C808E /* Info.plist */,
+			);
+			path = "Heart Up WatchKit App";
+			sourceTree = "<group>";
+		};
+		32195D0B1D41666D007C808E /* Heart Up WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				32195D0E1D41666D007C808E /* InterfaceController.swift */,
+				32195D101D41666D007C808E /* ExtensionDelegate.swift */,
+				32195D121D41666D007C808E /* NotificationController.swift */,
+				32195D141D41666D007C808E /* Assets.xcassets */,
+				32195D161D41666D007C808E /* Info.plist */,
+				32195D0C1D41666D007C808E /* Supporting Files */,
+			);
+			path = "Heart Up WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		32195D0C1D41666D007C808E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				32195D0D1D41666D007C808E /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		32195CDA1D41666C007C808E /* Heart Up */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32195D211D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up" */;
+			buildPhases = (
+				32195CD71D41666C007C808E /* Sources */,
+				32195CD81D41666C007C808E /* Frameworks */,
+				32195CD91D41666C007C808E /* Resources */,
+				32195D201D41666D007C808E /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32195CFB1D41666C007C808E /* PBXTargetDependency */,
+			);
+			name = "Heart Up";
+			productName = "Heart Up";
+			productReference = 32195CDB1D41666C007C808E /* Heart Up.app */;
+			productType = "com.apple.product-type.application";
+		};
+		32195CEE1D41666C007C808E /* Heart UpTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32195D241D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart UpTests" */;
+			buildPhases = (
+				32195CEB1D41666C007C808E /* Sources */,
+				32195CEC1D41666C007C808E /* Frameworks */,
+				32195CED1D41666C007C808E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32195CF11D41666C007C808E /* PBXTargetDependency */,
+			);
+			name = "Heart UpTests";
+			productName = "Heart UpTests";
+			productReference = 32195CEF1D41666C007C808E /* Heart UpTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		32195CF71D41666C007C808E /* Heart Up WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32195D1D1D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit App" */;
+			buildPhases = (
+				32195CF61D41666C007C808E /* Resources */,
+				32195D1C1D41666D007C808E /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32195D0A1D41666D007C808E /* PBXTargetDependency */,
+			);
+			name = "Heart Up WatchKit App";
+			productName = "Heart Up WatchKit App";
+			productReference = 32195CF81D41666C007C808E /* Heart Up WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		32195D061D41666D007C808E /* Heart Up WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32195D191D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit Extension" */;
+			buildPhases = (
+				32195D031D41666D007C808E /* Sources */,
+				32195D041D41666D007C808E /* Frameworks */,
+				32195D051D41666D007C808E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Heart Up WatchKit Extension";
+			productName = "Heart Up WatchKit Extension";
+			productReference = 32195D071D41666D007C808E /* Heart Up WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		32195CD31D41666C007C808E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Cameron Deardorff";
+				TargetAttributes = {
+					32195CDA1D41666C007C808E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CU74U85Q8E;
+						DevelopmentTeamName = "Cameron Deardorff";
+						ProvisioningStyle = Automatic;
+					};
+					32195CEE1D41666C007C808E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CU74U85Q8E;
+						DevelopmentTeamName = "Cameron Deardorff";
+						ProvisioningStyle = Automatic;
+						TestTargetID = 32195CDA1D41666C007C808E;
+					};
+					32195CF71D41666C007C808E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CU74U85Q8E;
+						DevelopmentTeamName = "Cameron Deardorff";
+						ProvisioningStyle = Automatic;
+					};
+					32195D061D41666D007C808E = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CU74U85Q8E;
+						DevelopmentTeamName = "Cameron Deardorff";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 32195CD61D41666C007C808E /* Build configuration list for PBXProject "Heart Up" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 32195CD21D41666C007C808E;
+			productRefGroup = 32195CDC1D41666C007C808E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				32195CDA1D41666C007C808E /* Heart Up */,
+				32195CEE1D41666C007C808E /* Heart UpTests */,
+				32195CF71D41666C007C808E /* Heart Up WatchKit App */,
+				32195D061D41666D007C808E /* Heart Up WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		32195CD91D41666C007C808E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195CE91D41666C007C808E /* LaunchScreen.storyboard in Resources */,
+				32195CE61D41666C007C808E /* Assets.xcassets in Resources */,
+				32195CE41D41666C007C808E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195CED1D41666C007C808E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195CF61D41666C007C808E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195D011D41666C007C808E /* Assets.xcassets in Resources */,
+				32195CFF1D41666C007C808E /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195D051D41666D007C808E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195D151D41666D007C808E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		32195CD71D41666C007C808E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195CE11D41666C007C808E /* ViewController.swift in Sources */,
+				32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195CEB1D41666C007C808E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195CF41D41666C007C808E /* Heart_UpTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32195D031D41666D007C808E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32195D131D41666D007C808E /* NotificationController.swift in Sources */,
+				32195D111D41666D007C808E /* ExtensionDelegate.swift in Sources */,
+				32195D0F1D41666D007C808E /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		32195CF11D41666C007C808E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32195CDA1D41666C007C808E /* Heart Up */;
+			targetProxy = 32195CF01D41666C007C808E /* PBXContainerItemProxy */;
+		};
+		32195CFB1D41666C007C808E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32195CF71D41666C007C808E /* Heart Up WatchKit App */;
+			targetProxy = 32195CFA1D41666C007C808E /* PBXContainerItemProxy */;
+		};
+		32195D0A1D41666D007C808E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32195D061D41666D007C808E /* Heart Up WatchKit Extension */;
+			targetProxy = 32195D091D41666D007C808E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		32195CE21D41666C007C808E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32195CE31D41666C007C808E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		32195CE71D41666C007C808E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32195CE81D41666C007C808E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		32195CFD1D41666C007C808E /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32195CFE1D41666C007C808E /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		32195D171D41666D007C808E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		32195D181D41666D007C808E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		32195D1A1D41666D007C808E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Heart Up WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		32195D1B1D41666D007C808E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Heart Up WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		32195D1E1D41666D007C808E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = Heart_Up_WatchKit_Extension;
+				INFOPLIST_FILE = "Heart Up WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		32195D1F1D41666D007C808E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = Heart_Up_WatchKit_Extension;
+				INFOPLIST_FILE = "Heart Up WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		32195D221D41666D007C808E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Heart Up/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		32195D231D41666D007C808E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Heart Up/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-Up";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		32195D251D41666D007C808E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Heart UpTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-UpTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heart Up.app/Heart Up";
+			};
+			name = Debug;
+		};
+		32195D261D41666D007C808E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Heart UpTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Cameron-Deardorff.Heart-UpTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heart Up.app/Heart Up";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		32195CD61D41666C007C808E /* Build configuration list for PBXProject "Heart Up" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32195D171D41666D007C808E /* Debug */,
+				32195D181D41666D007C808E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32195D191D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32195D1A1D41666D007C808E /* Debug */,
+				32195D1B1D41666D007C808E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		32195D1D1D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32195D1E1D41666D007C808E /* Debug */,
+				32195D1F1D41666D007C808E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		32195D211D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32195D221D41666D007C808E /* Debug */,
+				32195D231D41666D007C808E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		32195D241D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart UpTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32195D251D41666D007C808E /* Debug */,
+				32195D261D41666D007C808E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 32195CD31D41666C007C808E /* Project object */;
+}
