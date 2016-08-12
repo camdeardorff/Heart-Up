@@ -81,7 +81,7 @@ class WorkoutController: WKInterfaceController {
     var workoutType: HKWorkoutActivityType? = .other
     
     //testing / dummy data
-    var isTest = false
+    var isTest = true
     let sampleHR: [Double] = [69,69,49,49,49,49,49,49,74,74,76,77,81,82,77,69,67,61,61,61,60]
     var sampleHRIndex = 0
     
