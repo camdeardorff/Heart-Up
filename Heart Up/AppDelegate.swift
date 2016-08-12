@@ -7,16 +7,32 @@
 //
 
 import UIKit
+import HealthKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        self.requestAccessToHealthKit()
         return true
+    }
+    
+    private func requestAccessToHealthKit() {
+        let healthStore = HKHealthStore()
+        
+        let allTypes = Set([HKObjectType.workoutType(),
+                            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!,
+                            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceCycling)!,
+                            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)!,
+                            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!])
+        
+        healthStore.requestAuthorization(toShare: allTypes, read: allTypes) { (success, error) in
+            if !success {
+                print(error)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
