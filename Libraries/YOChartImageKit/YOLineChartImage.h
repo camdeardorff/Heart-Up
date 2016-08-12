@@ -18,24 +18,29 @@
  *  default behavior of using the highest value as maxValue.
  */
 @property (nonnull, nonatomic) NSNumber* maxValue;
+@property (nonnull, nonatomic) NSNumber* minValue;
+
+@property (nonnull, nonatomic) NSArray<NSNumber *> *levels;
+@property (nonatomic) CGFloat levelStrokeWidth;
+@property (nullable, nonatomic) UIColor *levelStrokeColor;
 
 /**
  *  The width of chart's stroke. 
  *  The default width is `1.0`.
  */
-@property (nonatomic) CGFloat strokeWidth;
+@property (nonatomic) CGFloat lineStrokeWidth;
 
 /**
  *  The color of chart's stroke. 
  *  The default color is whiteColor.
  */
-@property (nullable, nonatomic) UIColor *strokeColor;
+@property (nullable, nonatomic) UIColor *lineStrokeColor;
 
 /**
  *  The color of chart's area. 
  *  The default color is `nil`.
  */
-@property (nullable, nonatomic) UIColor *fillColor;
+@property (nullable, nonatomic) UIColor *lineFillColor;
 
 /**
  *  `YES` draws smooth line chart, `NO` draws a straight line chart.

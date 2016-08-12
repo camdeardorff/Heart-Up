@@ -5,15 +5,21 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _strokeWidth = 1.0;
-        _strokeColor = [UIColor whiteColor];
+        _lineStrokeWidth = 1.0;
+        _lineStrokeColor = [UIColor whiteColor];
         _smooth = YES;
+        
+        _levelStrokeWidth = 1.0;
+        _levelStrokeColor = [UIColor whiteColor];
     }
     return self;
 }
 
 - (NSNumber *) maxValue {
     return _maxValue ? _maxValue : [NSNumber numberWithFloat:[[_values valueForKeyPath:@"@max.floatValue"] floatValue]];
+}
+- (NSNumber *) minValue {
+    return _minValue ? _minValue : [NSNumber numberWithFloat:[[_values valueForKeyPath:@"@min.floatValue"] floatValue]];
 }
 
 - (UIImage *)drawImage:(CGRect)frame scale:(CGFloat)scale {
@@ -26,7 +32,7 @@
 
     [_values enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL *_) {
         CGFloat ratioY = number.floatValue / maxValue;
-        CGFloat offsetY = ratioY == 0.0 ? -_strokeWidth / 2 : _strokeWidth / 2;
+        CGFloat offsetY = ratioY == 0.0 ? -_lineStrokeWidth / 2 : _lineStrokeWidth / 2;
         NSValue *pointValue = [NSValue valueWithCGPoint:(CGPoint){
             (float)idx * pointX,
             frame.size.height * (1 - ratioY) + offsetY
@@ -37,11 +43,26 @@
     UIGraphicsBeginImageContextWithOptions(frame.size, false, scale);
 
     UIBezierPath *path = [self quadCurvedPathWithPoints:points frame:frame];
-    path.lineWidth = _strokeWidth;
+    path.lineWidth = _lineStrokeWidth;
 
-    if (_strokeColor) {
-        [_strokeColor setStroke];
+    if (_lineStrokeColor) {
+        [_lineStrokeColor setStroke];
         [path stroke];
+    }
+    
+    if (_levels.count > 0) {
+        [_levels enumerateObjectsUsingBlock:^(NSNumber *value, NSUInteger idx, BOOL *_) {
+            
+            CGFloat ratioY = value.floatValue / maxValue;
+            CGFloat offsetY = ratioY == 0.0 ? -_levelStrokeWidth / 2 : _levelStrokeWidth / 2;
+            NSNumber *level = [NSNumber numberWithFloat:frame.size.height * (1 - ratioY) + offsetY];
+            
+            UIBezierPath *horiz = [self linearHorizontalPathWithLevel:level frame:frame];
+            horiz.lineWidth = _levelStrokeWidth;
+            [_levelStrokeColor setStroke];
+            [horiz stroke];
+        }];
+    
     }
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -50,6 +71,17 @@
 }
 
 #pragma mark - Path generator
+
+-(UIBezierPath *)linearHorizontalPathWithLevel:(NSNumber *)level frame:(CGRect)frame {
+    UIBezierPath *line = [[UIBezierPath alloc] init];
+    CGPoint startPoint = CGPointMake(0, level.floatValue);
+    CGPoint endPoint = CGPointMake(frame.size.width, level.floatValue);
+    [line moveToPoint:startPoint];
+    [line addLineToPoint:endPoint];
+    
+    
+    return line;
+}
 
 - (UIBezierPath *)quadCurvedPathWithPoints:(NSArray *)points frame:(CGRect)frame {
     UIBezierPath *linePath = [[UIBezierPath alloc] init];
@@ -69,8 +101,8 @@
         CGPoint p2 = [points[1] CGPointValue];
         [linePath addLineToPoint:p2];
         [fillBottom addLineToPoint:p2];
-        if (_fillColor) {
-            [_fillColor setFill];
+        if (_lineFillColor) {
+            [_lineFillColor setFill];
             [fillBottom fill];
         }
         return linePath;
@@ -95,8 +127,8 @@
         p1 = p2;
     }];
 
-    if (_fillColor) {
-        [_fillColor setFill];
+    if (_lineFillColor) {
+        [_lineFillColor setFill];
         [fillBottom fill];
     }
 
