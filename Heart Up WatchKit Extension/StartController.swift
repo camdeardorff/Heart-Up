@@ -14,13 +14,13 @@ class StartController: WKInterfaceController {
     @IBOutlet var reuseWorkoutTable: WKInterfaceTable!
     
     override func awake(withContext context: AnyObject?) {
-        
+        cam("awake in start controller")
     }
     
     @IBAction func startButtonWasPressed() {
         let workoutConfig = WorkoutConfig()
         workoutConfig.sentFromControllerNamed = "StartController"
-        
+        cam("pushing controllers")
         pushController(withName: "WorkoutSelectionController", context: workoutConfig)
         
     }

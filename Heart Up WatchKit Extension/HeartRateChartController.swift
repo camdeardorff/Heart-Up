@@ -16,19 +16,35 @@ import WatchKit
 class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate {
     
     @IBOutlet var imageView: WKInterfaceImage!
-    let stats = HeartRateStats.sharedInstance
     
-    let upperLimitHR = 100
-    let lowerLimitHR = 80
-
+    let stats = HealthDataStats.sharedInstance
+    
+    var upperLimitHR = 100
+    var lowerLimitHR = 80
+    var intensity: String = ""
+    
+    var sendContext: WorkoutConfig?
     override func awake(withContext context: AnyObject?) {
+        print("chart controller with context: ", context)
         stats.updateListener = self
+        sendContext = context as? WorkoutConfig
+
         
-
-    }
-
-    override func didAppear() {
-              
+        if let max = sendContext?.workoutIntesity?.max {
+            upperLimitHR = max
+        }
+        if let min = sendContext?.workoutIntesity?.min {
+            lowerLimitHR = min
+        }
+        if let intensity = sendContext?.workoutIntesity?.level {
+            self.intensity = intensity
+        }
+        
+        cam("\(upperLimitHR)")
+        cam("\(lowerLimitHR)")
+        
+        let data: [NSNumber] = []
+        self.imageView.setImage(newImage(data: data))
     }
     
     
@@ -36,26 +52,50 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
         
         let image = YOLineChartImage()
         image.values = data
-        image.lineFillColor = randomColor()
         image.lineStrokeColor = UIColor.red()
         image.lineStrokeWidth = 3
         
-        image.maxValue = determineMaxValue(data)
-        image.levels = [upperLimitHR, lowerLimitHR]
+        let boudries = determineMaxMinValue(data)
+        image.maxValue = boudries.max
+        image.minValue = boudries.min
+        
+        image.levels = [lowerLimitHR, upperLimitHR]
+        
+        
+        
         
         let frame = CGRect(x:0, y:0, width:contentFrame.width, height:contentFrame.height / 1.5)
         return image.draw(frame, scale: WKInterfaceDevice.current().screenScale)
     }
     
     
-    func determineMaxValue(_ data: [NSNumber]) -> NSNumber {
+    func determineMaxMinValue(_ data: [NSNumber]) -> (max:NSNumber, min:NSNumber) {
+        var max: NSNumber
+        var min: NSNumber
+        
         if let maxInArr = findMaxNumberIn(arr: data) {
             if maxInArr.compare(NSNumber(integerLiteral: upperLimitHR)) == ComparisonResult.orderedDescending {
-                return maxInArr
+                max = maxInArr
+            } else {
+                max = upperLimitHR
             }
+        } else {
+            max = upperLimitHR
         }
-        return upperLimitHR
+        
+        if let minInArr = findMinValueIn(arr: data) {
+            if minInArr.compare(NSNumber(integerLiteral: lowerLimitHR)) == ComparisonResult.orderedAscending {
+                min = minInArr
+            } else {
+                min = lowerLimitHR
+            }
+        } else {
+            min = lowerLimitHR
+        }
+        return (max, min)
     }
+    
+    
     
     func findMaxNumberIn(arr: [NSNumber]) -> NSNumber? {
         if arr.count > 0 {
@@ -70,6 +110,33 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
         return nil
     }
     
+    func findMinValueIn(arr: [NSNumber]) -> NSNumber? {
+        if arr.count > 0 {
+            var currMin = arr[0]
+            for num in arr {
+                if num.compare(currMin) == ComparisonResult.orderedAscending {
+                    currMin = num
+                }
+            }
+            return currMin
+        }
+        return nil
+    }
+    
+    
+    
+    @IBAction func endWorkoutButtonWasPressed() {
+        let end = WKAlertAction(title: "End", style: WKAlertActionStyle.default, handler: {
+            cam("End workout selected")
+            HealthDataInterface.sharedInstance.endQueries()
+            // get data, save it away...
+        })
+        presentAlert(withTitle: "Wait!", message: "Are you ready to end this workout?", preferredStyle: .actionSheet, actions: [end])
+        
+    }
+    
+    
+    
     
     private func randomColor() -> UIColor {
         let hue = ( CGFloat(arc4random() % 256) / 256.0 )               //  0.0 to 1.0
@@ -80,8 +147,11 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
 }
 extension HeartRateChartController {
     func newSegmentAvailable(data: [NSNumber]) {
-        if data.count < 3 { return }
-        cam("new segment avaliable in chart controller")
-        self.imageView.setImage(newImage(data: data))
+        if data.count < 3 {
+//            imageView.setImage(UIImage(named: "PreChart"))
+        } else {
+            cam("new segment avaliable in chart controller")
+            self.imageView.setImage(newImage(data: data))
+        }
     }
 }

@@ -17,7 +17,7 @@ class IntesitySelectorController: WKInterfaceController {
     var intensities: [(level: String, min: Int, max: Int)]?
     
     override func awake(withContext context: AnyObject?) {
-        
+        cam("awake with context in intensity selection controller")
         sendContext = context as? WorkoutConfig
         if let _ = sendContext {
             intensities = sendContext!.workoutType?.intensities
@@ -57,8 +57,7 @@ class IntesitySelectorController: WKInterfaceController {
                 sendContext?.sentFromControllerNamed = "IntensitySelectorController"
                 sendContext?.workoutIntesity = selectedIntesity
 //                pushController(withName: "WorkoutController", context: sendContext)
-                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "testPageBased", "aaaa"], contexts: [sendContext!])
-
+                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController", "EndWorkoutController"], contexts: [sendContext!,sendContext!,sendContext!])
             }
         } else {
             // this table row is the custom selector

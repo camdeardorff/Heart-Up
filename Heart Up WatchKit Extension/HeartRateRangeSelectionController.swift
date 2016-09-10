@@ -76,9 +76,11 @@ class HeartRateRangeSelectionController: WKInterfaceController {
 //                sendContext?.hrUpperLimit = selectedUpperLimit
                 sendContext?.sentFromControllerNamed = "HeartRateRangeSelectionController"
                 sendContext?.startDate = Date()
+                
+                sendContext?.workoutIntesity = (level: "Custom", min: selectedLowerLimit, max: selectedUpperLimit)
 //                presentController(withName: "WorkoutController", context: sendContext!)
 //                presentController(withNames: ["WorkoutController", "testPageBased"], contexts: nil)
-                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "testPageBased", "aaaa"], contexts: ["NewInterfaceController"])
+                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController", "EndWorkoutController"], contexts: [sendContext!,sendContext!,sendContext!])
 
             } else {
                 let moveToIndex = ((selectedUpperLimit) / 5) - lower

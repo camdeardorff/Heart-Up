@@ -11,62 +11,39 @@ import HealthKit
 
 class WorkoutController: WKInterfaceController {
     
-    //container... animate this background
-    @IBOutlet var container: WKInterfaceGroup!
-    
     //LABELS
-    @IBOutlet var HRCurrent: WKInterfaceLabel!
-    @IBOutlet var HRMax: WKInterfaceLabel!
-    @IBOutlet var HRMin: WKInterfaceLabel!
-    @IBOutlet var HRRate: WKInterfaceLabel!
-    @IBOutlet var HRAvg: WKInterfaceLabel!
+    @IBOutlet var currentHRLabel: WKInterfaceLabel!
+    @IBOutlet var rateOfChangeLabel: WKInterfaceLabel!
+    @IBOutlet var timerLabel: WKInterfaceTimer!
+    @IBOutlet var caloriesLabel: WKInterfaceLabel!
+    @IBOutlet var heartImageContainer: WKInterfaceGroup!
     
-    
-    
-    //HealthKit info
-    var workoutSession: HKWorkoutSession?
-    let heartRateUnit = HKUnit(from:"count/min")
-    var anchor = HKQueryAnchor(fromValue: Int(HKAnchoredObjectQueryNoAnchor))
-    let heartRateType:HKQuantityType   = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-    var query: HKQuery?
+    //workoutInfo info
     var startDate: Date?
-    var healthStore = HKHealthStore()
-
+    var workoutSession: HKWorkoutSession?
     
     //tracking vars...
     var currentTrackedHeartRate: Double = -1 {
         didSet {
-            if currentTrackedHeartRate > -1 {
-                //set current label
-                self.HRCurrent.setText("\(currentTrackedHeartRate) BPM")
-                //check for outlier min / max
-                if self.highestTrackedHeartRate < currentTrackedHeartRate || self.highestTrackedHeartRate == -1 {
-                    self.highestTrackedHeartRate = currentTrackedHeartRate
-                } else if currentTrackedHeartRate < self.lowestTrackedHeartRate || self.lowestTrackedHeartRate == -1 {
-                    self.lowestTrackedHeartRate = currentTrackedHeartRate
-                }
+            if currentTrackedHeartRate > -1 { //the normal set
+                self.currentHRLabel.setText("\(Int(currentTrackedHeartRate))")
                 self.checkThresholds(currentTrackedHeartRate)
-            } else {
-                self.HRCurrent.setText("- BPM")
+            } else { //this label has never been set
+                self.currentHRLabel.setText("--")
             }
         }
     }
-    var lowestTrackedHeartRate: Double = -1 {
+    var currentRateOfChange: Double = 0 {
         didSet {
-            if lowestTrackedHeartRate > -1 {
-                self.HRMin.setText("MIN: \(lowestTrackedHeartRate) \(minimumHeartRate)")
-            } else {
-                self.HRMin.setText("MIN: - \(minimumHeartRate)")
-            }
-        }
-    }
-    var highestTrackedHeartRate: Double = -1 {
-        didSet {
-            if highestTrackedHeartRate > -1 {
-                self.HRMax.setText("MAX: \(highestTrackedHeartRate) \(maximumHeartRate)")
-            } else {
-                self.HRMax.setText("MAX: - \(maximumHeartRate)")
-
+            if currentRateOfChange > 0 { // Positive Rate of change
+                self.rateOfChangeLabel.setTextColor(UIColor.green())
+                self.rateOfChangeLabel.setText("⬆︎")
+            } else if currentRateOfChange < 0 { //negative rate of change
+                self.rateOfChangeLabel.setTextColor(UIColor.red())
+                self.rateOfChangeLabel.setText("⬇︎")
+            } else { //break even
+                self.rateOfChangeLabel.setTextColor(UIColor.white())
+                self.rateOfChangeLabel.setText("-")
             }
         }
     }
@@ -80,25 +57,30 @@ class WorkoutController: WKInterfaceController {
     var workoutLocation: HKWorkoutSessionLocationType? = .unknown
     var workoutType: HKWorkoutActivityType? = .other
     
-    //testing / dummy data
-    var isTest = true
-    let sampleHR: [Double] = [69,69,49,49,49,49,49,49,74,74,76,77,81,82,77,69,67,61,61,61,60]
-    var sampleHRIndex = 0
-    
     //stats tracking
     let statsTrackingTimeFrame:Double = 15
-    var statsTracker = HeartRateStats.sharedInstance
+    var statsTracker = HealthDataStats.sharedInstance
     
     //notification timer
     var timerOn = false
+    var notificationInterval: TimeInterval = 20
     
     //workout config
     var sendContext: WorkoutConfig?
     
+    // heart rate streaming obj
+    var healthData = HealthDataInterface.sharedInstance
+    
+    
     override func awake(withContext context: AnyObject?) {
         super.awake(withContext: context)
+
+        
         //get context as workout config
         sendContext = context as? WorkoutConfig
+        cam("HeartRateInterface: ", "awake with context: ", sendContext)
+
+        
         //set data
         if let _ = sendContext {
             minimumHeartRate = Double((sendContext!.workoutIntesity?.min)!)
@@ -111,202 +93,68 @@ class WorkoutController: WKInterfaceController {
         let workoutConfig = HKWorkoutConfiguration()
         workoutConfig.activityType = workoutType!
         workoutConfig.locationType = workoutLocation!
+        cam("HeartRateInterface: ", "workout config!: ", workoutConfig)
+
         
         //try to create the workout or fail gracefully
         do {
+            //create workout session
             workoutSession = try HKWorkoutSession.init(configuration: workoutConfig)
             workoutSession?.delegate = self
+            
+            
+            //set date info
             startDate = Date()
             sendContext?.startDate = startDate
-            healthStore.start(workoutSession!)
-        }
-        catch {
-            //MARK: catch errors here
             
+            //prepare the health stream and start queries
+            healthData.delegate = self
+            healthData.isTest = true
+            healthData.startQueries(workoutSession: workoutSession!)
+            
+            //start the timer label
+            timerLabel.start()
+        } catch let error as NSError {
+            // Perform proper error handling here...
+            fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
         }
-        
-        
-        updatChangeRate(newRate: -1)
-        updateAvg(newAvg: -1)
-        
-        if isTest {
-            startFakeWorkout()
-        }
-        
-        
     }
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        print("\n\nCD: WILL ACTIVATE\n\n")
-        
-//        container.setBackgroundImageNamed("Frame ")
-//        container.startAnimatingWithImages(in: NSRange(location: 1, length: 15), duration: 6, repeatCount: 0)
-        
-    }
-    
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
-    
-    func startFakeWorkout() {
-        Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(WorkoutController.fakeProcessing), userInfo: nil, repeats: true)
-    }
-    
-    func fakeProcessing() {
-        if sampleHRIndex >= sampleHR.count { sampleHRIndex = 0 }
-        
-        let hr = sampleHR[sampleHRIndex]
-        sampleHRIndex += 1
-        
-        
-        currentTrackedHeartRate = hr
-        statsTracker.newDataPoint(hr: hr)
-        let avgROC = statsTracker.getAvgRateOfChangeInTimeFrame(start: statsTrackingTimeFrame, end: 0)
-        self.updatChangeRate(newRate: avgROC)
-        
-        let avgHR = statsTracker.getAvgHeartRateInTimeFrame(start: statsTrackingTimeFrame, end: 0)
-        self.updateAvg(newAvg: avgHR)
-        
-        
+        setAnimationToHeartRate(hr: currentTrackedHeartRate)
     }
     
     
     
-    @IBAction func endWorkout() {
-        healthStore.end(workoutSession!)
+    func startWorkout() {
+        healthData.startQueries(workoutSession: workoutSession!)
     }
     
-    func startAccumulatingData(startDate: Date) {
-        startQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier.heartRate)
-    }
-    
-    func stopAccumulatingData() {
-        healthStore.stop(query!)
-    }
-    
-    
-    
-    func startQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-        
-        let datePredicate = HKQuery.predicateForSamples(withStart: startDate, end: nil, options: .strictStartDate)
-        let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        let queryPredicate = CompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
-        
-        let updateHandler: ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, NSError?) -> Void) = { query, samples, deletedObjects, queryAnchor, error in
-            self.process(samples: samples, quantityTypeIdentifier: quantityTypeIdentifier)
-        }
-        
-        let query = HKAnchoredObjectQuery(type: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!,
-                                          predicate: queryPredicate,
-                                          anchor: nil,
-                                          limit: HKObjectQueryNoLimit,
-                                          resultsHandler: updateHandler)
-        query.updateHandler = updateHandler
-        healthStore.execute(query)
-        
-    }
-    
-    
-    
-    func process(samples: [HKSample]?, quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            if let quantitySamples = samples as? [HKQuantitySample] {
-                for sample in quantitySamples {
-                    
-                    if (quantityTypeIdentifier == HKQuantityTypeIdentifier.heartRate) {
-                        
-                        let hr = sample.quantity.doubleValue(for: strongSelf.heartRateUnit)
-                        
-                        //set current hr
-                        strongSelf.currentTrackedHeartRate = hr
-                        
-                        //input new data point and get rate of change and average over last 20 seconds
-                        strongSelf.statsTracker.newDataPoint(hr: hr)
-                        let avgROC = strongSelf.statsTracker.getAvgRateOfChangeInTimeFrame(start: 20, end: 0)
-                        strongSelf.updatChangeRate(newRate: avgROC)
-                        
-                        let avgHR = strongSelf.statsTracker.getAvgHeartRateInTimeFrame(start: 20, end: 0)
-                        strongSelf.updateAvg(newAvg: avgHR)
-                        
-                        
-
-                    }
-                }
-            }
-        }
+    func setAnimationToHeartRate(hr: Double) {
+        //bla bla bla do stuff here
+        //container.setBackgroundImageNamed("Frame ")
+        //container.startAnimatingWithImages(in: NSRange(location: 1, length: 15), duration: 6, repeatCount: 0)
     }
     
     func checkThresholds(_ hr: Double) {
+        cam("check thresholds")
         // if the timer is still going then dont bother
         if timerOn { return }
-        
-        if lowestTrackedHeartRate > hr || hr > highestTrackedHeartRate {
+        //check if we should notify the user that they are out of thier range
+        if minimumHeartRate > hr || hr > maximumHeartRate {
+            timerOn = true
+            //need to differentiate the over and under range notificaitons
             WKInterfaceDevice.current().play(.failure)
             //create timer to timeout in 20 sec. then we will check again. Only notify every 20 seconds
-            Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(WorkoutController.turnTimerOff), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: notificationInterval, target: self, selector: #selector(WorkoutController.turnNotificationTimerOff), userInfo: nil, repeats: false)
         }
     }
     
-    func turnTimerOff() {
+    //turns off the timer boolean. allows the user to be notified again
+    func turnNotificationTimerOff() {
         self.timerOn = false
-    }
-    
-    
-    func updateAvg(newAvg: Double) {
-        var avgString = "\(newAvg)"
-        if avgString.characters.count > 5 {
-            let idx = avgString.index(avgString.startIndex, offsetBy: 4)..<avgString.endIndex
-            avgString.removeSubrange(idx)
-        }
-        self.HRAvg.setText("AVG: " + avgString)
-    }
-    func updatChangeRate(newRate: Double) {
-        if newRate < 0 {
-            self.HRRate.setTextColor(UIColor.red())
-        } else if newRate > 0 {
-            self.HRRate.setTextColor(UIColor.green())
-        } else {
-            self.HRRate.setTextColor(UIColor.white())
-        }
-        
-        
-        var rateString = "\(newRate)"
-        if rateString.characters.count > 5 {
-            let idx = rateString.index(rateString.startIndex, offsetBy: 4)..<rateString.endIndex
-            rateString.removeSubrange(idx)
-        }
-        self.HRRate.setText("ROC: " + rateString)
-    }
-    
-    override func contextsForSegue(withIdentifier segueIdentifier: String) -> [AnyObject]? {
-        print("CD: 1\n\n\n")
-        return nil
-
-    }
-    
-    override func contextForSegue(withIdentifier segueIdentifier: String) -> AnyObject? {
-        print("CD: 2\n\n\n")
-
-        return nil
-
-    }
-    
-    override func contextForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
-        print("CD: 3\n\n\n")
-
-        return nil
-
-    }
-    
-    override func contextsForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> [AnyObject]? {
-        print("CD: 4\n\n\n")
-
-        return nil
     }
     
     
@@ -314,27 +162,29 @@ class WorkoutController: WKInterfaceController {
 extension WorkoutController: HKWorkoutSessionDelegate {
     
     func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
-        print("Workout session state changed from \(fromState) to \(toState)!")
-        if !isTest {
-            switch toState {
-            case .running:
-                startAccumulatingData(startDate: startDate!)
-                
-            default:
-                startAccumulatingData(startDate: startDate!)
-                
-            }
+        cam("Workout session state changed from \(fromState) to \(toState)!")
+        switch toState {
+            
+        case .running:
+            startWorkout()
+        case.ended:
+            cam("workout ended")
+        default:
+            startWorkout()
         }
-        
     }
     
-    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
-        
-    }
-    
-    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: NSError) {
-        
-    }
+    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) { }
+    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: NSError) { }
 }
-extension String {
+
+
+extension WorkoutController: HeartRateInterfaceUpdateDelegate {
+    func newHeartRateSample(hr: Double) {
+        cam("WorkoutController: ", "New heart rate controller")
+
+        currentTrackedHeartRate = hr
+        statsTracker.newDataPoint(hr: hr)
+        currentRateOfChange = statsTracker.getAvgRateOfChangeInTimeFrame(start: statsTrackingTimeFrame, end: 0)
+    }
 }

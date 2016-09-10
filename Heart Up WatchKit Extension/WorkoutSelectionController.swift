@@ -16,17 +16,18 @@ class WorkoutSelectionController: WKInterfaceController {
     var sendContext: WorkoutConfig?
     
     override func awake(withContext context: AnyObject?) {
+        cam("awake in workout selection controller with context \(context)")
         sendContext = context as? WorkoutConfig
         loadTableData(data: ApplicationData.workouts)
     }
     
-    func loadTableData(data: [(name: String, emoji: String, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])]) {
+    func loadTableData(data: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])]) {
         workoutTable.setNumberOfRows(data.count, withRowType: "WorkoutTableRowController")
         
         for (index, point) in data.enumerated() {
             let row = workoutTable.rowController(at: index) as! WorkoutTableRowController
-            row.labelEmoji.setText(point.emoji)
-            row.labelWorkoutName.setText(point.name)
+            row.image.setImage(point.image)
+            row.workoutName.setText(point.name)
         }
     }
     
@@ -36,6 +37,7 @@ class WorkoutSelectionController: WKInterfaceController {
         if let context = sendContext {
             context.sentFromControllerNamed = "WorkoutSelectionController"
             context.workoutType = workout
+            cam("pushing controller")
             pushController(withName: "IntesitySelectorController", context: context)
         }
     }

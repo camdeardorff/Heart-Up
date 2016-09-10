@@ -36,11 +36,7 @@
  */
 @property (nullable, nonatomic) UIColor *lineStrokeColor;
 
-/**
- *  The color of chart's area. 
- *  The default color is `nil`.
- */
-@property (nullable, nonatomic) UIColor *lineFillColor;
+
 
 /**
  *  `YES` draws smooth line chart, `NO` draws a straight line chart.

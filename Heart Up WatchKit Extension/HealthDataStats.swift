@@ -8,14 +8,14 @@
 
 import Foundation
 
-func cam(_ s: String) {
-    print("\nCD: \(s)")
+func cam(_ s:AnyObject?...) {
+    print("\n\tCD: \(s)")
 }
 
 
-class HeartRateStats {
+class HealthDataStats {
     
-    static let sharedInstance = HeartRateStats()
+    static let sharedInstance = HealthDataStats()
     
     
     //collection of all data
@@ -25,11 +25,14 @@ class HeartRateStats {
     private var segments = [(avgHR: Double, betweenTimes: (start: Date, end: Date))]()
     private var startDate: Date
     
+    private var min: Double = -1
+    private var max: Double = -1
+    
     var updateListener: HeartRateUpdatesDelegate?
     private init() {
         startDate = Date()
     }
-
+    
     /**
      # New Data Point
      creates a new entry for keeping a heart rate at a current time
@@ -38,7 +41,9 @@ class HeartRateStats {
      */
     func newDataPoint(hr: Double) {
         data.append((hr: hr, atTime: Date()))
-        //try to push data for a new segment every ....
+        
+        if hr > max || max == -1 { max = hr }
+        if hr < min || min == -1 { min = hr }
         
         
         // check if enough time has passed to create a new segment
@@ -51,27 +56,22 @@ class HeartRateStats {
                 //find out how many should be made
                 let secondsSinceLast = currentDate.seconds(from: lastSegmentRange.end)
                 let segmentsToCreate = secondsSinceLast / segmentTimeLength
-//                cam("create \(segmentsToCreate) segments!")
                 //create all of the segments necessary
                 for i in 0..<segmentsToCreate {
-                    //interval times Start = endOfLast + i * segmentTimeLength
-                    //               end = start + segmentTimeLength
-//                    cam("adding segment now!")
+                    
                     let start = lastSegmentRange.end.addingTimeInterval(TimeInterval(i * segmentTimeLength))
                     let end = start.addingTimeInterval(TimeInterval(segmentTimeLength))
                     let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
                     cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)")
-
+                    
                     segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
                     updateListener?.newSegmentAvailable(data: getRecentSegments())
-
+                    
                 }
             }
         } else {
-//            cam("should add first segment")
             //check if we have been online for at least one segment
             if currentDate.seconds(from: startDate) >= segmentTimeLength {
-                cam("adding first segment now!")
                 let start = currentDate.addingTimeInterval(-(Double)(segmentTimeLength))
                 let end = currentDate
                 let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
@@ -94,6 +94,7 @@ class HeartRateStats {
      */
     func getAvgRateOfChangeInTimeFrame(start: Double, end: Double) -> Double {
         
+        //get all of the data points in the time frame given... could be none
         let dataInTimeFrame = getDataInTimeFrame(fromSecondsAgo: start, toSecondsAgo: end)
         var totalSlope: Double = 0
         var slopes = 0
@@ -103,7 +104,12 @@ class HeartRateStats {
             totalSlope += (curr.hr - prev.hr)
             slopes += 1
         }
-        return totalSlope / Double(slopes)
+        
+        if slopes > 0 && totalSlope / Double(slopes) != Double.nan {
+            return totalSlope / Double(slopes)
+        } else {
+            return 0
+        }
     }
     
     
@@ -121,8 +127,13 @@ class HeartRateStats {
         for point in dataInTimeFrame {
             hrSum += point.hr
         }
-        //MARK: TODO: What if count is zero? nan?
-        return hrSum / Double(dataInTimeFrame.count)
+        
+        if dataInTimeFrame.count > 0 && hrSum / Double(dataInTimeFrame.count) != Double.nan {
+            return hrSum / Double(dataInTimeFrame.count)
+        } else {
+            return 0
+        }
+
     }
     func getAvgHeartRateInTimeFrame(start: Date, end: Date) -> Double {
         
@@ -131,9 +142,12 @@ class HeartRateStats {
         for point in dataInTimeFrame {
             hrSum += point.hr
         }
-        //MARK: TODO: What if count is zero? nan?
-        return hrSum / Double(dataInTimeFrame.count)
-    }
+        
+        if dataInTimeFrame.count > 0 && hrSum / Double(dataInTimeFrame.count) != Double.nan {
+            return hrSum / Double(dataInTimeFrame.count)
+        } else {
+            return 0
+        }    }
     
     
     /**
@@ -230,4 +244,94 @@ extension Date {
         return ""
     }
 }
+
+
+
+
+
+//
+//class SwiftyLine: NSObject {
+//    var values: [Int]
+//    var minValue: Int
+//    var maxValue: Int
+//    var levels: [Int]?
+//    var levelStrokeWidth: CGFloat?
+//    var levelStrokeColor: UIColor?
+//    var lineStrokeWidth: CGFloat
+//    var lineStrokeColor: UIColor
+//    var smooth: Bool
+//    
+//    init (values: [Int], min: Int = 0, max: Int = 0, lineWidth: CGFloat = 1, lineColor: UIColor = .white(), smooth: Bool = true, levels: [Int]?, levelWidth: CGFloat?, levelColor: UIColor?) {
+//        self.values = values
+//        self.minValue = min
+//        self.maxValue = max
+//        self.levels = levels
+//        self.levelStrokeWidth = levelWidth
+//        self.levelStrokeColor = levelColor
+//        self.lineStrokeWidth = lineWidth
+//        self.lineStrokeColor = lineColor
+//        self.smooth = smooth
+//
+//        
+//    }
+//    func drawImage(frame: CGRect, scale: CGFloat) -> UIImage {
+//        let numPoints = values.count
+//        let pointX = frame.size.width / CGFloat(numPoints - 1)
+//        var points = [CGPoint]()
+//        
+//        for (value, index) in values.enumerated() {
+//            let ratioY = CGFloat(value - minValue) / CGFloat(maxValue - minValue)
+//            let offsetY = ratioY == 0.0 ? -lineStrokeWidth / 2 : lineStrokeWidth / 2;
+//            let point = CGPoint(x: CGFloat(index) * pointX,
+//                                y: frame.size.height * (1-ratioY) + offsetY)
+//            points.append(point)
+//        }
+//        
+//        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+////        let path = 
+//        
+//        ////
+//        
+//        
+//        if let strongLevels = levels {
+//            if strongLevels.count > 0 {
+//                for (value, index) in strongLevels.enumerated() {
+//                    let ratioY = CGFloat(value - minValue) / CGFloat(maxValue - minValue)
+//                    let offsetY = ratioY == 0.0 ? -lineStrokeWidth / 2 : lineStrokeWidth / 2;
+//                    let level = CGFloat(frame.size.height * (1 - ratioY) + offsetY)
+//                    
+//                    
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

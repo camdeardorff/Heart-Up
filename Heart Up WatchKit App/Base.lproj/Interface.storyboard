@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11163.2" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11163.2" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cr1-P5-zvn">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11064"/>
@@ -92,45 +92,47 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="730" y="335"/>
+            <point key="canvasLocation" x="695" y="336"/>
         </scene>
         <!--WorkoutController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller identifier="WorkoutController" id="AgC-eL-Hgc" customClass="WorkoutController" customModule="Heart_Up_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="left" backgroundImage="sbeat_" animationDuration="0.5" layout="vertical" id="Mkg-W9-rp0">
+                        <group width="1" height="1" alignment="left" layout="vertical" id="o3h-D9-q5q">
                             <items>
-                                <label alignment="right" text="Label" textAlignment="center" id="Pzn-b6-3cn">
-                                    <fontDescription key="font" name=".SFCompactText-Regular" family="SF Compact Text" pointSize="25"/>
-                                </label>
-                                <label alignment="left" text="Label" textAlignment="left" id="VnO-9Y-WT9">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
-                                <label alignment="left" text="Label" textAlignment="left" id="Oe8-4Z-xv0">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
-                                <label alignment="left" text="Label" id="UoP-pw-NDa"/>
-                                <label alignment="left" text="Label" id="rTd-ul-Mop"/>
+                                <group width="1" height="0.29999999999999999" alignment="left" id="M5q-aL-1Bb">
+                                    <items>
+                                        <group width="0.5" alignment="left" id="kxv-Ya-QzU">
+                                            <items>
+                                                <label alignment="right" verticalAlignment="bottom" text="98" id="Ihf-QL-zxi">
+                                                    <fontDescription key="font" name=".SFCompactText-Regular" family="SF Compact Text" pointSize="40"/>
+                                                </label>
+                                                <label alignment="right" verticalAlignment="center" text="⬆︎" id="zTu-0Y-T4a"/>
+                                            </items>
+                                        </group>
+                                        <group width="0.5" alignment="right" layout="vertical" id="j2E-sl-cMI">
+                                            <items>
+                                                <label alignment="right" text="Label" id="NpP-Ti-Y8h"/>
+                                                <timer alignment="right" previewedSeconds="0" id="C3b-pZ-swE"/>
+                                            </items>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group height="0.69999999999999996" alignment="center" id="WpF-NY-OAX">
+                                    <items>
+                                        <imageView height="1" alignment="left" image="sbeat_" id="dDt-pJ-CNJ"/>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
-                    <menu key="menu" id="SPn-pO-sie">
-                        <items>
-                            <menuItem title="Menu Item" icon="pause" id="mGX-dO-Qjy">
-                                <connections>
-                                    <action selector="endWorkout" destination="AgC-eL-Hgc" id="Rrf-Cm-qjW"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
-                        <outlet property="HRAvg" destination="rTd-ul-Mop" id="Brk-ly-53z"/>
-                        <outlet property="HRCurrent" destination="Pzn-b6-3cn" id="9Ce-HY-N4I"/>
-                        <outlet property="HRMax" destination="VnO-9Y-WT9" id="yex-DN-Cbh"/>
-                        <outlet property="HRMin" destination="Oe8-4Z-xv0" id="3vp-Cv-029"/>
-                        <outlet property="HRRate" destination="UoP-pw-NDa" id="OnR-e8-Kes"/>
-                        <outlet property="container" destination="Mkg-W9-rp0" id="FYk-0M-XcZ"/>
+                        <outlet property="caloriesLabel" destination="NpP-Ti-Y8h" id="B2H-ag-idE"/>
+                        <outlet property="currentHRLabel" destination="Ihf-QL-zxi" id="1Fg-L0-hdS"/>
+                        <outlet property="heartImageContainer" destination="WpF-NY-OAX" id="sEa-cR-p7P"/>
+                        <outlet property="rateOfChangeLabel" destination="zTu-0Y-T4a" id="uB4-R0-7P7"/>
+                        <outlet property="timerLabel" destination="C3b-pZ-swE" id="pZx-If-bAv"/>
                         <segue destination="awX-rL-vmo" kind="relationship" relationship="nextPage" id="JZi-Ge-r9B"/>
                     </connections>
                 </controller>
@@ -142,22 +144,19 @@
             <objects>
                 <controller identifier="HeartRateChartController" id="awX-rL-vmo" customClass="HeartRateChartController" customModule="Heart_Up_WatchKit_Extension">
                     <items>
-                        <imageView width="1" height="1" alignment="left" id="Tp4-Sl-nKm"/>
+                        <imageView alignment="left" id="Tp4-Sl-nKm"/>
+                        <button width="1" height="40" alignment="left" verticalAlignment="bottom" title="End Workout" id="T5N-u6-oO3">
+                            <connections>
+                                <action selector="endWorkoutButtonWasPressed" destination="awX-rL-vmo" id="rP0-pw-GuD"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="imageView" destination="Tp4-Sl-nKm" id="ofR-Vq-5ej"/>
-                        <segue destination="QTv-7j-ESM" kind="relationship" relationship="nextPage" id="5gz-WG-gDo"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="730" y="729"/>
-        </scene>
-        <!--Interface Controller-->
-        <scene sceneID="dk3-1Y-qPg">
-            <objects>
-                <controller id="QTv-7j-ESM"/>
-            </objects>
-            <point key="canvasLocation" x="1032" y="729"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -229,13 +228,15 @@
                                 <tableRow identifier="WorkoutTableRowController" id="W0L-JO-uuW" customClass="WorkoutTableRowController" customModule="Heart_Up_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="61h-3a-pvb">
                                         <items>
-                                            <label alignment="left" verticalAlignment="center" text="emoji" id="yZ2-RU-cAT"/>
-                                            <label alignment="left" verticalAlignment="center" text="workout" id="6QF-PI-LEO"/>
+                                            <imageView width="20" height="20" alignment="left" verticalAlignment="center" id="Zis-dU-SZe"/>
+                                            <label alignment="left" verticalAlignment="center" text="workout" numberOfLines="0" id="6QF-PI-LEO">
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="labelEmoji" destination="yZ2-RU-cAT" id="eSl-W3-cTw"/>
-                                        <outlet property="labelWorkoutName" destination="6QF-PI-LEO" id="8y1-eY-lIo"/>
+                                        <outlet property="image" destination="Zis-dU-SZe" id="n6a-kx-xFU"/>
+                                        <outlet property="workoutName" destination="6QF-PI-LEO" id="Vte-n7-m7X"/>
                                     </connections>
                                 </tableRow>
                             </items>

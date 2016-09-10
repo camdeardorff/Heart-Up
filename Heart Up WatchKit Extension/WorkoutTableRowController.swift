@@ -10,7 +10,6 @@ import WatchKit
 
 class WorkoutTableRowController: NSObject {
 
-    @IBOutlet var labelEmoji: WKInterfaceLabel!
-    @IBOutlet var labelWorkoutName: WKInterfaceLabel!
-    
+    @IBOutlet var image: WKInterfaceImage!
+    @IBOutlet var workoutName: WKInterfaceLabel!
 }

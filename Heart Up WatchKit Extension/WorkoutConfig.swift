@@ -11,7 +11,7 @@ import HealthKit
 
 
 class WorkoutConfig: AnyObject {
-    var workoutType: (name: String, emoji: String, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])?
+    var workoutType: (name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])?
     var workoutIntesity: (level: String, min: Int, max: Int)?
     
     
@@ -22,15 +22,16 @@ class WorkoutConfig: AnyObject {
     
     var startDate: Date?
     //var intensity: (level: String, min: Int, max: Int)?
+    
 }
 
 
 
 class ApplicationData {
     ///TODO: set to unknown location for some of these?
-    static var workouts: [(name: String, emoji: String, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])] = [
+    static var workouts: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])] = [
         (name: "Outdoor Run",
-         emoji: "🏃🏼",
+         image: UIImage(named: "OutdoorRunning.png")!,
          type: HKWorkoutActivityType.running,
          location: HKWorkoutSessionLocationType.outdoor,
          intensities: [(level: "Low",
@@ -45,14 +46,14 @@ class ApplicationData {
             ]
         ),
         (name: "Outdoor Cycling",
-         emoji: "🚴",
+         image: UIImage(named: "OutdoorCycling.png")!,
          type: HKWorkoutActivityType.cycling,
          location: HKWorkoutSessionLocationType.outdoor,
          intensities: [(level: "Low",
-                        min: 80,
-                        max: 100),
+                        min: 70,
+                        max: 90),
                        (level: "Med",
-                        min: 100,
+                        min: 90 ,
                         max: 130),
                        (level: "High",
                         min: 130,
@@ -61,7 +62,7 @@ class ApplicationData {
             
         ),
         (name: "Indoor Run",
-         emoji: "🏃🏼",
+         image: UIImage(named: "IndoorRunning.png")!,
          type: HKWorkoutActivityType.running,
          location: HKWorkoutSessionLocationType.indoor,
          intensities: [(level: "Low",
@@ -76,7 +77,7 @@ class ApplicationData {
             ]
         ),
         (name: "Indoor Cycling",
-         emoji: "🚴",
+         image: UIImage(named: "IndoorCycling.png")!,
          type: HKWorkoutActivityType.cycling,
          location: HKWorkoutSessionLocationType.indoor,
          intensities: [(level: "Low",
@@ -90,15 +91,15 @@ class ApplicationData {
                         max: 160)
             ]
         ),
-        (name: "Lifting",
-         emoji: "💪🏼",
+        (name: "Weight Lifting",
+         image: UIImage(named: "WeightLifting.png")!,
          type: HKWorkoutActivityType.functionalStrengthTraining,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
-                        min: 80,
-                        max: 100),
+                        min: 70,
+                        max: 90),
                        (level: "Med",
-                        min: 100,
+                        min: 90 ,
                         max: 130),
                        (level: "High",
                         min: 130,
@@ -106,7 +107,7 @@ class ApplicationData {
             ]
         ),
         (name: "Cross Training",
-         emoji: "🏋🏼",
+         image: UIImage(named: "CrossFit.png")!,
          HKWorkoutActivityType.crossTraining,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
@@ -121,7 +122,8 @@ class ApplicationData {
             ]
         ),
         (name: "General Cardio",
-         emoji: "🏅", type: HKWorkoutActivityType.mixedMetabolicCardioTraining,
+         image: UIImage(named: "Pilates.png")!,
+         type: HKWorkoutActivityType.mixedMetabolicCardioTraining,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
                         min: 80,
@@ -135,7 +137,7 @@ class ApplicationData {
             ]
         ),
         (name: "Mind and Body",
-         emoji: "🌸",
+         image: UIImage(named: "Meditating.png")!,
          type: HKWorkoutActivityType.mindAndBody,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
@@ -150,7 +152,7 @@ class ApplicationData {
             ]
         ),
         (name: "Other",
-         emoji: "",
+         image: UIImage(named: "JumpRope.png")!,
          type: HKWorkoutActivityType.other,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
