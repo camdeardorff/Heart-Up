@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01DFA0D79920161A8D06106A /* Pods_Heart_UpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5668CBE1EB7431C4E1B915D7 /* Pods_Heart_UpTests.framework */; };
 		3210CF4B1D55159B009C75F7 /* WorkoutTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210CF4A1D55159B009C75F7 /* WorkoutTableRowController.swift */; };
 		3210CF4D1D552615009C75F7 /* IntesityTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210CF4C1D552615009C75F7 /* IntesityTableRowController.swift */; };
 		3210CF4F1D55265A009C75F7 /* IntesitySelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3210CF4E1D55265A009C75F7 /* IntesitySelectorController.swift */; };
@@ -34,6 +35,9 @@
 		3270B5B31D4692DB0066E186 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270B5B21D4692DB0066E186 /* HealthKit.framework */; };
 		329D9DE31D48658200BF8C51 /* HealthDataStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE21D48658200BF8C51 /* HealthDataStats.swift */; };
 		329D9DE51D486B9400BF8C51 /* HealthDataInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */; };
+		32B493571D89C3670099BE5F /* PostWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B493561D89C3670099BE5F /* PostWorkoutController.swift */; };
+		32DC444A1D89C85D00463A37 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* WorkoutSummary.swift */; };
+		32DC444B1D89C85D00463A37 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* WorkoutSummary.swift */; };
 		32DCCE4D1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
 		32DCCE4E1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
 		32DCCE4F1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
@@ -75,6 +79,9 @@
 		32DEE21E1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */; };
 		32DEE21F1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */; };
 		32E2E4031D52B11800FEB3BA /* WorkoutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2E4021D52B11800FEB3BA /* WorkoutConfig.swift */; };
+		4A1F9C5A74BB064405708064 /* Pods_Heart_Up.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2356DFD7ECA554437D5C17 /* Pods_Heart_Up.framework */; };
+		50918F8A116264D3BA5ED757 /* Pods_Heart_Up_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE51070259E44AC899098FB8 /* Pods_Heart_Up_WatchKit_App.framework */; };
+		E1D26D000A9913BE615A23EC /* Pods_Heart_Up_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9D1DA741EC899F94FFC2F5 /* Pods_Heart_Up_WatchKit_Extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,9 +141,21 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3255D8161D89BD1800A5051D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06CF358027C5B44EDAF46EA1 /* Pods-Heart Up.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up/Pods-Heart Up.debug.xcconfig"; sourceTree = "<group>"; };
+		2B2EC772A177191535353BAE /* Pods-Heart Up WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up WatchKit App/Pods-Heart Up WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		3210CF4A1D55159B009C75F7 /* WorkoutTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTableRowController.swift; sourceTree = "<group>"; };
 		3210CF4C1D552615009C75F7 /* IntesityTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntesityTableRowController.swift; sourceTree = "<group>"; };
 		3210CF4E1D55265A009C75F7 /* IntesitySelectorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntesitySelectorController.swift; sourceTree = "<group>"; };
@@ -165,15 +184,19 @@
 		32195D161D41666D007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32195D271D41673F007C808E /* Heart Up.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heart Up.entitlements"; sourceTree = "<group>"; };
 		32195D291D41673F007C808E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		322F20A21D84B02000ED1D3D /* Heart Up WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heart Up WatchKit App.entitlements"; sourceTree = "<group>"; };
 		3230E7B11D4AAA1300B3986A /* WorkoutSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSelectionController.swift; sourceTree = "<group>"; };
 		3230E7B31D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseWorkoutTableRowController.swift; sourceTree = "<group>"; };
 		3230E7B81D4AEF8C00B3986A /* StartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartController.swift; sourceTree = "<group>"; };
 		3230E7BC1D4AF70800B3986A /* HeartRateRangeSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateRangeSelectionController.swift; sourceTree = "<group>"; };
+		3255D8071D89BD1800A5051D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		3270B5B11D4692DB0066E186 /* Heart Up WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heart Up WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		3270B5B21D4692DB0066E186 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		329D9DE21D48658200BF8C51 /* HealthDataStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStats.swift; sourceTree = "<group>"; };
 		329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataInterface.swift; sourceTree = "<group>"; };
 		32B418E91D5D685A00DA4E52 /* Dates.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dates.playground; sourceTree = "<group>"; };
+		32B493561D89C3670099BE5F /* PostWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostWorkoutController.swift; sourceTree = "<group>"; };
+		32DC44491D89C85D00463A37 /* WorkoutSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutSummary.swift; path = "Heart Up WatchKit Extension/WorkoutSummary.swift"; sourceTree = "<group>"; };
 		32DCCE311D63FAF50089AE98 /* Yoga.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Yoga.svg; sourceTree = "<group>"; };
 		32DCCE501D640A860089AE98 /* CrossFit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CrossFit.png; path = icon/CrossFit.png; sourceTree = SOURCE_ROOT; };
 		32DCCE521D640A860089AE98 /* JumpRope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JumpRope.png; path = icon/JumpRope.png; sourceTree = SOURCE_ROOT; };
@@ -194,6 +217,16 @@
 		32DEE2181D5D8D5B004FDE41 /* YOLineChartImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YOLineChartImage.h; path = Libraries/YOChartImageKit/YOLineChartImage.h; sourceTree = "<group>"; };
 		32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YOLineChartImage.m; path = Libraries/YOChartImageKit/YOLineChartImage.m; sourceTree = "<group>"; };
 		32E2E4021D52B11800FEB3BA /* WorkoutConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutConfig.swift; sourceTree = "<group>"; };
+		5668CBE1EB7431C4E1B915D7 /* Pods_Heart_UpTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heart_UpTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		678F295782ECF863F530BC4B /* Pods-Heart Up.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up/Pods-Heart Up.release.xcconfig"; sourceTree = "<group>"; };
+		7E1B9F03D3C4BE99DEF3623D /* Pods-Heart UpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart UpTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart UpTests/Pods-Heart UpTests.release.xcconfig"; sourceTree = "<group>"; };
+		813AEEFE58B2D01270387584 /* Pods-Heart UpTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart UpTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Heart UpTests/Pods-Heart UpTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A2CC7DB5D4C905095203F54 /* Pods-Heart Up WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up WatchKit Extension/Pods-Heart Up WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		C2518EC2F42A00A55AD29647 /* Pods-Heart Up WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up WatchKit Extension/Pods-Heart Up WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		CA9D1DA741EC899F94FFC2F5 /* Pods_Heart_Up_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heart_Up_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE51070259E44AC899098FB8 /* Pods_Heart_Up_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heart_Up_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D578C27584E9E5D5E8178763 /* Pods-Heart Up WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up WatchKit App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up WatchKit App/Pods-Heart Up WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
+		FF2356DFD7ECA554437D5C17 /* Pods_Heart_Up.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heart_Up.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50918F8A116264D3BA5ED757 /* Pods_Heart_Up_WatchKit_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32195D2A1D41673F007C808E /* HealthKit.framework in Frameworks */,
+				4A1F9C5A74BB064405708064 /* Pods_Heart_Up.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01DFA0D79920161A8D06106A /* Pods_Heart_UpTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3270B5B31D4692DB0066E186 /* HealthKit.framework in Frameworks */,
+				E1D26D000A9913BE615A23EC /* Pods_Heart_Up_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +281,7 @@
 		321329181D4853CA008B0951 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				32DC44491D89C85D00463A37 /* WorkoutSummary.swift */,
 				32DEE2151D5D8D5B004FDE41 /* YOChartImageKit.h */,
 				32DEE2161D5D8D5B004FDE41 /* YODonutChartImage.h */,
 				32DEE2171D5D8D5B004FDE41 /* YODonutChartImage.m */,
@@ -265,6 +303,7 @@
 				32195CDC1D41666C007C808E /* Products */,
 				32195D281D41673F007C808E /* Frameworks */,
 				321329181D4853CA008B0951 /* Shared */,
+				C2744E47299F33DEBDF63FC4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -305,6 +344,7 @@
 		32195CFC1D41666C007C808E /* Heart Up WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
+				322F20A21D84B02000ED1D3D /* Heart Up WatchKit App.entitlements */,
 				3230E7B51D4ABB0900B3986A /* images */,
 				32195CFD1D41666C007C808E /* Interface.storyboard */,
 				32195D001D41666C007C808E /* Assets.xcassets */,
@@ -344,6 +384,11 @@
 			children = (
 				3270B5B21D4692DB0066E186 /* HealthKit.framework */,
 				32195D291D41673F007C808E /* HealthKit.framework */,
+				FF2356DFD7ECA554437D5C17 /* Pods_Heart_Up.framework */,
+				CE51070259E44AC899098FB8 /* Pods_Heart_Up_WatchKit_App.framework */,
+				CA9D1DA741EC899F94FFC2F5 /* Pods_Heart_Up_WatchKit_Extension.framework */,
+				5668CBE1EB7431C4E1B915D7 /* Pods_Heart_UpTests.framework */,
+				3255D8071D89BD1800A5051D /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -377,8 +422,24 @@
 				3230E7BC1D4AF70800B3986A /* HeartRateRangeSelectionController.swift */,
 				32195D0E1D41666D007C808E /* WorkoutController.swift */,
 				3213A5C81D599279000D2455 /* HeartRateChartController.swift */,
+				32B493561D89C3670099BE5F /* PostWorkoutController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C2744E47299F33DEBDF63FC4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				06CF358027C5B44EDAF46EA1 /* Pods-Heart Up.debug.xcconfig */,
+				678F295782ECF863F530BC4B /* Pods-Heart Up.release.xcconfig */,
+				D578C27584E9E5D5E8178763 /* Pods-Heart Up WatchKit App.debug.xcconfig */,
+				2B2EC772A177191535353BAE /* Pods-Heart Up WatchKit App.release.xcconfig */,
+				C2518EC2F42A00A55AD29647 /* Pods-Heart Up WatchKit Extension.debug.xcconfig */,
+				9A2CC7DB5D4C905095203F54 /* Pods-Heart Up WatchKit Extension.release.xcconfig */,
+				813AEEFE58B2D01270387584 /* Pods-Heart UpTests.debug.xcconfig */,
+				7E1B9F03D3C4BE99DEF3623D /* Pods-Heart UpTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,10 +449,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32195D211D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up" */;
 			buildPhases = (
+				8AC0E4264FD9E04FB03803F0 /* [CP] Check Pods Manifest.lock */,
 				32195CD71D41666C007C808E /* Sources */,
 				32195CD81D41666C007C808E /* Frameworks */,
 				32195CD91D41666C007C808E /* Resources */,
 				32195D201D41666D007C808E /* Embed Watch Content */,
+				3EDAF4615FAFCFCA3D36A54B /* [CP] Embed Pods Frameworks */,
+				8D47D135117444BE8E9B2425 /* [CP] Copy Pods Resources */,
+				3255D8161D89BD1800A5051D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -407,9 +472,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32195D241D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart UpTests" */;
 			buildPhases = (
+				59D3CE7DCD6CF5618E229D67 /* [CP] Check Pods Manifest.lock */,
 				32195CEB1D41666C007C808E /* Sources */,
 				32195CEC1D41666C007C808E /* Frameworks */,
 				32195CED1D41666C007C808E /* Resources */,
+				D54090EB789A5D37A30B2B5F /* [CP] Embed Pods Frameworks */,
+				DFCF160787BFBD676DFC242E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -425,10 +493,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32195D1D1D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit App" */;
 			buildPhases = (
+				89173832046A3FD566D03DBD /* [CP] Check Pods Manifest.lock */,
 				32195CF61D41666C007C808E /* Resources */,
 				32195D1C1D41666D007C808E /* Embed App Extensions */,
 				320A24FE1D5C1F7600767A41 /* Frameworks */,
 				320A24FF1D5C1F7600767A41 /* Embed Frameworks */,
+				9C5425A71CB7880268289098 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -444,9 +514,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32195D191D41666D007C808E /* Build configuration list for PBXNativeTarget "Heart Up WatchKit Extension" */;
 			buildPhases = (
+				49570E57E6BCDC19E1F2A8DE /* [CP] Check Pods Manifest.lock */,
 				32195D031D41666D007C808E /* Sources */,
 				32195D041D41666D007C808E /* Frameworks */,
 				32195D051D41666D007C808E /* Resources */,
+				59F119EA354ED912A542E08D /* [CP] Embed Pods Frameworks */,
+				8024FACEDB02C3F59B2089DD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -474,6 +547,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
@@ -490,7 +566,13 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = CU74U85Q8E;
 						DevelopmentTeamName = "Cameron Deardorff";
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					32195D061D41666D007C808E = {
 						CreatedOnToolsVersion = 8.0;
@@ -499,6 +581,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.HealthKit.watchos = {
 								enabled = 1;
 							};
@@ -600,6 +685,174 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3EDAF4615FAFCFCA3D36A54B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart Up/Pods-Heart Up-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49570E57E6BCDC19E1F2A8DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		59D3CE7DCD6CF5618E229D67 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		59F119EA354ED912A542E08D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart Up WatchKit Extension/Pods-Heart Up WatchKit Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8024FACEDB02C3F59B2089DD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart Up WatchKit Extension/Pods-Heart Up WatchKit Extension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89173832046A3FD566D03DBD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8AC0E4264FD9E04FB03803F0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D47D135117444BE8E9B2425 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart Up/Pods-Heart Up-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C5425A71CB7880268289098 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart Up WatchKit App/Pods-Heart Up WatchKit App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D54090EB789A5D37A30B2B5F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart UpTests/Pods-Heart UpTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFCF160787BFBD676DFC242E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Heart UpTests/Pods-Heart UpTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		32195CD71D41666C007C808E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -608,6 +861,7 @@
 				32195CE11D41666C007C808E /* ViewController.swift in Sources */,
 				32DEE21C1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */,
 				32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */,
+				32DC444A1D89C85D00463A37 /* WorkoutSummary.swift in Sources */,
 				32DEE21E1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,9 +886,11 @@
 				3213A5C91D599279000D2455 /* HeartRateChartController.swift in Sources */,
 				3230E7B41D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift in Sources */,
 				3230E7B91D4AEF8C00B3986A /* StartController.swift in Sources */,
+				32DC444B1D89C85D00463A37 /* WorkoutSummary.swift in Sources */,
 				32DEE21F1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */,
 				32195D131D41666D007C808E /* NotificationController.swift in Sources */,
 				3210CF4B1D55159B009C75F7 /* WorkoutTableRowController.swift in Sources */,
+				32B493571D89C3670099BE5F /* PostWorkoutController.swift in Sources */,
 				3230E7B21D4AAA1300B3986A /* WorkoutSelectionController.swift in Sources */,
 				3213A5C71D597D54000D2455 /* CustomIntensityRowController.swift in Sources */,
 				329D9DE31D48658200BF8C51 /* HealthDataStats.swift in Sources */,
@@ -707,8 +963,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -756,8 +1014,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -785,7 +1045,9 @@
 		};
 		32195D1A1D41666D007C808E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2518EC2F42A00A55AD29647 /* Pods-Heart Up WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Heart Up WatchKit Extension/Heart Up WatchKit Extension.entitlements";
@@ -805,7 +1067,9 @@
 		};
 		32195D1B1D41666D007C808E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A2CC7DB5D4C905095203F54 /* Pods-Heart Up WatchKit Extension.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Heart Up WatchKit Extension/Heart Up WatchKit Extension.entitlements";
@@ -824,9 +1088,11 @@
 		};
 		32195D1E1D41666D007C808E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D578C27584E9E5D5E8178763 /* Pods-Heart Up WatchKit App.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Heart Up WatchKit App/Heart Up WatchKit App.entitlements";
 				IBSC_MODULE = Heart_Up_WatchKit_Extension;
 				INFOPLIST_FILE = "Heart Up WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -842,9 +1108,11 @@
 		};
 		32195D1F1D41666D007C808E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B2EC772A177191535353BAE /* Pods-Heart Up WatchKit App.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Heart Up WatchKit App/Heart Up WatchKit App.entitlements";
 				IBSC_MODULE = Heart_Up_WatchKit_Extension;
 				INFOPLIST_FILE = "Heart Up WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -860,6 +1128,7 @@
 		};
 		32195D221D41666D007C808E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06CF358027C5B44EDAF46EA1 /* Pods-Heart Up.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -876,6 +1145,7 @@
 		};
 		32195D231D41666D007C808E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 678F295782ECF863F530BC4B /* Pods-Heart Up.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -891,6 +1161,7 @@
 		};
 		32195D251D41666D007C808E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 813AEEFE58B2D01270387584 /* Pods-Heart UpTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Heart UpTests/Info.plist";
@@ -904,6 +1175,7 @@
 		};
 		32195D261D41666D007C808E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E1B9F03D3C4BE99DEF3623D /* Pods-Heart UpTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "Heart UpTests/Info.plist";

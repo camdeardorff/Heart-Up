@@ -21,27 +21,26 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     
     var upperLimitHR = 100
     var lowerLimitHR = 80
-    var intensity: String = ""
     
-    var sendContext: WorkoutConfig?
-    override func awake(withContext context: AnyObject?) {
+    var sendContext: Workout?
+    
+    override func awake(withContext context: Any?) {
+      
         print("chart controller with context: ", context)
         stats.updateListener = self
-        sendContext = context as? WorkoutConfig
+        sendContext = context as? Workout
 
         
-        if let max = sendContext?.workoutIntesity?.max {
+        if let max = sendContext?.levelHigh {
             upperLimitHR = max
         }
-        if let min = sendContext?.workoutIntesity?.min {
+        if let min = sendContext?.levelLow {
             lowerLimitHR = min
         }
-        if let intensity = sendContext?.workoutIntesity?.level {
-            self.intensity = intensity
-        }
         
-        cam("\(upperLimitHR)")
-        cam("\(lowerLimitHR)")
+        
+        cam("\(upperLimitHR)" as AnyObject?)
+        cam("\(lowerLimitHR)" as AnyObject?)
         
         let data: [NSNumber] = []
         self.imageView.setImage(newImage(data: data))
@@ -52,14 +51,14 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
         
         let image = YOLineChartImage()
         image.values = data
-        image.lineStrokeColor = UIColor.red()
+        image.lineStrokeColor = UIColor.red
         image.lineStrokeWidth = 3
         
         let boudries = determineMaxMinValue(data)
         image.maxValue = boudries.max
         image.minValue = boudries.min
         
-        image.levels = [lowerLimitHR, upperLimitHR]
+        image.levels = [NSNumber(integerLiteral: lowerLimitHR), NSNumber(integerLiteral: upperLimitHR)]
         
         
         
@@ -77,20 +76,20 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
             if maxInArr.compare(NSNumber(integerLiteral: upperLimitHR)) == ComparisonResult.orderedDescending {
                 max = maxInArr
             } else {
-                max = upperLimitHR
+                max = NSNumber(integerLiteral: upperLimitHR)
             }
         } else {
-            max = upperLimitHR
+            max = NSNumber(integerLiteral: upperLimitHR)
         }
         
         if let minInArr = findMinValueIn(arr: data) {
             if minInArr.compare(NSNumber(integerLiteral: lowerLimitHR)) == ComparisonResult.orderedAscending {
                 min = minInArr
             } else {
-                min = lowerLimitHR
+                min = NSNumber(integerLiteral: lowerLimitHR)
             }
         } else {
-            min = lowerLimitHR
+            min = NSNumber(integerLiteral: lowerLimitHR)
         }
         return (max, min)
     }
@@ -127,9 +126,12 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     
     @IBAction func endWorkoutButtonWasPressed() {
         let end = WKAlertAction(title: "End", style: WKAlertActionStyle.default, handler: {
-            cam("End workout selected")
+            cam("End workout selected" as AnyObject?)
             HealthDataInterface.sharedInstance.endQueries()
             // get data, save it away...
+            if let workout = self.sendContext {
+                WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [workout])
+            }
         })
         presentAlert(withTitle: "Wait!", message: "Are you ready to end this workout?", preferredStyle: .actionSheet, actions: [end])
         
@@ -150,7 +152,7 @@ extension HeartRateChartController {
         if data.count < 3 {
 //            imageView.setImage(UIImage(named: "PreChart"))
         } else {
-            cam("new segment avaliable in chart controller")
+            cam("new segment avaliable in chart controller" as AnyObject?)
             self.imageView.setImage(newImage(data: data))
         }
     }

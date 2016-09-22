@@ -13,11 +13,13 @@ class WorkoutSelectionController: WKInterfaceController {
     
     @IBOutlet var workoutTable: WKInterfaceTable!
     
-    var sendContext: WorkoutConfig?
+    var sendContext: Workout?
     
-    override func awake(withContext context: AnyObject?) {
-        cam("awake in workout selection controller with context \(context)")
-        sendContext = context as? WorkoutConfig
+    override func awake(withContext context: Any?) {
+        sendContext = context as? Workout
+        print("workout selection controller awake")
+        print(context)
+        print(sendContext?.avg)
         loadTableData(data: ApplicationData.workouts)
     }
     
@@ -33,12 +35,12 @@ class WorkoutSelectionController: WKInterfaceController {
     
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        let workout = ApplicationData.workouts[rowIndex]
-        if let context = sendContext {
-            context.sentFromControllerNamed = "WorkoutSelectionController"
-            context.workoutType = workout
-            cam("pushing controller")
-            pushController(withName: "IntesitySelectorController", context: context)
+        let workoutType = ApplicationData.workouts[rowIndex]
+        if let workout = sendContext {
+            workout.type = Int(workoutType.type.rawValue)
+            workout.location = workoutType.location.rawValue
+            workout.configIndex = rowIndex
+            pushController(withName: "IntesitySelectorController", context: workout)
         }
     }
     

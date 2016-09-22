@@ -13,7 +13,7 @@ class HeartRateRangeSelectionController: WKInterfaceController {
     @IBOutlet var lowerLimitSelector: WKInterfacePicker!
     @IBOutlet var upperLimitSelector: WKInterfacePicker!
     
-    var sendContext: WorkoutConfig?
+    var sendContext: Workout?
     
     var selectedLowerLimit: Int = -1
     var selectedUpperLimit: Int = -1
@@ -24,10 +24,13 @@ class HeartRateRangeSelectionController: WKInterfaceController {
     let lower = 10
     let upper = 40
 
-    override func awake(withContext context: AnyObject?) {
+    override func awake(withContext context: Any?) {
         
-        sendContext = context as? WorkoutConfig
+        sendContext = context as? Workout
         
+        print("workout selection controller awake")
+        print(context)
+        print(sendContext)
         
         var lowerLimitPickerItems = [WKPickerItem]()
         var upperLimitPickerItems = [WKPickerItem]()
@@ -72,15 +75,13 @@ class HeartRateRangeSelectionController: WKInterfaceController {
         
         if selectedUpperLimit >= lower * 5 && selectedLowerLimit >= (lower - HR_OFFSET) * 5 {
             if selectedUpperLimit > selectedLowerLimit {
-//                sendContext?.hrLowerLimit = selectedLowerLimit
-//                sendContext?.hrUpperLimit = selectedUpperLimit
-                sendContext?.sentFromControllerNamed = "HeartRateRangeSelectionController"
-                sendContext?.startDate = Date()
-                
-                sendContext?.workoutIntesity = (level: "Custom", min: selectedLowerLimit, max: selectedUpperLimit)
-//                presentController(withName: "WorkoutController", context: sendContext!)
-//                presentController(withNames: ["WorkoutController", "testPageBased"], contexts: nil)
-                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController", "EndWorkoutController"], contexts: [sendContext!,sendContext!,sendContext!])
+
+                let customIntensity = 3
+                sendContext?.levelLow = selectedLowerLimit
+                sendContext?.levelHigh = selectedUpperLimit
+                sendContext?.intensity = customIntensity
+
+                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [sendContext!,sendContext!])
 
             } else {
                 let moveToIndex = ((selectedUpperLimit) / 5) - lower

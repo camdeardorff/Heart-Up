@@ -11,10 +11,17 @@ import HealthKit
 
 class ReuseWorkoutTableRowController: NSObject {
     
-    @IBOutlet var labelDate: WKInterfaceLabel!
-    @IBOutlet var labelWorkout: WKInterfaceLabel!
-    @IBOutlet var labelLocation: WKInterfaceLabel!
-    @IBOutlet var labelMinHeartRate: WKInterfaceLabel!
-    @IBOutlet var labelMaxHeartRate: WKInterfaceLabel!
+    @IBOutlet var workoutLabel: WKInterfaceLabel!
+
+    @IBOutlet var intensityLabel: WKInterfaceLabel!
     
+    @IBOutlet var dateLabel: WKInterfaceLabel!
+    
+    
+    @IBOutlet var minHRLabel: WKInterfaceLabel!
+    @IBOutlet var maxHRLabel: WKInterfaceLabel!
+    
+    
+    var configIndex: Int?
+
 }

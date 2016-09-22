@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11163.2" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cr1-P5-zvn">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cr1-P5-zvn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11064"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SFCompactText-Regular.otf">
@@ -158,6 +158,13 @@
             </objects>
             <point key="canvasLocation" x="730" y="729"/>
         </scene>
+        <!--Post Workout-->
+        <scene sceneID="eTS-bi-sEW">
+            <objects>
+                <controller identifier="PostWorkoutController" title="Post Workout" id="gIN-Fj-9Ir" customClass="PostWorkoutController" customModule="Heart_Up_WatchKit_Extension"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="729"/>
+        </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
             <objects>
@@ -186,12 +193,12 @@
                         </button>
                         <table alignment="left" id="arU-2Q-kGe">
                             <items>
-                                <tableRow id="Lgg-oA-XvI" customClass="ReuseWorkoutTableRowController" customModule="Heart_Up_WatchKit_Extension">
+                                <tableRow identifier="ReuseWorkoutTableRowController" id="Lgg-oA-XvI" customClass="ReuseWorkoutTableRowController" customModule="Heart_Up_WatchKit_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="KLs-6K-SsH">
                                         <items>
-                                            <label alignment="left" text="Date:" id="cnd-Ww-Q2g"/>
                                             <label alignment="left" text="Workout:" id="f0o-MQ-fub"/>
-                                            <label alignment="left" text="Location:" id="EnC-nV-XZK"/>
+                                            <label alignment="left" text="Intensity: " id="Koz-0f-pKr"/>
+                                            <label alignment="left" text="Date:" id="cnd-Ww-Q2g"/>
                                             <group width="1" alignment="left" id="tqX-sV-ON1">
                                                 <items>
                                                     <label alignment="left" text="Min:" id="m0t-0Q-OLk"/>
@@ -201,11 +208,11 @@
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="labelDate" destination="cnd-Ww-Q2g" id="sWs-1k-ejA"/>
-                                        <outlet property="labelLocation" destination="EnC-nV-XZK" id="p2U-pL-ldN"/>
-                                        <outlet property="labelMaxHeartRate" destination="2hV-c0-sVK" id="LOv-aJ-xoG"/>
-                                        <outlet property="labelMinHeartRate" destination="m0t-0Q-OLk" id="QyW-eL-Oqm"/>
-                                        <outlet property="labelWorkout" destination="f0o-MQ-fub" id="MAK-7C-9SV"/>
+                                        <outlet property="dateLabel" destination="cnd-Ww-Q2g" id="tus-0l-Awp"/>
+                                        <outlet property="intensityLabel" destination="Koz-0f-pKr" id="PaC-GW-mDC"/>
+                                        <outlet property="maxHRLabel" destination="2hV-c0-sVK" id="4dH-Uq-B1U"/>
+                                        <outlet property="minHRLabel" destination="m0t-0Q-OLk" id="hjg-82-tJs"/>
+                                        <outlet property="workoutLabel" destination="f0o-MQ-fub" id="w5X-nf-jDe"/>
                                     </connections>
                                 </tableRow>
                             </items>

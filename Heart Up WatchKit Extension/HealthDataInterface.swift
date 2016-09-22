@@ -52,7 +52,7 @@ class HealthDataInterface {
     
     //entry way from outside, provided with the workout session this function sets up the queries and starts them
     func startQueries(workoutSession: HKWorkoutSession) {
-        cam("HealthDataInterface: ", "start queries")
+        cam("HealthDataInterface: " as AnyObject?, "start queries" as AnyObject?)
         
         if !isTest {
             startDate = Date()
@@ -69,18 +69,18 @@ class HealthDataInterface {
     
     //ends queries
     func endQueries() {
-        cam("HealthDataInterface: ", "end queries")
+        cam("HealthDataInterface: " as AnyObject?, "end queries" as AnyObject?)
         
         if !isTest {
-            cam("HealthDataInterface: end queries: ", "no test!")
+            cam("HealthDataInterface: end queries: " as AnyObject?, "no test!" as AnyObject?)
             guard let _ = self.hrQuery else { return }
             guard let _ = self.workoutSession else { return }
             healthStore.stop(self.hrQuery!)
             healthStore.end(self.workoutSession!)
         } else {
-            cam("HealthDataInterface: end queries: ", "test..?")
+            cam("HealthDataInterface: end queries: " as AnyObject?, "test..?" as AnyObject?)
             if let _ = timerForTest {
-                cam("HealthDataInterface: end queries: ", "DO IT")
+                cam("HealthDataInterface: end queries: " as AnyObject?, "DO IT" as AnyObject?)
                 timerForTest?.invalidate()
             }
         }
@@ -88,11 +88,12 @@ class HealthDataInterface {
     
     //private function for creating and configuring queries
     private func createQuery(quantityTypeIdentifier: HKQuantityTypeIdentifier) -> HKAnchoredObjectQuery {
-        cam("HeartRateInterface: ", "create queries")
+        cam("HeartRateInterface: " as AnyObject?, "create queries" as AnyObject?)
         
         let datePredicate = HKQuery.predicateForSamples(withStart: startDate, end: nil, options: .strictStartDate)
         let devicePredicate = HKQuery.predicateForObjects(from: [HKDevice.local()])
-        let queryPredicate = CompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+        let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:[datePredicate, devicePredicate])
+        
         
         let updateHandler: ((HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, NSError?) -> Void) = { query, samples, deletedObjects, queryAnchor, error in
             self.process(samples: samples, quantityTypeIdentifier: quantityTypeIdentifier)
@@ -102,15 +103,15 @@ class HealthDataInterface {
                                           predicate: queryPredicate,
                                           anchor: nil,
                                           limit: HKObjectQueryNoLimit,
-                                          resultsHandler: updateHandler)
-        query.updateHandler = updateHandler
+                                          resultsHandler: updateHandler as! (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void)
+        query.updateHandler = updateHandler as? (HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?) -> Void
         return query
     }
     
     
     //private processor of healthkit samples
     private func process(samples: [HKSample]?, quantityTypeIdentifier: HKQuantityTypeIdentifier) {
-        cam("HeartRateInterface: ", "process")
+        cam("HeartRateInterface: " as AnyObject?, "process" as AnyObject?)
         
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -126,7 +127,7 @@ class HealthDataInterface {
                     } else if quantityTypeIdentifier == HKQuantityTypeIdentifier.activeEnergyBurned {
                         
                         let cal = sample.quantity.doubleValue(for: strongSelf.energyUnit)
-                        cam("energy was found! with calories: ", cal)
+                        cam("energy was found! with calories: " as AnyObject?, cal as AnyObject?)
                     }
                 }
             }
@@ -134,13 +135,13 @@ class HealthDataInterface {
     }
     
     private func startTestProcessing() {
-        cam("HeartRateInterface: Start test processing")
+        cam("HeartRateInterface: Start test processing" as AnyObject?)
         timerForTest = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(HealthDataInterface.testProcess), userInfo: nil, repeats: true)
         
     }
     
     @objc private func testProcess() {
-        cam("HeartRateInterface: Test Processing")
+        cam("HeartRateInterface: Test Processing" as AnyObject?)
         if sampleHRIndex >= sampleHR.count { sampleHRIndex = 0 }
         
         let hr = sampleHR[sampleHRIndex]

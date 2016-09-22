@@ -10,20 +10,6 @@ import Foundation
 import HealthKit
 
 
-class WorkoutConfig: AnyObject {
-    var workoutType: (name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])?
-    var workoutIntesity: (level: String, min: Int, max: Int)?
-    
-    
-//    var hrLowerLimit: Int?
-//    var hrUpperLimit: Int?
-    
-    var sentFromControllerNamed: String = ""
-    
-    var startDate: Date?
-    //var intensity: (level: String, min: Int, max: Int)?
-    
-}
 
 
 
@@ -50,10 +36,10 @@ class ApplicationData {
          type: HKWorkoutActivityType.cycling,
          location: HKWorkoutSessionLocationType.outdoor,
          intensities: [(level: "Low",
-                        min: 70,
-                        max: 90),
+                        min: 80,
+                        max: 100),
                        (level: "Med",
-                        min: 90 ,
+                        min: 100,
                         max: 130),
                        (level: "High",
                         min: 130,
@@ -96,10 +82,10 @@ class ApplicationData {
          type: HKWorkoutActivityType.functionalStrengthTraining,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
-                        min: 70,
-                        max: 90),
+                        min: 80,
+                        max: 100),
                        (level: "Med",
-                        min: 90 ,
+                        min: 100,
                         max: 130),
                        (level: "High",
                         min: 130,

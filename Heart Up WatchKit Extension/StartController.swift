@@ -7,42 +7,99 @@
 //
 
 import WatchKit
+import RealmSwift
+import Realm
+
+
+
+
 
 class StartController: WKInterfaceController {
     
     
     @IBOutlet var reuseWorkoutTable: WKInterfaceTable!
+    var workouts: [Workout] = []
     
-    override func awake(withContext context: AnyObject?) {
-        cam("awake in start controller")
+    override func awake(withContext context: Any?) {
+        
+//        let defaultPath = Realm.Configuration.defaultConfiguration.fileURL?.absoluteString
+        //        try! FileManager.default.removeItem(atPath: defaultPath!)
+        
+        
+        let realm = try! Realm()
+        
+        
+        let savedWorkouts = realm.allObjects(ofType: Workout.self)
+        print("1 there are \(savedWorkouts.count) saved workouts")
+        workouts = Array(savedWorkouts)
+        
+        loadTableData(data: workouts)
+        
+        print(workouts)
+        
     }
     
+    
     @IBAction func startButtonWasPressed() {
-        let workoutConfig = WorkoutConfig()
-        workoutConfig.sentFromControllerNamed = "StartController"
-        cam("pushing controllers")
+        let workoutConfig = Workout()
+        cam("pushing controllers" as AnyObject?)
         pushController(withName: "WorkoutSelectionController", context: workoutConfig)
         
     }
     
-        func loadTableData(data: [WorkoutConfig]) {
-            reuseWorkoutTable.setNumberOfRows(data.count, withRowType: "ReuseWorkoutTableRowController")
     
-//            for (index, point) in data.enumerated() {
-//                let row = reuseWorkoutTable.rowController(at: index) as! ReuseWorkoutTableRowController
-//                guard let type = point.workoutType else { return }
-//                guard let location = point.workoutLocation else { return }
-//                guard let min = point.hrLowerLimit else { return }
-//                guard let max = point.hrUpperLimit else { return }
-//                guard let date = point.startDate else { return }
-//
-//                row.labelDate.setText(date.description)
-//                row.labelWorkout.setText("Workout: \(type)")
-//                row.labelLocation.setText("Location: \(location)")
-//                row.labelMaxHeartRate.setText("Max: \(max)")
-//                row.labelMinHeartRate.setText("Min: \(min)")
-//            }
-        }
-    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        let workout = workouts[rowIndex]
+        
+        let newWorkout = Workout()
+        //set type, location, levels...
+        newWorkout.type = workout.type
+        newWorkout.location = workout.location
+        newWorkout.levelLow = workout.levelLow
+        newWorkout.levelHigh = workout.levelHigh
+        
+        newWorkout.intensity = workout.intensity
+        newWorkout.configIndex = workout.configIndex
+        //make a new workout object with the same data. this way we dont overrite this realm workout instance
+        WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [newWorkout, newWorkout])
 
+    }
+    
+    
+    func loadTableData(data: [Workout]) {
+        reuseWorkoutTable.setNumberOfRows(data.count, withRowType: "ReuseWorkoutTableRowController")
+        
+        print("load table data")
+        
+        for (index, workout) in data.enumerated() {
+            let row = reuseWorkoutTable.rowController(at: index) as! ReuseWorkoutTableRowController
+            print("idx: \(index), workout: \(workout)")
+            
+            if workout.configIndex != Workout.UNSET_VALUE {
+                
+                let config = ApplicationData.workouts[workout.configIndex]
+                
+                let configIdx = workout.configIndex
+                let date = workout.start
+                
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .medium
+                
+                dateFormatter.locale = Locale(identifier: "en_US")
+                print(dateFormatter.string(from: date)) // Jan 2, 2001
+
+                
+                row.workoutLabel.setText(config.name)
+                row.intensityLabel.setText("Intensity: \(config.intensities[workout.intensity].level)")
+                row.dateLabel.setText("\(dateFormatter.string(from: date))")
+                row.minHRLabel.setText("Min: \(workout.min)")
+                row.maxHRLabel.setText("Max: \(workout.max)")
+                row.configIndex = configIdx
+                
+                
+            }
+        }
+    }
+    
 }

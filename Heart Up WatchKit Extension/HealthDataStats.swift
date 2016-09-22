@@ -25,6 +25,7 @@ class HealthDataStats {
     private var segments = [(avgHR: Double, betweenTimes: (start: Date, end: Date))]()
     private var startDate: Date
     
+    
     private var min: Double = -1
     private var max: Double = -1
     
@@ -48,7 +49,7 @@ class HealthDataStats {
         
         // check if enough time has passed to create a new segment
         let currentDate = Date()
-        cam("Current date: \(currentDate)")
+        cam("Current date: \(currentDate)" as AnyObject?)
         // if there is any segment right now
         if let lastSegmentRange = segments.last?.betweenTimes {
             // has enough time passed to create a new segment
@@ -62,7 +63,7 @@ class HealthDataStats {
                     let start = lastSegmentRange.end.addingTimeInterval(TimeInterval(i * segmentTimeLength))
                     let end = start.addingTimeInterval(TimeInterval(segmentTimeLength))
                     let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
-                    cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)")
+                    cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)" as AnyObject?)
                     
                     segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
                     updateListener?.newSegmentAvailable(data: getRecentSegments())
@@ -75,7 +76,7 @@ class HealthDataStats {
                 let start = currentDate.addingTimeInterval(-(Double)(segmentTimeLength))
                 let end = currentDate
                 let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
-                cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)")
+                cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)" as AnyObject?)
                 segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
                 updateListener?.newSegmentAvailable(data: getRecentSegments())
             }
@@ -185,15 +186,28 @@ class HealthDataStats {
         let recentSegments = segments.suffix(10)
         var data = [NSNumber]()
         for seg in recentSegments {
-            data.append(seg.avgHR)
+            data.append(NSNumber(integerLiteral: Int(seg.avgHR)))
         }
         
         
         
         
-        cam("Grabbing \(data.count) data points")
+        cam("Grabbing \(data.count) data points" as AnyObject?)
         /////////
         return data
+    }
+    
+    func exportData() -> (min: Int, max: Int, avg: Int, data: [(avgHR: Double, betweenTimes: (start: Date, end: Date))] ,time: TimeInterval, start: Date, end: Date) {
+        let start = self.startDate
+        let end = Date()
+        
+        let min = Int(self.min)
+        let max = Int(self.max)
+        let avg = Int(getAvgHeartRateInTimeFrame(start: start, end: end))
+        let time = end.timeIntervalSince(start)
+        let data = segments
+        return (min, max, avg, data, time, start, end)
+        
     }
     
 }
@@ -204,33 +218,36 @@ protocol HeartRateUpdatesDelegate {
 
 
 extension Date {
+    
     /// Returns the amount of years from another date
     func years(from date: Date) -> Int {
-        return Calendar.current.components(.year, from: date, to: self, options: []).year ?? 0
+        
+        return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
+        
     }
     /// Returns the amount of months from another date
     func months(from date: Date) -> Int {
-        return Calendar.current.components(.month, from: date, to: self, options: []).month ?? 0
+        return Calendar.current.dateComponents([.month], from: date, to: self).month ?? 0
     }
     /// Returns the amount of weeks from another date
     func weeks(from date: Date) -> Int {
-        return Calendar.current.components(.weekOfYear, from: date, to: self, options: []).weekOfYear ?? 0
+        return Calendar.current.dateComponents([.weekOfYear], from: date, to: self).weekOfYear ?? 0
     }
     /// Returns the amount of days from another date
     func days(from date: Date) -> Int {
-        return Calendar.current.components(.day, from: date, to: self, options: []).day ?? 0
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
     }
     /// Returns the amount of hours from another date
     func hours(from date: Date) -> Int {
-        return Calendar.current.components(.hour, from: date, to: self, options: []).hour ?? 0
+        return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
     }
     /// Returns the amount of minutes from another date
     func minutes(from date: Date) -> Int {
-        return Calendar.current.components(.minute, from: date, to: self, options: []).minute ?? 0
+        return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
     }
     /// Returns the amount of seconds from another date
     func seconds(from date: Date) -> Int {
-        return Calendar.current.components(.second, from: date, to: self, options: []).second ?? 0
+        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
     }
     /// Returns the a custom time interval description from another date
     func offset(from date: Date) -> String {
@@ -244,94 +261,3 @@ extension Date {
         return ""
     }
 }
-
-
-
-
-
-//
-//class SwiftyLine: NSObject {
-//    var values: [Int]
-//    var minValue: Int
-//    var maxValue: Int
-//    var levels: [Int]?
-//    var levelStrokeWidth: CGFloat?
-//    var levelStrokeColor: UIColor?
-//    var lineStrokeWidth: CGFloat
-//    var lineStrokeColor: UIColor
-//    var smooth: Bool
-//    
-//    init (values: [Int], min: Int = 0, max: Int = 0, lineWidth: CGFloat = 1, lineColor: UIColor = .white(), smooth: Bool = true, levels: [Int]?, levelWidth: CGFloat?, levelColor: UIColor?) {
-//        self.values = values
-//        self.minValue = min
-//        self.maxValue = max
-//        self.levels = levels
-//        self.levelStrokeWidth = levelWidth
-//        self.levelStrokeColor = levelColor
-//        self.lineStrokeWidth = lineWidth
-//        self.lineStrokeColor = lineColor
-//        self.smooth = smooth
-//
-//        
-//    }
-//    func drawImage(frame: CGRect, scale: CGFloat) -> UIImage {
-//        let numPoints = values.count
-//        let pointX = frame.size.width / CGFloat(numPoints - 1)
-//        var points = [CGPoint]()
-//        
-//        for (value, index) in values.enumerated() {
-//            let ratioY = CGFloat(value - minValue) / CGFloat(maxValue - minValue)
-//            let offsetY = ratioY == 0.0 ? -lineStrokeWidth / 2 : lineStrokeWidth / 2;
-//            let point = CGPoint(x: CGFloat(index) * pointX,
-//                                y: frame.size.height * (1-ratioY) + offsetY)
-//            points.append(point)
-//        }
-//        
-//        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
-////        let path = 
-//        
-//        ////
-//        
-//        
-//        if let strongLevels = levels {
-//            if strongLevels.count > 0 {
-//                for (value, index) in strongLevels.enumerated() {
-//                    let ratioY = CGFloat(value - minValue) / CGFloat(maxValue - minValue)
-//                    let offsetY = ratioY == 0.0 ? -lineStrokeWidth / 2 : lineStrokeWidth / 2;
-//                    let level = CGFloat(frame.size.height * (1 - ratioY) + offsetY)
-//                    
-//                    
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

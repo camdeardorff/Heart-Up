@@ -89,9 +89,7 @@
 
 -(UIBezierPath *)linearHorizontalPathWithLevel:(NSNumber *)level frame:(CGRect)frame {
     
-    CGFloat maxValue = self.maxValue.floatValue;
-    CGFloat minValue = self.minValue.floatValue;
-    CGFloat yPos = level.floatValue;//frame.size.height * (1 - ((level.floatValue - minValue) / (maxValue - minValue)));
+    CGFloat yPos = level.floatValue;
     
     UIBezierPath *line = [[UIBezierPath alloc] init];
     CGPoint startPoint = CGPointMake(0, yPos);
