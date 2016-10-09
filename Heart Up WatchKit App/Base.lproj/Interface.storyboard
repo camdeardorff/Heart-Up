@@ -161,7 +161,84 @@
         <!--Post Workout-->
         <scene sceneID="eTS-bi-sEW">
             <objects>
-                <controller identifier="PostWorkoutController" title="Post Workout" id="gIN-Fj-9Ir" customClass="PostWorkoutController" customModule="Heart_Up_WatchKit_Extension"/>
+                <controller identifier="PostWorkoutController" title="Post Workout" id="gIN-Fj-9Ir" customClass="PostWorkoutController" customModule="Heart_Up_WatchKit_Extension">
+                    <items>
+                        <group alignment="center" id="ydC-AG-oC0">
+                            <items>
+                                <imageView width="30" height="30" alignment="left" verticalAlignment="center" id="3uH-WN-97c"/>
+                                <label alignment="left" verticalAlignment="center" text="Label" id="fW9-5e-H9S">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                        </group>
+                        <button alignment="left" id="uYJ-MG-bPC">
+                            <group key="contentGroup" width="1" alignment="left" id="yYi-AH-igK">
+                                <items>
+                                    <imageView alignment="left" id="drk-sN-70U"/>
+                                </items>
+                            </group>
+                            <connections>
+                                <action selector="chartButtonWasPressed" destination="gIN-Fj-9Ir" id="2CL-7q-Gwb"/>
+                            </connections>
+                        </button>
+                        <group width="1" alignment="left" id="sw6-Oh-U0c">
+                            <items>
+                                <label alignment="left" text="Intensity" id="xHK-Mc-qwA"/>
+                                <label alignment="right" text="Label" id="WOb-BW-kr6"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="3nS-QU-x4l">
+                            <items>
+                                <label alignment="left" text="Max HR" id="dT6-OF-fvs"/>
+                                <label alignment="right" text="Label" id="Iz2-HJ-G6a"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="p7t-0s-EoD">
+                            <items>
+                                <label alignment="left" text="Min HR" id="hDa-ID-15m"/>
+                                <label alignment="right" text="Label" id="Z5W-4q-X7o"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="BGp-ac-AKC">
+                            <items>
+                                <label alignment="left" text="Average HR" id="0EM-VZ-LRz"/>
+                                <label alignment="right" text="Label" id="kBC-ZZ-Grh"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="JSG-gg-w9d">
+                            <items>
+                                <label alignment="right" text="Label" id="8Fw-Jn-OPD"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="Hq2-Vc-4Wr">
+                            <items>
+                                <label alignment="left" text="Label" id="grN-Ey-YJc"/>
+                                <switch width="1" alignment="left" value="YES" title="Save Workout" id="PTQ-ow-6JU">
+                                    <connections>
+                                        <action selector="saveSwitchWasChanged:" destination="gIN-Fj-9Ir" id="oZm-Mx-6Jh"/>
+                                    </connections>
+                                </switch>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Done" id="El1-Co-nJe">
+                            <connections>
+                                <action selector="doneButtonWasPressed" destination="gIN-Fj-9Ir" id="4JZ-rd-WCc"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="avgHRLabel" destination="kBC-ZZ-Grh" id="4cg-hn-BGP"/>
+                        <outlet property="chartButton" destination="uYJ-MG-bPC" id="yR8-s2-Dwc"/>
+                        <outlet property="chartImage" destination="drk-sN-70U" id="0rA-tK-knN"/>
+                        <outlet property="intensityLabel" destination="WOb-BW-kr6" id="cee-Hr-jHD"/>
+                        <outlet property="maxHRLabel" destination="Iz2-HJ-G6a" id="4Qv-X8-QRQ"/>
+                        <outlet property="minHRLabel" destination="Z5W-4q-X7o" id="9L1-a2-sRY"/>
+                        <outlet property="saveSwitch" destination="PTQ-ow-6JU" id="1O7-7B-KXk"/>
+                        <outlet property="timeLabel" destination="8Fw-Jn-OPD" id="7XZ-H7-T3D"/>
+                        <outlet property="workoutImage" destination="3uH-WN-97c" id="hcA-bg-6yd"/>
+                        <outlet property="workoutTypeLabel" destination="fW9-5e-H9S" id="gL0-i8-XOy"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="1084" y="729"/>
         </scene>
@@ -191,12 +268,18 @@
                                 <action selector="startButtonWasPressed" destination="cr1-P5-zvn" id="1YL-BK-XSx"/>
                             </connections>
                         </button>
-                        <table alignment="left" id="arU-2Q-kGe">
+                        <separator alignment="left" id="GoD-ba-pa9"/>
+                        <table alignment="left" spacing="10" id="arU-2Q-kGe">
                             <items>
                                 <tableRow identifier="ReuseWorkoutTableRowController" id="Lgg-oA-XvI" customClass="ReuseWorkoutTableRowController" customModule="Heart_Up_WatchKit_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="KLs-6K-SsH">
                                         <items>
-                                            <label alignment="left" text="Workout:" id="f0o-MQ-fub"/>
+                                            <group width="1" alignment="left" id="TeH-pe-PaI">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" id="qLw-EF-wZr"/>
+                                                    <label alignment="left" text="Workout:" id="f0o-MQ-fub"/>
+                                                </items>
+                                            </group>
                                             <label alignment="left" text="Intensity: " id="Koz-0f-pKr"/>
                                             <label alignment="left" text="Date:" id="cnd-Ww-Q2g"/>
                                             <group width="1" alignment="left" id="tqX-sV-ON1">
@@ -212,6 +295,7 @@
                                         <outlet property="intensityLabel" destination="Koz-0f-pKr" id="PaC-GW-mDC"/>
                                         <outlet property="maxHRLabel" destination="2hV-c0-sVK" id="4dH-Uq-B1U"/>
                                         <outlet property="minHRLabel" destination="m0t-0Q-OLk" id="hjg-82-tJs"/>
+                                        <outlet property="workoutImage" destination="qLw-EF-wZr" id="U3u-59-u2a"/>
                                         <outlet property="workoutLabel" destination="f0o-MQ-fub" id="w5X-nf-jDe"/>
                                     </connections>
                                 </tableRow>

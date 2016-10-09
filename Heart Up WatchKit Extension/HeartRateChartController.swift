@@ -26,7 +26,6 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     
     override func awake(withContext context: Any?) {
       
-        print("chart controller with context: ", context)
         stats.updateListener = self
         sendContext = context as? Workout
 
@@ -39,8 +38,7 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
         }
         
         
-        cam("\(upperLimitHR)" as AnyObject?)
-        cam("\(lowerLimitHR)" as AnyObject?)
+      
         
         let data: [NSNumber] = []
         self.imageView.setImage(newImage(data: data))
@@ -126,11 +124,25 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     
     @IBAction func endWorkoutButtonWasPressed() {
         let end = WKAlertAction(title: "End", style: WKAlertActionStyle.default, handler: {
-            cam("End workout selected" as AnyObject?)
             HealthDataInterface.sharedInstance.endQueries()
-            // get data, save it away...
-            if let workout = self.sendContext {
-                WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [workout])
+            let data = self.stats.exportData()
+            print("exported data: ", data)
+            self.sendContext?.avg = data.avg
+            self.sendContext?.max = data.max
+            self.sendContext?.min = data.min
+            self.sendContext?.start = data.start
+            self.sendContext?.end = data.end
+            self.sendContext?.time = data.time
+            
+            print("loop segments")
+            for seg in data.data {
+                self.sendContext?.data.append(seg)
+            }
+            
+            print("\n\ntransfer vc? with context: ")
+            if let _ = self.sendContext {
+                WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [self.sendContext!])
+//                self.pushController(withName: "PostWorkoutController", context: self.sendContext!)
             }
         })
         presentAlert(withTitle: "Wait!", message: "Are you ready to end this workout?", preferredStyle: .actionSheet, actions: [end])
@@ -152,7 +164,6 @@ extension HeartRateChartController {
         if data.count < 3 {
 //            imageView.setImage(UIImage(named: "PreChart"))
         } else {
-            cam("new segment avaliable in chart controller" as AnyObject?)
             self.imageView.setImage(newImage(data: data))
         }
     }

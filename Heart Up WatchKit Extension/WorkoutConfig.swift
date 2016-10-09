@@ -13,7 +13,28 @@ import HealthKit
 
 
 
-class ApplicationData {
+struct ApplicationData {
+    
+//    let age: Int? = 30
+//    
+//    func getIntensities() -> [(level: String, min: Int, max: Int)] {
+//        if let _ = age {
+//            let
+//        } else {
+//            
+//        }
+//    }
+//    
+//    func getHeartRates(lowerPercent: Double, upperPercent: Double) -> (min: Int, max: Int) {
+//        if let _ = age {
+//            let min = Int(Double(220 - age!) * lowerPercent)
+//            let max = Int(Double(220 - age!) * upperPercent)
+//        } else {
+//            let min =
+//        }
+//    }
+    
+    
     ///TODO: set to unknown location for some of these?
     static var workouts: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])] = [
         (name: "Outdoor Run",
@@ -28,7 +49,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Outdoor Cycling",
@@ -43,7 +67,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
             
         ),
@@ -59,7 +86,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Indoor Cycling",
@@ -74,11 +104,14 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Weight Lifting",
-         image: UIImage(named: "WeightLifting.png")!,
+         image: UIImage(named: "Weightlifting.png")!,
          type: HKWorkoutActivityType.functionalStrengthTraining,
          location: HKWorkoutSessionLocationType.unknown,
          intensities: [(level: "Low",
@@ -89,7 +122,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Cross Training",
@@ -104,7 +140,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "General Cardio",
@@ -119,7 +158,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Mind and Body",
@@ -134,7 +176,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         ),
         (name: "Other",
@@ -149,7 +194,10 @@ class ApplicationData {
                         max: 130),
                        (level: "High",
                         min: 130,
-                        max: 160)
+                        max: 160),
+                       (level: "Custom",
+                        min: 0,
+                        max: 0)
             ]
         )
     ]

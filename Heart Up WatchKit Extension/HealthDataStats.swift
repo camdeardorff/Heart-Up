@@ -8,10 +8,6 @@
 
 import Foundation
 
-func cam(_ s:AnyObject?...) {
-    print("\n\tCD: \(s)")
-}
-
 
 class HealthDataStats {
     
@@ -28,6 +24,9 @@ class HealthDataStats {
     
     private var min: Double = -1
     private var max: Double = -1
+    
+    var levelHigh: Int?
+    var levelLow: Int?
     
     var updateListener: HeartRateUpdatesDelegate?
     private init() {
@@ -49,7 +48,6 @@ class HealthDataStats {
         
         // check if enough time has passed to create a new segment
         let currentDate = Date()
-        cam("Current date: \(currentDate)" as AnyObject?)
         // if there is any segment right now
         if let lastSegmentRange = segments.last?.betweenTimes {
             // has enough time passed to create a new segment
@@ -63,7 +61,6 @@ class HealthDataStats {
                     let start = lastSegmentRange.end.addingTimeInterval(TimeInterval(i * segmentTimeLength))
                     let end = start.addingTimeInterval(TimeInterval(segmentTimeLength))
                     let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
-                    cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)" as AnyObject?)
                     
                     segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
                     updateListener?.newSegmentAvailable(data: getRecentSegments())
@@ -76,7 +73,6 @@ class HealthDataStats {
                 let start = currentDate.addingTimeInterval(-(Double)(segmentTimeLength))
                 let end = currentDate
                 let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
-                cam("adding with avg: \(avg),\n\t start: \(start)\n\t end: \(end)" as AnyObject?)
                 segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
                 updateListener?.newSegmentAvailable(data: getRecentSegments())
             }
@@ -134,7 +130,7 @@ class HealthDataStats {
         } else {
             return 0
         }
-
+        
     }
     func getAvgHeartRateInTimeFrame(start: Date, end: Date) -> Double {
         
@@ -189,24 +185,70 @@ class HealthDataStats {
             data.append(NSNumber(integerLiteral: Int(seg.avgHR)))
         }
         
-        
-        
-        
-        cam("Grabbing \(data.count) data points" as AnyObject?)
-        /////////
         return data
     }
     
-    func exportData() -> (min: Int, max: Int, avg: Int, data: [(avgHR: Double, betweenTimes: (start: Date, end: Date))] ,time: TimeInterval, start: Date, end: Date) {
+    func getTargetPercentages() -> (below: Double, on: Double, above: Double)? {
+        if let lli = levelLow {
+            if let lhi = levelHigh {
+                let lld = Double(lli)
+                let lhd = Double(lhi)
+                
+                var below: Double = 0
+                var on: Double = 0
+                var above: Double = 0
+
+                
+                for segment in segments {
+                    //lower than the lower level
+                    if segment.avgHR < lld {
+                        below += 1
+                    }
+                    // higher than the higher level
+                    else if segment.avgHR > lhd {
+                        above += 1
+                    }
+                    // in the middle
+                    else {
+                        on += 1
+                    }
+                }
+                
+                let total = Double(segments.count)
+                
+                return (below/total, on/total, above/total)
+                
+            }
+        }
+        return nil
+    }
+    
+    func exportData() -> (min: Int, max: Int, avg: Int, data: [Segment], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date) {
+        print("start export data")
         let start = self.startDate
         let end = Date()
-        
         let min = Int(self.min)
         let max = Int(self.max)
         let avg = Int(getAvgHeartRateInTimeFrame(start: start, end: end))
         let time = end.timeIntervalSince(start)
         let data = segments
-        return (min, max, avg, data, time, start, end)
+        
+        var segmentData: [Segment] = []
+        
+        print("loop over data")
+        //turn data into Segment objects
+        for point in data {
+            
+            let s = Segment()
+            s.averageHR = point.avgHR
+            s.date = point.betweenTimes.end
+            segmentData.append(s)
+        }
+        
+        print("get segments")
+        let percents = self.getTargetPercentages()
+        print("return" )
+        return (min, max, avg, segmentData, percents, time, start, end)
         
     }
     

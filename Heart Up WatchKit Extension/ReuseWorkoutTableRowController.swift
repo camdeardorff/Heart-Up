@@ -11,6 +11,7 @@ import HealthKit
 
 class ReuseWorkoutTableRowController: NSObject {
     
+    @IBOutlet var workoutImage: WKInterfaceImage!
     @IBOutlet var workoutLabel: WKInterfaceLabel!
 
     @IBOutlet var intensityLabel: WKInterfaceLabel!
@@ -20,6 +21,7 @@ class ReuseWorkoutTableRowController: NSObject {
     
     @IBOutlet var minHRLabel: WKInterfaceLabel!
     @IBOutlet var maxHRLabel: WKInterfaceLabel!
+    
     
     
     var configIndex: Int?

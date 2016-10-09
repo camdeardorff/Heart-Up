@@ -80,7 +80,8 @@ class WorkoutController: WKInterfaceController {
         //get context as workout config
         sendContext = context as? Workout
 
-        
+        statsTracker.levelHigh = sendContext?.levelHigh
+        statsTracker.levelLow = sendContext?.levelLow
         //set data
         if let _ = sendContext {
             minimumHeartRate = Double((sendContext!.levelLow))
@@ -89,8 +90,6 @@ class WorkoutController: WKInterfaceController {
             workoutLocation = HKWorkoutSessionLocationType.init(rawValue: (sendContext?.location)!)
             
             print("workout selection controller awake")
-            print(context)
-            print(sendContext)
 
         }
         
@@ -111,7 +110,7 @@ class WorkoutController: WKInterfaceController {
             
             //prepare the health stream and start queries
             healthData.delegate = self
-            healthData.isTest = true
+            healthData.isTest = false
             healthData.startQueries(workoutSession: workoutSession!)
             
             //start the timer label
@@ -141,7 +140,6 @@ class WorkoutController: WKInterfaceController {
     }
     
     func checkThresholds(_ hr: Double) {
-        cam("check thresholds" as AnyObject?)
         // if the timer is still going then dont bother
         if timerOn { return }
         //check if we should notify the user that they are out of thier range
@@ -164,13 +162,12 @@ class WorkoutController: WKInterfaceController {
 extension WorkoutController: HKWorkoutSessionDelegate {
     
     func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
-        cam("Workout session state changed from \(fromState) to \(toState)!" as AnyObject?)
         switch toState {
             
         case .running:
             startWorkout()
         case.ended:
-            cam("workout ended" as AnyObject?)
+            print("Ended")
         default:
             startWorkout()
         }
@@ -183,7 +180,6 @@ extension WorkoutController: HKWorkoutSessionDelegate {
 
 extension WorkoutController: HeartRateInterfaceUpdateDelegate {
     func newHeartRateSample(hr: Double) {
-        cam("WorkoutController: " as AnyObject?, "New heart rate controller" as AnyObject?)
 
         currentTrackedHeartRate = hr
         statsTracker.newDataPoint(hr: hr)

@@ -25,10 +25,31 @@
 
 - (UIImage *)drawImage:(CGRect)frame scale:(CGFloat)scale {
         //    NSAssert(_values.count > 0, @"YOLineChartImage // must assign values property which is an array of NSNumber");
+    UIGraphicsBeginImageContextWithOptions(frame.size, false, scale);
+
+    
+    
+    
+    if (_levels.count > 0) {
+        CGFloat maxValue = self.maxValue.floatValue;
+        CGFloat minValue = self.minValue.floatValue;
+        [_levels enumerateObjectsUsingBlock:^(NSNumber *value, NSUInteger idx, BOOL *_) {
+            
+            CGFloat ratioY = (value.floatValue - minValue) / (maxValue - minValue);
+            CGFloat offsetY = ratioY == 0.0 ? -_levelStrokeWidth / 2 : _levelStrokeWidth / 2;
+            NSNumber *level = [NSNumber numberWithFloat:frame.size.height * (1 - ratioY) + offsetY];
+            
+            UIBezierPath *horiz = [self linearHorizontalPathWithLevel:level frame:frame];
+            horiz.lineWidth = _levelStrokeWidth;
+            [_levelStrokeColor setStroke];
+            [horiz stroke];
+        }];
+        
+    }
+    
+    
+    
     if (_values.count > 0) {
-        printf("draw image!");
-        NSLog(@"init: max value: %@", _maxValue);
-        NSLog(@"init: min value: %@", _minValue);
         NSUInteger valuesCount = _values.count;
         CGFloat pointX = frame.size.width / (valuesCount - 1);
         NSMutableArray<NSValue *> *points = [NSMutableArray array];
@@ -44,12 +65,8 @@
                 frame.size.height * (1 - ratioY) + offsetY
             }];
             [points addObject:pointValue];
-            NSLog(@"point value: %@", number);
-            NSLog(@"point ratio y: %f", ratioY);
-            NSLog(@"point y: %@", pointValue);
-        }];
+    }];
         
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale);
         
         UIBezierPath *path = [self quadCurvedPathWithPoints:points frame:frame];
         path.lineWidth = _lineStrokeWidth;
@@ -58,27 +75,25 @@
             [_lineStrokeColor setStroke];
             [path stroke];
         }
+    } else {
+        CGFloat maxLength = MIN(frame.size.width, frame.size.height);
+        CGPoint center = {
+            frame.size.width / 2,
+            frame.size.height / 2
+        };
+        NSDictionary *attributes = @{
+                                     NSForegroundColorAttributeName: [UIColor whiteColor],
+                                     NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],
+                                     };
+        NSString *labelText = @"Gathering Data";
+        CGSize size = [labelText boundingRectWithSize:CGSizeMake(maxLength, CGFLOAT_MAX)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
+                                                attributes:attributes
+                                                   context:nil].size;
+        [labelText drawAtPoint:(CGPoint){center.x - size.width/2, center.y - size.height/2} withAttributes:attributes];
+
     }
     
-    if (_levels.count > 0) {
-        CGFloat maxValue = self.maxValue.floatValue;
-        CGFloat minValue = self.minValue.floatValue;
-        [_levels enumerateObjectsUsingBlock:^(NSNumber *value, NSUInteger idx, BOOL *_) {
-            
-            CGFloat ratioY = (value.floatValue - minValue) / (maxValue - minValue);
-            CGFloat offsetY = ratioY == 0.0 ? -_levelStrokeWidth / 2 : _levelStrokeWidth / 2;
-            NSNumber *level = [NSNumber numberWithFloat:frame.size.height * (1 - ratioY) + offsetY];
-            
-            UIBezierPath *horiz = [self linearHorizontalPathWithLevel:level frame:frame];
-            horiz.lineWidth = _levelStrokeWidth;
-            [_levelStrokeColor setStroke];
-            [horiz stroke];
-            NSLog(@"level value: %@", value);
-            NSLog(@"level ratio y: %f", ratioY);
-            NSLog(@"level y: %@", level);
-        }];
-        
-    }
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

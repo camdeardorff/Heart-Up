@@ -18,9 +18,9 @@ class WorkoutSelectionController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         sendContext = context as? Workout
         print("workout selection controller awake")
-        print(context)
-        print(sendContext?.avg)
+
         loadTableData(data: ApplicationData.workouts)
+
     }
     
     func loadTableData(data: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])]) {
@@ -40,6 +40,7 @@ class WorkoutSelectionController: WKInterfaceController {
             workout.type = Int(workoutType.type.rawValue)
             workout.location = workoutType.location.rawValue
             workout.configIndex = rowIndex
+            print("pushing to controller : IntensitySelectorController")
             pushController(withName: "IntesitySelectorController", context: workout)
         }
     }

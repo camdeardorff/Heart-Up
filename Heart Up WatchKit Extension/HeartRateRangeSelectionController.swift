@@ -29,8 +29,7 @@ class HeartRateRangeSelectionController: WKInterfaceController {
         sendContext = context as? Workout
         
         print("workout selection controller awake")
-        print(context)
-        print(sendContext)
+        
         
         var lowerLimitPickerItems = [WKPickerItem]()
         var upperLimitPickerItems = [WKPickerItem]()
@@ -80,6 +79,7 @@ class HeartRateRangeSelectionController: WKInterfaceController {
                 sendContext?.levelLow = selectedLowerLimit
                 sendContext?.levelHigh = selectedUpperLimit
                 sendContext?.intensity = customIntensity
+                
 
                 WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [sendContext!,sendContext!])
 
