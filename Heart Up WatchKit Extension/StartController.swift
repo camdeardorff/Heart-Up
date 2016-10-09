@@ -31,7 +31,7 @@ class StartController: WKInterfaceController {
         } else {
             let store = HKHealthStore()
             let authorization = store.authorizationStatus(for: HKObjectType.quantityType(forIdentifier: .heartRate)!)
-            
+            healthDataAvailable = true
             
             switch authorization {
             case .notDetermined:
