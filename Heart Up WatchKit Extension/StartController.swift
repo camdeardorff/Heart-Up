@@ -19,41 +19,62 @@ class StartController: WKInterfaceController {
     
     @IBOutlet var reuseWorkoutTable: WKInterfaceTable!
     var workouts: [Workout] = []
+    var readyForWorkout: Bool = false
+    var healthDataAvailable: Bool = false
     
     override func awake(withContext context: Any?) {
         
-        if HKHealthStore.isHealthDataAvailable() {
+        if !HKHealthStore.isHealthDataAvailable() {
+            // tell the user that health data is not available
+            healthDataAvailable = false
+            displayNoHealthDataMessage()
+        } else {
             let store = HKHealthStore()
             let authorization = store.authorizationStatus(for: HKObjectType.quantityType(forIdentifier: .heartRate)!)
             
             
             switch authorization {
             case .notDetermined:
+                
                 print("not determined")
-            case .sharingAuthorized:
-                print("sharing authorized")
+                readyForWorkout = false
+                displayNoSharingMessage()
+                
             case .sharingDenied:
+                
                 print("sharing denied")
-            }
-            
-            
-            
-            let realm = try! Realm()
-            
-            let savedWorkouts = realm.objects(Workout.self)
-            print("1 there are \(savedWorkouts.count) saved workouts")
-            self.workouts = Array(savedWorkouts)
-            
-            if self.workouts.count < 1 {
-                nextController()
-            } else {
-                loadTableData(data: self.workouts)
+                readyForWorkout = false
+                displayNoSharingMessage()
+                
+            case .sharingAuthorized:
+                
+                print("sharing authorized")
+                readyForWorkout = true
+                
+                let realm = try! Realm()
+                
+                let savedWorkouts = realm.objects(Workout.self)
+                print("1 there are \(savedWorkouts.count) saved workouts")
+                self.workouts = Array(savedWorkouts)
+                
+                if self.workouts.count < 1 {
+                    nextController()
+                } else {
+                    loadTableData(data: self.workouts)
+                }
             }
         }
-        
     }
     
+    func displayNoSharingMessage() {
+        let errorMessage = WKAlertAction(title: "Will do!", style: .default, handler: {})
+        presentAlert(withTitle: "uhh-oh!", message: "It looks like there are no permissions for reading workout data, please enable permissions in the ___ app.", preferredStyle: .alert, actions: [errorMessage])
+    }
     
+    func displayNoHealthDataMessage() {
+        let noDataMessage = WKAlertAction(title: "Understood", style: .default, handler: {})
+        presentAlert(withTitle: "Ohh no!", message: "This device does not have access to Healthkit.", preferredStyle: .alert, actions: [noDataMessage])
+    }
     
     
     @IBAction func startButtonWasPressed() {
@@ -61,9 +82,14 @@ class StartController: WKInterfaceController {
     }
     
     func nextController() {
-        let workoutConfig = Workout()
-        pushController(withName: "WorkoutSelectionController", context: workoutConfig)
-        
+        if !healthDataAvailable {
+            displayNoHealthDataMessage()
+        } else if !readyForWorkout {
+            displayNoSharingMessage()
+        } else {
+            let workoutConfig = Workout()
+            pushController(withName: "WorkoutSelectionController", context: workoutConfig)
+        }
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
