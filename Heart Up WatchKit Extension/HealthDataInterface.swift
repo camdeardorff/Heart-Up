@@ -48,6 +48,20 @@ class HealthDataInterface: NSObject {
     ///MARK: Private Initializer
     private override init() { }
     
+    /**
+     # Reset
+     resets the interface for the next run
+     - Returns: void
+     */
+    func reset() {
+        startDate = Date()
+        workoutSession = nil
+        hrQuery = nil
+        calQuery = nil
+        totalActiveCalories = 0.0
+        delegate = nil
+        isTest = false
+    }
     
     ///MARK: Start/End/Create Queries
     //entry way from outside, provided with the workout session this function sets up the queries and starts them
@@ -89,19 +103,13 @@ class HealthDataInterface: NSObject {
                 timerForTest?.invalidate()
             }
         } else {
-            print("if hr query is not nil")
             if let _ = self.hrQuery {
-                print("remove hr query")
                 healthStore.stop(self.hrQuery!)
             }
-            print("if cal query is not nil")
             if let _ = self.calQuery {
-                print("remove cal query")
                 healthStore.stop(self.calQuery!)
             }
-            print("if workout session is not nil")
             if let _ = self.workoutSession {
-                print("remove workout session")
                 healthStore.end(self.workoutSession!)
             }
         }
@@ -145,9 +153,9 @@ class HealthDataInterface: NSObject {
                         strongSelf.delegate?.newHeartRateSample(hr: hr)
                         
                     } else if quantityTypeIdentifier == HKQuantityTypeIdentifier.activeEnergyBurned {
-                        
                         let cal = sample.quantity.doubleValue(for: strongSelf.energyUnit)
                         strongSelf.totalActiveCalories += cal
+                        strongSelf.delegate?.newCalorieSum(cals: strongSelf.totalActiveCalories)
                         
                     }
                 }
@@ -201,4 +209,5 @@ extension HealthDataInterface: HKWorkoutSessionDelegate {
 //protocol for outside classes to adhear to so that they can get updates of health kit query info.
 protocol HeartRateInterfaceUpdateDelegate {
     func newHeartRateSample(hr: Double)
+    func newCalorieSum(cals: Double)
 }
