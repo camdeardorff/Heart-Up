@@ -111,7 +111,7 @@ class PostWorkoutController: WKInterfaceController  {
         donut.colors = [a,b,c]
         donut.donutWidth = 7
         donut.labelColor = .white
-        donut.labelText = "Above: \(Int(percents.above * 100))\nOn: \(Int(percents.on * 100))\nBelow: \(Int(percents.below * 100))"
+        donut.labelText = "Over Target: \(Int(percents.above * 100))%\nOn Target: \(Int(percents.on * 100))%\nBelow Target: \(Int(percents.below * 100))%"
         
         donut.values = [NSNumber(floatLiteral: percents.below),
                         NSNumber(floatLiteral: percents.on),

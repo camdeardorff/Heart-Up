@@ -47,6 +47,11 @@ class WorkoutController: WKInterfaceController {
             }
         }
     }
+    var currentTrackedCalories: Double = -1 {
+        didSet {
+            self.caloriesLabel.setText("\(Int(currentTrackedCalories / 1000)) cal")
+        }
+    }
     
     
     //limit constants
@@ -80,17 +85,17 @@ class WorkoutController: WKInterfaceController {
         //get context as workout config
         sendContext = context as? Workout
         
-        //give the target range to stats tracker to determine performance
-        statsTracker.levelHigh = sendContext?.levelHigh
-        statsTracker.levelLow = sendContext?.levelLow
-        
         //set data
         if let _ = sendContext {
             minimumHeartRate = Double((sendContext!.levelLow))
             maximumHeartRate = Double((sendContext!.levelHigh))
-            workoutType = HKWorkoutActivityType.init(rawValue: UInt((sendContext?.type)!))!
-            workoutLocation = HKWorkoutSessionLocationType.init(rawValue: (sendContext?.location)!)
+            
+            //set workout and location type for workout configuration
+            workoutType = HKWorkoutActivityType(rawValue: UInt((sendContext!.type))) ?? .other
+            workoutLocation = HKWorkoutSessionLocationType(rawValue: (sendContext!.location)) ?? .unknown
         }
+        
+        //start the workout
         startWorkout()
     }
     
@@ -100,6 +105,12 @@ class WorkoutController: WKInterfaceController {
         setAnimationToHeartRate(hr: currentTrackedHeartRate)
     }
     
+    
+    /**
+     # Start Workout
+     starts the workout by configuring the workout session and starting the healthData queries
+     - Returns: void
+     */
     func startWorkout() {
         
         //create configuration
@@ -108,8 +119,16 @@ class WorkoutController: WKInterfaceController {
         workoutConfig.locationType = workoutLocation!
         
         //prepare the health stream and start queries with configuration
+        healthData.reset()
+        //set the health data delegate here and start queries
         healthData.delegate = self
         healthData.startQueries(workoutConfig: workoutConfig, isTest: false)
+        
+        //reset the stats tracker
+        statsTracker.reset()
+        //give the target range to stats tracker to determine performance
+        statsTracker.levelHigh = Int(maximumHeartRate)
+        statsTracker.levelLow = Int(minimumHeartRate)
         
         //start the timer label
         timerLabel.start()
@@ -150,5 +169,10 @@ extension WorkoutController: HeartRateInterfaceUpdateDelegate {
         currentTrackedHeartRate = hr
         statsTracker.newDataPoint(hr: hr)
         currentRateOfChange = statsTracker.getAvgRateOfChangeInTimeFrame(start: statsTrackingTimeFrame, end: 0)
+    }
+    
+    func newCalorieSum(cals: Double) {
+        print("new calorue sum!")
+        currentTrackedCalories = cals
     }
 }
