@@ -10,10 +10,10 @@ import Foundation
 import HealthKit
 
 
-class HealthDataInterface {
+class HealthDataInterface: NSObject {
     
     //singleton instance. allows for ending from another controller
-    static let sharedInstance = HealthDataInterface()
+    static let shared = HealthDataInterface()
     
     //HealthKit info
     private var startDate: Date?
@@ -39,54 +39,73 @@ class HealthDataInterface {
     var delegate: HeartRateInterfaceUpdateDelegate?
     
     //testing / dummy data
-    var isTest = false
+    private var isTest = false
     private let sampleHR: [Double] = [69,69,49,49,49,49,49,49,74,74,76,77,81,82,77,69,67,61,61,61,60]
     private var sampleHRIndex = 0
     private var timerForTest: Timer? = nil
     
     
     ///MARK: Private Initializer
-    private init() { }
+    private override init() { }
     
     
     ///MARK: Start/End/Create Queries
     //entry way from outside, provided with the workout session this function sets up the queries and starts them
-    func startQueries(workoutSession: HKWorkoutSession) {
+    func startQueries(workoutConfig: HKWorkoutConfiguration, isTest: Bool) {
         
-        if !isTest {
-            startDate = Date()
-            self.workoutSession = workoutSession
-            healthStore.start(workoutSession)
-            hrQuery = createQuery(quantityTypeIdentifier: heartRateTypeIdentifier)
-//            calQuery = createQuery(quantityTypeIdentifier: activeEndergyTypeIdentifier)
-            healthStore.execute(hrQuery!)
-//            healthStore.execute(calQuery!)
-        } else {
+        if isTest {
+            //this is a test, start test processing
             startTestProcessing()
+        } else {
+            // this is not a test
+            startDate = Date() //right now
+            
+            //initializing workout session from configuration could throw
+            do {
+                workoutSession = try HKWorkoutSession(configuration: workoutConfig)
+                workoutSession?.delegate = self
+                healthStore.start(workoutSession!)
+                
+                //create and execute heart rate query
+                hrQuery = createQuery(quantityTypeIdentifier: heartRateTypeIdentifier)
+                healthStore.execute(hrQuery!)
+                
+                //create and execute calorie query
+                calQuery = createQuery(quantityTypeIdentifier: activeEndergyTypeIdentifier)
+                healthStore.execute(calQuery!)
+                
+            } catch let error as NSError {
+                // Perform proper error handling here...
+                fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
+            }
         }
     }
     
     //ends queries
     func endQueries() {
         
-        if !isTest {
-            if let _ = self.hrQuery {
-                healthStore.stop(self.hrQuery!)
-            }
-            
-//            if let _ = self.calQuery {
-//                healthStore.stop(self.calQuery!)
-//            }
-            if let _ = self.workoutSession {
-                healthStore.end(self.workoutSession!)
-            }
-        } else {
+        if isTest {
             if let _ = timerForTest {
                 timerForTest?.invalidate()
             }
+        } else {
+            print("if hr query is not nil")
+            if let _ = self.hrQuery {
+                print("remove hr query")
+                healthStore.stop(self.hrQuery!)
+            }
+            print("if cal query is not nil")
+            if let _ = self.calQuery {
+                print("remove cal query")
+                healthStore.stop(self.calQuery!)
+            }
+            print("if workout session is not nil")
+            if let _ = self.workoutSession {
+                print("remove workout session")
+                healthStore.end(self.workoutSession!)
+            }
         }
     }
-    
     
     
     //private function for creating and configuring queries
@@ -151,6 +170,32 @@ class HealthDataInterface {
         
         delegate?.newHeartRateSample(hr: hr)
     }
+}
+
+extension HealthDataInterface: HKWorkoutSessionDelegate {
+    
+    func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
+        
+        print("workout state did change to :", toState)
+        
+        switch toState {
+        case .running:
+            print("changed to running")
+        case.ended:
+            print("changed to ended")
+        case .notStarted:
+            print("changed to not started")
+        case .paused:
+            print("changed to paused")
+        }
+    }
+    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
+        print("did generate workout session, event: ", event)
+    }
+    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
+        print("did fail with error: ", error)
+    }
+    
 }
 
 //protocol for outside classes to adhear to so that they can get updates of health kit query info.

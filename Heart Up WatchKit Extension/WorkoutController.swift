@@ -69,56 +69,29 @@ class WorkoutController: WKInterfaceController {
     var sendContext: Workout?
     
     // heart rate streaming obj
-    var healthData = HealthDataInterface.sharedInstance
+    var healthData = HealthDataInterface.shared
     
     
     override func awake(withContext context: Any?) {
         
         super.awake(withContext: context)
+        print("workout selection controller awake")
 
-        
         //get context as workout config
         sendContext = context as? Workout
-
+        
+        //give the target range to stats tracker to determine performance
         statsTracker.levelHigh = sendContext?.levelHigh
         statsTracker.levelLow = sendContext?.levelLow
+        
         //set data
         if let _ = sendContext {
             minimumHeartRate = Double((sendContext!.levelLow))
             maximumHeartRate = Double((sendContext!.levelHigh))
             workoutType = HKWorkoutActivityType.init(rawValue: UInt((sendContext?.type)!))!
             workoutLocation = HKWorkoutSessionLocationType.init(rawValue: (sendContext?.location)!)
-            
-            print("workout selection controller awake")
-
         }
-        
-        //create configuration
-        let workoutConfig = HKWorkoutConfiguration()
-        workoutConfig.activityType = workoutType!
-        workoutConfig.locationType = workoutLocation!
-
-        
-        //try to create the workout or fail gracefully
-        do {
-            //create workout session
-            workoutSession = try HKWorkoutSession.init(configuration: workoutConfig)
-            workoutSession?.delegate = self
-            
-            
-           
-            
-            //prepare the health stream and start queries
-            healthData.delegate = self
-            healthData.isTest = false
-            healthData.startQueries(workoutSession: workoutSession!)
-            
-            //start the timer label
-            timerLabel.start()
-        } catch let error as NSError {
-            // Perform proper error handling here...
-            fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
-        }
+        startWorkout()
     }
     
     override func willActivate() {
@@ -127,10 +100,20 @@ class WorkoutController: WKInterfaceController {
         setAnimationToHeartRate(hr: currentTrackedHeartRate)
     }
     
-    
-    
     func startWorkout() {
-        healthData.startQueries(workoutSession: workoutSession!)
+        
+        //create configuration
+        let workoutConfig = HKWorkoutConfiguration()
+        workoutConfig.activityType = workoutType!
+        workoutConfig.locationType = workoutLocation!
+        
+        //prepare the health stream and start queries with configuration
+        healthData.delegate = self
+        healthData.startQueries(workoutConfig: workoutConfig, isTest: false)
+        
+        //start the timer label
+        timerLabel.start()
+        
     }
     
     func setAnimationToHeartRate(hr: Double) {
@@ -159,28 +142,11 @@ class WorkoutController: WKInterfaceController {
     
     
 }
-extension WorkoutController: HKWorkoutSessionDelegate {
-    
-    func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
-        switch toState {
-            
-        case .running:
-            startWorkout()
-        case.ended:
-            print("Ended")
-        default:
-            startWorkout()
-        }
-    }
-    
-    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) { }
-    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) { }
-}
 
 
 extension WorkoutController: HeartRateInterfaceUpdateDelegate {
     func newHeartRateSample(hr: Double) {
-
+        
         currentTrackedHeartRate = hr
         statsTracker.newDataPoint(hr: hr)
         currentRateOfChange = statsTracker.getAvgRateOfChangeInTimeFrame(start: statsTrackingTimeFrame, end: 0)

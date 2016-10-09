@@ -124,7 +124,7 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     
     @IBAction func endWorkoutButtonWasPressed() {
         let end = WKAlertAction(title: "End", style: WKAlertActionStyle.default, handler: {
-            HealthDataInterface.sharedInstance.endQueries()
+            
             let data = self.stats.exportData()
             print("exported data: ", data)
             self.sendContext?.avg = data.avg
@@ -139,10 +139,12 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
                 self.sendContext?.data.append(seg)
             }
             
+            let healthInterface = HealthDataInterface.shared
+            healthInterface.endQueries()
+            
             print("\n\ntransfer vc? with context: ")
             if let _ = self.sendContext {
                 WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [self.sendContext!])
-//                self.pushController(withName: "PostWorkoutController", context: self.sendContext!)
             }
         })
         presentAlert(withTitle: "Wait!", message: "Are you ready to end this workout?", preferredStyle: .actionSheet, actions: [end])
