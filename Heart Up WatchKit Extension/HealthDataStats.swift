@@ -17,21 +17,43 @@ class HealthDataStats {
     //collection of all data
     private var data = [(hr: Double, atTime: Date)]()
     
+    //segment infomation
     private let segmentTimeLength: Int = 10
     private var segments = [(avgHR: Double, betweenTimes: (start: Date, end: Date))]()
+    
     private var startDate: Date
     
-    
+    //minimum and maximum heart rate sample
     private var min: Double = -1
     private var max: Double = -1
     
+    // heart rate target zone inidcators
     var levelHigh: Int?
     var levelLow: Int?
     
+    //update delegate
     var updateListener: HeartRateUpdatesDelegate?
+    
     private init() {
         startDate = Date()
     }
+    
+    /**
+     # Reset
+     Reset statistics for another round
+     - Returns: void
+     */
+    func reset() {
+        data.removeAll()
+        segments.removeAll()
+        startDate = Date()
+        min = -1
+        max = -1
+        levelHigh = nil
+        levelLow = nil
+        updateListener = nil
+    }
+    
     
     /**
      # New Data Point
@@ -62,8 +84,14 @@ class HealthDataStats {
                     let end = start.addingTimeInterval(TimeInterval(segmentTimeLength))
                     let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
                     
-                    segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
-                    updateListener?.newSegmentAvailable(data: getRecentSegments())
+                    /* sometimes there are no data oints found. This is unsettling for the linegraph and such. The soluction is to not allow avg that dont seem to fit the others, but when a user takes off the watch the same condition occurs. We cannot differentiate between the sampleing rate beeing to low or theuser taking off the watch. the resolution is to throw out the ssegment if the average is 0. This way we can handle only good data
+                    */
+                    
+                    if avg > 0.0 {
+                        segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
+                        updateListener?.newSegmentAvailable(data: getLastNAverages(n: 10))
+                    }
+                    
                     
                 }
             }
@@ -74,7 +102,7 @@ class HealthDataStats {
                 let end = currentDate
                 let avg = getAvgHeartRateInTimeFrame(start: start, end: end)
                 segments.append((avgHR: avg, betweenTimes: (start: start, end: end)))
-                updateListener?.newSegmentAvailable(data: getRecentSegments())
+                updateListener?.newSegmentAvailable(data: getLastNAverages(n: 10))
             }
             //otherwise do nothing
         }
@@ -92,7 +120,7 @@ class HealthDataStats {
     func getAvgRateOfChangeInTimeFrame(start: Double, end: Double) -> Double {
         
         //get all of the data points in the time frame given... could be none
-        let dataInTimeFrame = getDataInTimeFrame(fromSecondsAgo: start, toSecondsAgo: end)
+        let dataInTimeFrame = getDataInTimeFrame(secondsFrom: start, secondsTo: end)
         var totalSlope: Double = 0
         var slopes = 0
         for i in 0..<dataInTimeFrame.count-1 {
@@ -111,27 +139,25 @@ class HealthDataStats {
     
     
     /**
-     # Get Average Heart Rate In Time Frame
+     # (OVERLOADED) Get Average Heart Rate In Time Frame
+     returns the numerical average heart rate between two times
+     - Parameter secondsFrom: predated most limit of the data set in seconds.
+     - Parameter end: postdated most limit of the data set in seconds
+     - Returns: Double
+     */
+    func getAvgHeartRateInTimeFrame(secondsFrom: Double, secondsTo: Double) -> Double {
+        
+        return getAvgHeartRateInTimeFrame(start: Date(timeIntervalSinceNow: -secondsFrom),
+                                          end: Date(timeIntervalSinceNow: -secondsTo))
+    }
+    
+    /**
+     # (OVERLOADED) Get Average Heart Rate In Time Frame
      returns the numerical average heart rate between two times
      - Parameter start: predated most limit of the data set.
      - Parameter end: postdated most limit of the data set
      - Returns: Double
      */
-    func getAvgHeartRateInTimeFrame(start: Double, end: Double) -> Double {
-        
-        let dataInTimeFrame = getDataInTimeFrame(fromSecondsAgo: start, toSecondsAgo: end)
-        var hrSum: Double = 0
-        for point in dataInTimeFrame {
-            hrSum += point.hr
-        }
-        
-        if dataInTimeFrame.count > 0 && hrSum / Double(dataInTimeFrame.count) != Double.nan {
-            return hrSum / Double(dataInTimeFrame.count)
-        } else {
-            return 0
-        }
-        
-    }
     func getAvgHeartRateInTimeFrame(start: Date, end: Date) -> Double {
         
         let dataInTimeFrame = getDataInTimeFrame(start: start, end: end)
@@ -143,23 +169,29 @@ class HealthDataStats {
         if dataInTimeFrame.count > 0 && hrSum / Double(dataInTimeFrame.count) != Double.nan {
             return hrSum / Double(dataInTimeFrame.count)
         } else {
+            print("BLOB: average heart rate is being called 0. the real issue: ")
+            if dataInTimeFrame.count < 1 {
+                print("there were no samples")
+            } else if hrSum / Double(dataInTimeFrame.count) == Double.nan {
+                print("average was nan")
+            }
             return 0
-        }    }
+        }
+    }
     
+    func getDataInTimeFrame(secondsFrom: Double, secondsTo: Double) -> [(hr: Double, atTime: Date)] {
+        return getDataInTimeFrame(start: Date(timeIntervalSinceNow: -secondsFrom),
+                                          end: Date(timeIntervalSinceNow: -secondsTo))
+    }
     
     /**
      # Get Data In Time Frame
      loops over each data point and grabs anything that has a date that falls between the start and end points
-     - Parameter fromSecondsAgo: how far into the past to grab data.
-     - Parameter toSecondsAgo: how recent into the past to grab data.
+     - Parameter start: how far into the past to grab data.
+     - Parameter end: how recent into the past to grab data.
      - Returns: [(hr: Double, atTime: Date)
      */
-    func getDataInTimeFrame(fromSecondsAgo: Double, toSecondsAgo: Double) -> [(hr: Double, atTime: Date)] {
-        let startTime = Date(timeIntervalSinceNow: -fromSecondsAgo)
-        let endTime = Date(timeIntervalSinceNow: -toSecondsAgo)
-        
-        return getDataInTimeFrame(start: startTime, end: endTime)
-    }
+    
     func getDataInTimeFrame(start: Date, end: Date) -> [(hr: Double, atTime: Date)] {
         var matchingData = [(hr: Double, atTime: Date)]()
         
@@ -176,55 +208,82 @@ class HealthDataStats {
         return matchingData
     }
     
-    //export data to graph
-    
-    func getRecentSegments() -> [NSNumber] {
-        let recentSegments = segments.suffix(10)
-        var data = [NSNumber]()
+    /**
+     # Get Last N Averages
+     returns the list of recent averages of n length or however many there are if n is larger than the length of the collection of averages
+     - Parameter n: (Int) how many averages to return.
+     - Returns: [NSNumber]
+     */
+    func getLastNAverages(n: Int) -> [NSNumber] {
+        let spots = abs(n)
+        let recentSegments = segments.suffix(spots)
+        var averages = [NSNumber]()
         for seg in recentSegments {
-            data.append(NSNumber(integerLiteral: Int(seg.avgHR)))
+            averages.append(NSNumber(integerLiteral: Int(seg.avgHR)))
         }
         
-        return data
+        return averages
     }
     
+    
+    /**
+     # Get Target Percentages
+     calculate the percent of the time the user was above, on, or below target
+     - Returns: (below: Double, on: Double, above: Double)
+     */
     func getTargetPercentages() -> (below: Double, on: Double, above: Double)? {
-        if let lli = levelLow {
-            if let lhi = levelHigh {
-                let lld = Double(lli)
-                let lhd = Double(lhi)
-                
-                var below: Double = 0
-                var on: Double = 0
-                var above: Double = 0
-
-                
-                for segment in segments {
-                    //lower than the lower level
-                    if segment.avgHR < lld {
-                        below += 1
-                    }
-                    // higher than the higher level
-                    else if segment.avgHR > lhd {
-                        above += 1
-                    }
-                    // in the middle
-                    else {
-                        on += 1
-                    }
+        guard let lowerBound = levelLow else { return nil }
+        guard let upperBound = levelHigh else { return nil }
+        
+        // if there are no segments the there should be no target percentages
+        if segments.count < 1 {
+            return nil
+        } else {
+            // vars to count target hits
+            var below: Double = 0
+            var on: Double = 0
+            var above: Double = 0
+            
+            //loop over segments and count hits
+            for segment in segments {
+                if segment.avgHR < Double(lowerBound) {         //lower than the lower level
+                    below += 1
+                } else if segment.avgHR > Double(upperBound) {  // higher than the higher level
+                    above += 1
+                } else {                                        // in the middle
+                    on += 1
                 }
-                
-                let total = Double(segments.count)
-                
-                return (below/total, on/total, above/total)
-                
             }
+            //number of segments
+            let total = Double(segments.count)
+            return (zeroOrPercent(num: below, total: total),
+                    zeroOrPercent(num: on, total: total),
+                    zeroOrPercent(num: above, total: total))
         }
-        return nil
     }
     
+    /**
+     # Zero or Percent
+     helper to calculate target percentages. returns the percent or zero... never nan
+     - Parameter num: (Double) hits on a target.
+     - Parameter total: (Double) total hits.
+     - Returns: Double
+     */
+    private func zeroOrPercent(num: Double, total: Double) -> Double {
+        if num > 0 && (num / total) != Double.nan {
+            return num / total
+        } else {
+            return 0.0
+        }
+    }
+    
+    
+    /**
+     # Export Data
+     gathers all statistical data necessary for storage and transfer and sends it out
+     - Returns: (min: Int, max: Int, avg: Int, data: [Segment], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date)
+     */
     func exportData() -> (min: Int, max: Int, avg: Int, data: [Segment], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date) {
-        print("start export data")
         let start = self.startDate
         let end = Date()
         let min = Int(self.min)
@@ -235,19 +294,15 @@ class HealthDataStats {
         
         var segmentData: [Segment] = []
         
-        print("loop over data")
         //turn data into Segment objects
         for point in data {
-            
             let s = Segment()
             s.averageHR = point.avgHR
             s.date = point.betweenTimes.end
             segmentData.append(s)
         }
         
-        print("get segments")
         let percents = self.getTargetPercentages()
-        print("return" )
         return (min, max, avg, segmentData, percents, time, start, end)
         
     }
