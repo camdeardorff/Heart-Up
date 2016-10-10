@@ -283,7 +283,7 @@ class HealthDataStats {
      gathers all statistical data necessary for storage and transfer and sends it out
      - Returns: (min: Int, max: Int, avg: Int, data: [Segment], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date)
      */
-    func exportData() -> (min: Int, max: Int, avg: Int, data: [Segment], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date) {
+    func exportData() -> (min: Int, max: Int, avg: Int, data: [(averageHR: Double, atTime: Date)], percentages: (below: Double, on: Double, above: Double)?, time: TimeInterval, start: Date, end: Date) {
         let start = self.startDate
         let end = Date()
         let min = Int(self.min)
@@ -292,14 +292,11 @@ class HealthDataStats {
         let time = end.timeIntervalSince(start)
         let data = segments
         
-        var segmentData: [Segment] = []
+        var segmentData: [(averageHR: Double, atTime: Date)] = []
         
         //turn data into Segment objects
         for point in data {
-            let s = Segment()
-            s.averageHR = point.avgHR
-            s.date = point.betweenTimes.end
-            segmentData.append(s)
+            segmentData.append((point.avgHR, point.betweenTimes.start))
         }
         
         let percents = self.getTargetPercentages()
