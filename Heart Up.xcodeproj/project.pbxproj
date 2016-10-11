@@ -32,9 +32,9 @@
 		3230E7B41D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B31D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift */; };
 		3230E7B91D4AEF8C00B3986A /* StartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B81D4AEF8C00B3986A /* StartController.swift */; };
 		3230E7BD1D4AF70800B3986A /* HeartRateRangeSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7BC1D4AF70800B3986A /* HeartRateRangeSelectionController.swift */; };
-		325DE8F51DA05A2300C9F6E0 /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325DE8F41DA05A2300C9F6E0 /* Serializable.swift */; };
 		326E034D1DA04B290066807D /* WorkoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E034C1DA04B290066807D /* WorkoutSender.swift */; };
 		3270B5B31D4692DB0066E186 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270B5B21D4692DB0066E186 /* HealthKit.framework */; };
+		3291C5351DAC41A7005BD160 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3291C5341DAC41A7005BD160 /* WatchCommunicator.swift */; };
 		329D9DE31D48658200BF8C51 /* HealthDataStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE21D48658200BF8C51 /* HealthDataStats.swift */; };
 		329D9DE51D486B9400BF8C51 /* HealthDataInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */; };
 		32B493571D89C3670099BE5F /* PostWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B493561D89C3670099BE5F /* PostWorkoutController.swift */; };
@@ -192,13 +192,12 @@
 		3230E7B81D4AEF8C00B3986A /* StartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartController.swift; sourceTree = "<group>"; };
 		3230E7BC1D4AF70800B3986A /* HeartRateRangeSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateRangeSelectionController.swift; sourceTree = "<group>"; };
 		3255D8071D89BD1800A5051D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		325DE8F41DA05A2300C9F6E0 /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
 		326E034C1DA04B290066807D /* WorkoutSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSender.swift; sourceTree = "<group>"; };
 		3270B5B11D4692DB0066E186 /* Heart Up WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heart Up WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		3270B5B21D4692DB0066E186 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		3291C5341DAC41A7005BD160 /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		329D9DE21D48658200BF8C51 /* HealthDataStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStats.swift; sourceTree = "<group>"; };
 		329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataInterface.swift; sourceTree = "<group>"; };
-		32B418E91D5D685A00DA4E52 /* Dates.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Dates.playground; sourceTree = "<group>"; };
 		32B493561D89C3670099BE5F /* PostWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostWorkoutController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		32DC44491D89C85D00463A37 /* WorkoutSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutSummary.swift; path = "Heart Up WatchKit Extension/WorkoutSummary.swift"; sourceTree = "<group>"; };
 		32DCCE311D63FAF50089AE98 /* Yoga.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Yoga.svg; sourceTree = "<group>"; };
@@ -370,9 +369,8 @@
 				32195D141D41666D007C808E /* Assets.xcassets */,
 				32195D161D41666D007C808E /* Info.plist */,
 				32195D0C1D41666D007C808E /* Supporting Files */,
-				32B418E91D5D685A00DA4E52 /* Dates.playground */,
 				326E034C1DA04B290066807D /* WorkoutSender.swift */,
-				325DE8F41DA05A2300C9F6E0 /* Serializable.swift */,
+				3291C5341DAC41A7005BD160 /* WatchCommunicator.swift */,
 			);
 			path = "Heart Up WatchKit Extension";
 			sourceTree = "<group>";
@@ -885,7 +883,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				325DE8F51DA05A2300C9F6E0 /* Serializable.swift in Sources */,
 				3210CF4D1D552615009C75F7 /* IntesityTableRowController.swift in Sources */,
 				32DEE21D1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */,
 				326E034D1DA04B290066807D /* WorkoutSender.swift in Sources */,
@@ -899,6 +896,7 @@
 				32DEE21F1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */,
 				32195D131D41666D007C808E /* NotificationController.swift in Sources */,
 				3210CF4B1D55159B009C75F7 /* WorkoutTableRowController.swift in Sources */,
+				3291C5351DAC41A7005BD160 /* WatchCommunicator.swift in Sources */,
 				32B493571D89C3670099BE5F /* PostWorkoutController.swift in Sources */,
 				3230E7B21D4AAA1300B3986A /* WorkoutSelectionController.swift in Sources */,
 				3213A5C71D597D54000D2455 /* CustomIntensityRowController.swift in Sources */,

@@ -13,7 +13,7 @@ class HeartRateRangeSelectionController: WKInterfaceController {
     @IBOutlet var lowerLimitSelector: WKInterfacePicker!
     @IBOutlet var upperLimitSelector: WKInterfacePicker!
     
-    var sendContext: Workout?
+    var workout: Workout?
     
     var selectedLowerLimit: Int = -1
     var selectedUpperLimit: Int = -1
@@ -26,9 +26,9 @@ class HeartRateRangeSelectionController: WKInterfaceController {
 
     override func awake(withContext context: Any?) {
         
-        sendContext = context as? Workout
+        workout = context as? Workout
         
-        print("workout selection controller awake")
+        print("workout selection controller awake with workout: ", workout!)
         
         
         var lowerLimitPickerItems = [WKPickerItem]()
@@ -67,21 +67,16 @@ class HeartRateRangeSelectionController: WKInterfaceController {
     
     @IBAction func nextButtonWasPressed() {
         
-        
-        
-        
-        
-        
         if selectedUpperLimit >= lower * 5 && selectedLowerLimit >= (lower - HR_OFFSET) * 5 {
             if selectedUpperLimit > selectedLowerLimit {
 
                 let customIntensity = 3
-                sendContext?.levelLow = selectedLowerLimit
-                sendContext?.levelHigh = selectedUpperLimit
-                sendContext?.intensity = customIntensity
+                workout?.levels.low = selectedLowerLimit
+                workout?.levels.high = selectedUpperLimit
+                workout?.intensity = customIntensity
                 
 
-                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [sendContext!,sendContext!])
+                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [workout!,workout!])
 
             } else {
                 let moveToIndex = ((selectedUpperLimit) / 5) - lower

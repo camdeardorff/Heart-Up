@@ -14,10 +14,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        print("application did finish launching")
         
-       
-        
-        
+        WatchCommunicator.shared.start()
         
     }
     func applicationDidBecomeActive() {
@@ -40,5 +39,3 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     }
 
 }
-
-

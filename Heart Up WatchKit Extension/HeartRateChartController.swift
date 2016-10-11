@@ -22,18 +22,20 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
     var upperLimitHR = 100
     var lowerLimitHR = 80
     
-    var sendContext: Workout?
+    var workout: Workout?
     
     override func awake(withContext context: Any?) {
       
         stats.updateListener = self
-        sendContext = context as? Workout
+        workout = context as? Workout
 
         
-        if let max = sendContext?.levelHigh {
+        print("Heart rate chart controller awake with workout: ", workout!)
+        
+        if let max = workout?.levels.high {
             upperLimitHR = max
         }
-        if let min = sendContext?.levelLow {
+        if let min = workout?.levels.low {
             lowerLimitHR = min
         }
         
@@ -127,24 +129,24 @@ class HeartRateChartController: WKInterfaceController, HeartRateUpdatesDelegate 
             
             let data = self.stats.exportData()
             print("exported data: ", data)
-            self.sendContext?.avg = data.avg
-            self.sendContext?.max = data.max
-            self.sendContext?.min = data.min
-            self.sendContext?.start = data.start
-            self.sendContext?.end = data.end
-            self.sendContext?.time = data.time
+            self.workout?.heartRate.avg = data.avg
+            self.workout?.heartRate.max = data.max
+            self.workout?.heartRate.min = data.min
+            self.workout?.time.start = data.start
+            self.workout?.time.end = data.end
+            self.workout?.time.length = data.time
             
             print("loop segments")
             for seg in data.data {
-                self.sendContext?.data.append(seg)
+                self.workout?.data.append(seg)
             }
             
             let healthInterface = HealthDataInterface.shared
             healthInterface.endQueries()
             
             print("\n\ntransfer vc? with context: ")
-            if let _ = self.sendContext {
-                WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [self.sendContext!])
+            if let _ = self.workout {
+                WKInterfaceController.reloadRootControllers(withNames: ["PostWorkoutController"], contexts: [self.workout!])
             }
         })
         presentAlert(withTitle: "Wait!", message: "Are you ready to end this workout?", preferredStyle: .actionSheet, actions: [end])

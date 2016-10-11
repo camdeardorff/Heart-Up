@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cr1-P5-zvn">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11535.1" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cr1-P5-zvn">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SFCompactText-Regular.otf">
@@ -101,27 +104,31 @@
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" id="o3h-D9-q5q">
                             <items>
-                                <group width="1" height="0.29999999999999999" alignment="left" id="M5q-aL-1Bb">
+                                <group width="1" height="0.40000000000000002" alignment="right" id="vkv-Vp-VVl">
                                     <items>
-                                        <group width="0.5" alignment="left" id="kxv-Ya-QzU">
+                                        <group width="0.5" alignment="right" verticalAlignment="center" layout="vertical" id="j2E-sl-cMI">
                                             <items>
-                                                <label alignment="right" verticalAlignment="bottom" text="98" id="Ihf-QL-zxi">
-                                                    <fontDescription key="font" name=".SFCompactText-Regular" family="SF Compact Text" pointSize="40"/>
-                                                </label>
-                                                <label alignment="right" verticalAlignment="center" text="⬆︎" id="zTu-0Y-T4a"/>
+                                                <label alignment="right" text="0 cal" id="NpP-Ti-Y8h"/>
+                                                <timer alignment="right" previewedSeconds="0" id="C3b-pZ-swE"/>
                                             </items>
                                         </group>
-                                        <group width="0.5" alignment="right" layout="vertical" id="j2E-sl-cMI">
+                                        <group width="0.5" height="1" alignment="left" id="WpF-NY-OAX">
                                             <items>
-                                                <label alignment="right" text="Label" id="NpP-Ti-Y8h"/>
-                                                <timer alignment="right" previewedSeconds="0" id="C3b-pZ-swE"/>
+                                                <imageView height="1" alignment="center" image="sbeat_" id="dDt-pJ-CNJ"/>
                                             </items>
                                         </group>
                                     </items>
                                 </group>
-                                <group height="0.69999999999999996" alignment="center" id="WpF-NY-OAX">
+                                <group width="1" height="0.59999999999999998" alignment="left" id="M5q-aL-1Bb">
                                     <items>
-                                        <imageView height="1" alignment="left" image="sbeat_" id="dDt-pJ-CNJ"/>
+                                        <group width="1" height="1" alignment="left" id="kxv-Ya-QzU">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="--" id="Ihf-QL-zxi">
+                                                    <fontDescription key="font" name=".SFCompactText-Regular" family="SF Compact Text" pointSize="60"/>
+                                                </label>
+                                                <label alignment="center" verticalAlignment="center" text="-" id="zTu-0Y-T4a"/>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                             </items>
@@ -137,7 +144,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="428" y="734"/>
+            <point key="canvasLocation" x="196" y="707"/>
         </scene>
         <!--HeartRateChartController-->
         <scene sceneID="LZz-w6-fWl">
@@ -156,7 +163,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="730" y="729"/>
+            <point key="canvasLocation" x="446" y="707"/>
         </scene>
         <!--Post Workout-->
         <scene sceneID="eTS-bi-sEW">
@@ -189,25 +196,25 @@
                         </group>
                         <group width="1" alignment="left" id="3nS-QU-x4l">
                             <items>
-                                <label alignment="left" text="Max HR" id="dT6-OF-fvs"/>
+                                <label alignment="left" text="Max" id="dT6-OF-fvs"/>
                                 <label alignment="right" text="Label" id="Iz2-HJ-G6a"/>
                             </items>
                         </group>
                         <group width="1" alignment="left" id="p7t-0s-EoD">
                             <items>
-                                <label alignment="left" text="Min HR" id="hDa-ID-15m"/>
+                                <label alignment="left" text="Min" id="hDa-ID-15m"/>
                                 <label alignment="right" text="Label" id="Z5W-4q-X7o"/>
                             </items>
                         </group>
                         <group width="1" alignment="left" id="BGp-ac-AKC">
                             <items>
-                                <label alignment="left" text="Average HR" id="0EM-VZ-LRz"/>
+                                <label alignment="left" text="Average" id="0EM-VZ-LRz"/>
                                 <label alignment="right" text="Label" id="kBC-ZZ-Grh"/>
                             </items>
                         </group>
                         <group width="1" alignment="left" id="JSG-gg-w9d">
                             <items>
-                                <label alignment="right" text="Label" id="8Fw-Jn-OPD"/>
+                                <label alignment="center" text="Label" id="8Fw-Jn-OPD"/>
                             </items>
                         </group>
                         <group width="1" alignment="left" id="Hq2-Vc-4Wr">
@@ -240,7 +247,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="1084" y="729"/>
+            <point key="canvasLocation" x="689" y="772"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -256,7 +263,7 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="-340" y="746"/>
+            <point key="canvasLocation" x="-806" y="1095"/>
         </scene>
         <!--Start-->
         <scene sceneID="MPe-KE-dge">
@@ -345,7 +352,7 @@
             <objects>
                 <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Heart_Up_WatchKit_App" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="-206" y="729"/>
+            <point key="canvasLocation" x="-672" y="1078"/>
         </scene>
     </scenes>
 </document>

@@ -23,13 +23,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-       /*
+       
         
         if WCSession.isSupported() {
             session = WCSession.default()
-            session?.delegate = self
             session?.activate()
             
+            if let s = session {
+                if s.isReachable {
+                    print("reachable")
+                } else {
+                    print("not reachable")
+                }
+                
+                if s.isPaired {
+                    print("paired")
+                } else {
+                    print("not paired")
+                }
+                
+                if s.isWatchAppInstalled {
+                    print("watch app install")
+                } else {
+                    print("watch app not installed")
+                }
+            }
             if !(session?.isPaired)! {
                 print("Apple Watch is not paired")
             }
@@ -41,7 +59,7 @@ class ViewController: UIViewController {
             print("WatchConnectivity is not supported on this device")
         }
         
-        
+        /*
         if HKHealthStore.isHealthDataAvailable() {
             let store = HKHealthStore()
             let authorization = store.authorizationStatus(for: HKObjectType.quantityType(forIdentifier: .heartRate)!)
@@ -88,6 +106,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
 
 }
 

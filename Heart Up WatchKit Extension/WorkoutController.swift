@@ -18,9 +18,7 @@ class WorkoutController: WKInterfaceController {
     @IBOutlet var caloriesLabel: WKInterfaceLabel!
     @IBOutlet var heartImageContainer: WKInterfaceGroup!
     
-    //workoutInfo info
     var startDate: Date?
-    var workoutSession: HKWorkoutSession?
     
     //tracking vars...
     var currentTrackedHeartRate: Double = -1 {
@@ -71,7 +69,7 @@ class WorkoutController: WKInterfaceController {
     var notificationInterval: TimeInterval = 20
     
     //workout config
-    var sendContext: Workout?
+    var workout: Workout?
     
     // heart rate streaming obj
     var healthData = HealthDataInterface.shared
@@ -80,19 +78,20 @@ class WorkoutController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         
         super.awake(withContext: context)
-        print("workout selection controller awake")
+        workout = context as? Workout
+
+        print("workout selection controller awake with workout: ", workout!)
 
         //get context as workout config
-        sendContext = context as? Workout
         
         //set data
-        if let _ = sendContext {
-            minimumHeartRate = Double((sendContext!.levelLow))
-            maximumHeartRate = Double((sendContext!.levelHigh))
+        if let _ = workout {
+            minimumHeartRate = Double((workout!.levels.low))
+            maximumHeartRate = Double((workout!.levels.high))
             
             //set workout and location type for workout configuration
-            workoutType = HKWorkoutActivityType(rawValue: UInt((sendContext!.type))) ?? .other
-            workoutLocation = HKWorkoutSessionLocationType(rawValue: (sendContext!.location)) ?? .unknown
+            workoutType = HKWorkoutActivityType(rawValue: UInt((workout!.type))) ?? .other
+            workoutLocation = HKWorkoutSessionLocationType(rawValue: (workout!.location)) ?? .unknown
         }
         
         //start the workout

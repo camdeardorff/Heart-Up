@@ -34,7 +34,7 @@ class WorkoutSender: NSObject {
     
     func send(workout: Workout) {
         print("send message now!")
-        let ws = workout.exportSettings()
+        let ws = workout.export()
         
         if isReady() {
             print("session is ready and we are sending message: ", ws)

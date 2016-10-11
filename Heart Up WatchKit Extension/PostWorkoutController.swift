@@ -7,7 +7,6 @@
 //
 
 import WatchKit
-import WatchConnectivity
 import RealmSwift
 import Realm
 
@@ -18,7 +17,7 @@ class PostWorkoutController: WKInterfaceController  {
     @IBOutlet var chartImage: WKInterfaceImage!
     
     @IBOutlet var chartButton: WKInterfaceButton!
- 
+    
     
     @IBOutlet var workoutImage: WKInterfaceImage!
     @IBOutlet var workoutTypeLabel: WKInterfaceLabel!
@@ -35,8 +34,7 @@ class PostWorkoutController: WKInterfaceController  {
     @IBOutlet var saveSwitch: WKInterfaceSwitch!
     
     
-    var sendContext: Workout?
-    var message: [String : Any]?
+    var workout: Workout?
     var healthStats = HealthDataStats.sharedInstance.exportData()
     var saveWorkout = true
     
@@ -46,19 +44,20 @@ class PostWorkoutController: WKInterfaceController  {
     
     override func awake(withContext context: Any?) {
         
-        print("awake in post with context: \(context)")
         
-        sendContext = context as? Workout
+        workout = context as? Workout
         
+        print("awake in post with workout: ", workout!)
+
         
-        if let _ = sendContext {
-            workoutImage.setImage(ApplicationData.workouts[sendContext!.configIndex].image)
-            workoutTypeLabel.setText(ApplicationData.workouts[sendContext!.configIndex].name)
-            intensityLabel.setText(ApplicationData.workouts[sendContext!.configIndex].intensities[(sendContext?.intensity)!].level)
-            maxHRLabel.setText("\((sendContext?.max)!) BPM")
-            minHRLabel.setText("\((sendContext?.min)!) BPM")
-            avgHRLabel.setText("\((sendContext?.avg)!) BPM")
-            timeLabel.setText("\((sendContext?.time.formatHourSecond())!)")
+        if let _ = workout {
+            workoutImage.setImage(ApplicationData.workouts[workout!.configIndex].image)
+            workoutTypeLabel.setText(ApplicationData.workouts[workout!.configIndex].name)
+            intensityLabel.setText(ApplicationData.workouts[workout!.configIndex].intensities[(workout?.intensity)!].level)
+            maxHRLabel.setText("\((workout?.heartRate.max)!) BPM")
+            minHRLabel.setText("\((workout?.heartRate.min)!) BPM")
+            avgHRLabel.setText("\((workout?.heartRate.avg)!) BPM")
+            timeLabel.setText("\((workout?.time.length.formatHourSecond())!)")
             
             
             
@@ -70,7 +69,7 @@ class PostWorkoutController: WKInterfaceController  {
                 
             }
             if healthStats.data.count > 0 {
-                lineImage = generateLineChart(levels: ((sendContext?.levelLow)!, (sendContext?.levelHigh)!), data: healthStats.data)
+                lineImage = generateLineChart(levels: ((workout?.levels.low)!, (workout?.levels.high)!), data: healthStats.data)
             }
             if let li = lineImage {
                 chartImage.setImage(li)
@@ -102,11 +101,10 @@ class PostWorkoutController: WKInterfaceController  {
     }
     
     func generateDonutChart(percents: (above: Double, on: Double,below: Double)) -> UIImage {
-//        FF754C
         let a = UIColor(rgb: 0xFF754C, alphaVal: 1.0)
         let b = UIColor(rgb: 0x00ACC1, alphaVal: 1.0)
         let c = UIColor(rgb: 0xBA68C8, alphaVal: 1.0)
-
+        
         let donut = YODonutChartImage()
         donut.colors = [a,b,c]
         donut.donutWidth = 7
@@ -120,8 +118,8 @@ class PostWorkoutController: WKInterfaceController  {
         return donut.draw(frame, scale: WKInterfaceDevice.current().screenScale)
     }
     
-    func generateLineChart(levels: (low: Int, high: Int), data: [Segment]) -> UIImage {
-       
+    func generateLineChart(levels: (low: Int, high: Int), data: [(averageHR: Double, atTime: Date)]) -> UIImage {
+        
         var lowerBoundry = levels.low
         var upperBoundry = levels.high
         var values = [NSNumber]()
@@ -147,7 +145,7 @@ class PostWorkoutController: WKInterfaceController  {
         
         line.smooth = true
         
-       
+        
         line.values = values
         line.lineStrokeColor = .red
         line.lineStrokeWidth = 2
@@ -161,47 +159,22 @@ class PostWorkoutController: WKInterfaceController  {
         if saveWorkout {
             
             let realm = try! Realm()
+            let dbWorkout = DBWorkout()
+            dbWorkout.importSettings(workout: workout!)
             
             try! realm.write {
-                print("try write: \(sendContext)")
-                realm.add(sendContext!)
+                print("try write: \(dbWorkout)")
+                realm.add(dbWorkout)
             }
             
-//            let workoutSender = WorkoutSender()
-//            if workoutSender.isReady() {
-//                workoutSender.send(workout: sendContext!)
-//            }
-            if WCSession.isSupported() {
-                
-                let session = WCSession.default()
-                session.delegate = self
-                session.activate()
-                message = sendContext?.exportSettings()
-                
+            if let settings = workout?.export() {
+                print("sending settings: ", settings)  
+                WatchCommunicator.shared.sendDictionary(settings)
             }
+            
             
         }
         WKInterfaceController.reloadRootControllers(withNames: ["StartController"], contexts: nil)
-    }
-}
-
-extension PostWorkoutController: WCSessionDelegate {
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("session activation did complete with state: ", activationState)
-        
-        if activationState == .activated {
-            if let m = message {
-                session.sendMessage(m, replyHandler: { (message) -> Void in print(message) }, errorHandler: { (error) -> Void in print(error)})
-            }
-        }
-        
-    }
-    
-    
-    
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        print("received message!: ", message)
     }
 }
 

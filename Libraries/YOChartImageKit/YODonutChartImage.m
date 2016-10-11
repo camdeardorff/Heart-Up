@@ -8,7 +8,7 @@
         _startAngle = -M_PI_2;
         _donutWidth = 1.0;
         _labelColor = [UIColor blackColor];
-        _labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
     }
     return self;
 }

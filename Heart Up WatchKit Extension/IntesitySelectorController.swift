@@ -13,14 +13,14 @@ class IntesitySelectorController: WKInterfaceController {
     
     @IBOutlet var intensityTable: WKInterfaceTable!
     
-    var sendContext: Workout?
+    var workout: Workout?
     var intensities: [(level: String, min: Int, max: Int)]?
     
     override func awake(withContext context: Any?) {
-        sendContext = context as? Workout
-        if let workout = sendContext {
-            print("workout selection controller awake")
-            intensities = ApplicationData.workouts[workout.configIndex].intensities
+        workout = context as? Workout
+        if workout != nil {
+            print("workout selection controller awake with workout: ", workout!)
+            intensities = ApplicationData.workouts[workout!.configIndex].intensities
             loadTableData(data: intensities!)
         }
     }
@@ -52,15 +52,15 @@ class IntesitySelectorController: WKInterfaceController {
             // the row item is an intensity table row controller
             if let intensityList = intensities {
                 let selectedIntesity: (level: String, min: Int, max: Int) = intensityList[rowIndex]
-                sendContext?.levelLow = selectedIntesity.min
-                sendContext?.levelHigh = selectedIntesity.max
-                sendContext?.intensity = rowIndex
+                workout?.levels.low = selectedIntesity.min
+                workout?.levels.high = selectedIntesity.max
+                workout?.intensity = rowIndex
 
-                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController", "EndWorkoutController"], contexts: [sendContext!,sendContext!,sendContext!])
+                WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController", "EndWorkoutController"], contexts: [workout!, workout!, workout!])
             }
         } else {
             // this table row is the custom selector
-            pushController(withName: "HeartRateRangeSelectionController", context: sendContext)
+            pushController(withName: "HeartRateRangeSelectionController", context: workout!)
 
         }
     }

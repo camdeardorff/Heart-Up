@@ -53,25 +53,33 @@ class StartController: WKInterfaceController {
                 
                 let realm = try! Realm()
                 
-                let savedWorkouts = realm.objects(Workout.self)
-                print("1 there are \(savedWorkouts.count) saved workouts")
-                self.workouts = Array(savedWorkouts)
+                
+                let savedWorkouts = realm.objects(DBWorkout.self)
+                print("there are \(savedWorkouts.count) saved workouts")
+                
+                savedWorkouts.forEach({ (dbw) in
+                    print("loop saved workout: ", dbw)
+                    workouts.append(Workout(dbWorkout: dbw))
+
+                })
                 
                 if self.workouts.count < 1 {
                     nextController()
                 } else {
-                    loadTableData(data: self.workouts)
+                    loadTableData()
                 }
             }
         }
     }
     
     func displayNoSharingMessage() {
+        print("displaying no sharing message")
         let errorMessage = WKAlertAction(title: "Will do!", style: .default, handler: {})
         presentAlert(withTitle: "uhh-oh!", message: "It looks like there are no permissions for reading workout data, please enable permissions in the ___ app.", preferredStyle: .alert, actions: [errorMessage])
     }
     
     func displayNoHealthDataMessage() {
+        print("displaying no health data message")
         let noDataMessage = WKAlertAction(title: "Understood", style: .default, handler: {})
         presentAlert(withTitle: "Ohh no!", message: "This device does not have access to Healthkit.", preferredStyle: .alert, actions: [noDataMessage])
     }
@@ -94,35 +102,23 @@ class StartController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         let workout = workouts[rowIndex]
-        
-        //make a new workout object with the same data. this way we dont overrite this realm workout instance
-        let newWorkout = Workout()
-        //set type, location, levels...
-        newWorkout.type = workout.type
-        newWorkout.location = workout.location
-        newWorkout.levelLow = workout.levelLow
-        newWorkout.levelHigh = workout.levelHigh
-        newWorkout.intensity = workout.intensity
-        newWorkout.configIndex = workout.configIndex
-        
-        WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [newWorkout, newWorkout])
-        
+        WKInterfaceController.reloadRootControllers(withNames: ["WorkoutController", "HeartRateChartController"], contexts: [workout, workout])
     }
     
     
-    func loadTableData(data: [Workout]) {
-        reuseWorkoutTable.setNumberOfRows(data.count, withRowType: "ReuseWorkoutTableRowController")
+    func loadTableData() {
+        reuseWorkoutTable.setNumberOfRows(workouts.count, withRowType: "ReuseWorkoutTableRowController")
         
         
-        for (index, workout) in data.enumerated() {
+        for (index, workout) in workouts.enumerated() {
             let row = reuseWorkoutTable.rowController(at: index) as! ReuseWorkoutTableRowController
             
-            if workout.configIndex != Workout.UNSET_VALUE {
-                
+            if workout.configIndex > -1 {
+            
                 let config = ApplicationData.workouts[workout.configIndex]
                 
                 let configIdx = workout.configIndex
-                let date = workout.start
+                let date = workout.time.start
                 
                 
                 let dateFormatter = DateFormatter()
@@ -134,8 +130,8 @@ class StartController: WKInterfaceController {
                 row.workoutLabel.setText(config.name)
                 row.intensityLabel.setText("Intensity: \(config.intensities[workout.intensity].level)")
                 row.dateLabel.setText("\(dateFormatter.string(from: date))")
-                row.minHRLabel.setText("Min: \(workout.min)")
-                row.maxHRLabel.setText("Max: \(workout.max)")
+                row.minHRLabel.setText("Min: \(workout.heartRate.min)")
+                row.maxHRLabel.setText("Max: \(workout.heartRate.max)")
                 row.configIndex = configIdx
                 
                 

@@ -20,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         print("did finish launching with options 2")
         self.requestAccessToHealthKit()
+        
+        if WCSession.isSupported() {
+            session = WCSession.default()
+            session?.delegate = self
+            session?.activate()
+        }
+        
         return true
     }
     
@@ -77,3 +84,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: WCSessionDelegate {
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+        switch activationState {
+        case .activated:
+            
+            print("session activated")
+            
+            print("is watch app installed: \(session.isWatchAppInstalled)")
+            
+            print("is watch paired: \(session.isPaired)")
+            
+            print("is watch reachable: \(session.isReachable)")
+            
+            
+            if session.isPaired && session.isWatchAppInstalled {
+                print("sessionion: paired and installed")
+                var message = [String : Any]()
+                message["testing send"] = true
+                message["please work"] = "ok"
+                message["maybe"] = 1
+                session.transferUserInfo(message)
+                
+                
+            }
+            
+            
+            
+        case .inactive:
+            print("session inactive")
+        case .notActivated:
+            print("session not activated")
+        }
+        
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        print("did receive user info: ", userInfo)
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("1")
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("2")
+    }
+}
