@@ -1,6 +1,5 @@
 # Heart-Up
 
-![alt tag](http://www.camdeardorff.com/Heart-Up/title.png)
 
 
 A workout app that doesn't suck!
