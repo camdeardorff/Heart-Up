@@ -9,6 +9,8 @@
 import UIKit
 import HealthKit
 import WatchConnectivity
+import Realm
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             session?.delegate = self
             session?.activate()
         }
+        
+        UINavigationBar.appearance().tintColor = UIColor.white
         
         return true
     }
@@ -122,7 +126,25 @@ extension AppDelegate: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        print("did receive user info: ", userInfo)
+        
+        let workout = Workout(data: userInfo)
+        print("workout over the wire: ", workout)
+        
+        let saveWorkout = DBWorkout()
+        saveWorkout.importSettings(workout: workout)
+        
+        //do block for creating realm object
+        do {
+            let realm = try Realm()
+            
+            do {
+                try realm.write {
+                    realm.add(saveWorkout)
+                }
+            } catch _ {}
+            
+        } catch _ {}
+        
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
