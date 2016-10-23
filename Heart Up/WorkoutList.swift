@@ -46,6 +46,12 @@ class WorkoutList: UIViewController {
             print("Error with creating realm object: ", error)
         }
         
+        
+        if workouts.count < 1 {
+            // there are no workouts, let the user know
+        }
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
