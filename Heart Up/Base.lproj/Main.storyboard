@@ -1,41 +1,131 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11535.1" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ES2-HS-Th4">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11523"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="yFD-z7-9x5">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Heart_Up" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="ES2-HS-Th4" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="oDk-gC-Gwj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="UAR-iu-Ji0" kind="relationship" relationship="rootViewController" id="ZF2-WP-0z9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4pm-ya-0Lb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-158" y="146"/>
+        </scene>
+        <!--Workouts-->
+        <scene sceneID="SDN-Dp-nDq">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="UAR-iu-Ji0" customClass="WorkoutList" customModule="Heart_Up" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="SDw-ER-koL"/>
+                        <viewControllerLayoutGuide type="bottom" id="kiB-X4-Oe2"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="ui4-Wf-Sf4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIv-OZ-7z0">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="axJ-I9-6zJ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="lIv-OZ-7z0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tkc-GG-Xcx"/>
-                            <constraint firstItem="lIv-OZ-7z0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lGs-5G-QK0"/>
+                            <constraint firstItem="kiB-X4-Oe2" firstAttribute="top" secondItem="axJ-I9-6zJ" secondAttribute="bottom" id="Ns0-lZ-IN7"/>
+                            <constraint firstItem="axJ-I9-6zJ" firstAttribute="leading" secondItem="ui4-Wf-Sf4" secondAttribute="leading" id="VcY-kc-BK6"/>
+                            <constraint firstAttribute="trailing" secondItem="axJ-I9-6zJ" secondAttribute="trailing" id="X51-oc-wzo"/>
+                            <constraint firstItem="axJ-I9-6zJ" firstAttribute="top" secondItem="SDw-ER-koL" secondAttribute="bottom" id="a3y-cc-Hul"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Workouts" id="WDh-66-4be"/>
                     <connections>
-                        <outlet property="outputLabel" destination="lIv-OZ-7z0" id="dYh-xE-pWx"/>
+                        <outlet property="tableView" destination="axJ-I9-6zJ" id="1Iy-WW-5cL"/>
+                        <segue destination="IV7-Lw-4z8" kind="show" identifier="showChartSegue" id="2fw-iM-XOV"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tM6-IB-5ym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="775" y="147"/>
+        </scene>
+        <!--Workout Summary-->
+        <scene sceneID="FGC-Zo-mkL">
+            <objects>
+                <viewController id="IV7-Lw-4z8" customClass="WorkoutSummary" customModule="Heart_Up" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8kd-xX-1IN"/>
+                        <viewControllerLayoutGuide type="bottom" id="58M-L0-XVq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mGt-85-GnS">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MOR-O0-DTp">
+                                <rect key="frame" x="16" y="10" width="343" height="593"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39W-j8-wuf">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="80"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7hn-bg-4eV">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="7UG-NA-7XV"/>
+                                                    <constraint firstAttribute="width" constant="80" id="Myc-xh-kB6"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFE-q9-W2z">
+                                                <rect key="frame" x="80" y="0.0" width="263" height="80"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4ds-gn-hbz">
+                                        <rect key="frame" x="0.0" y="90" width="343" height="503"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRc-LL-Fdj" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="503"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="58M-L0-XVq" firstAttribute="top" secondItem="MOR-O0-DTp" secondAttribute="bottom" id="D2K-Hp-uPX"/>
+                            <constraint firstItem="MOR-O0-DTp" firstAttribute="top" secondItem="8kd-xX-1IN" secondAttribute="bottom" constant="10" id="Hth-lS-YCz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MOR-O0-DTp" secondAttribute="trailing" id="bxt-QP-p57"/>
+                            <constraint firstItem="MOR-O0-DTp" firstAttribute="leading" secondItem="mGt-85-GnS" secondAttribute="leadingMargin" id="paf-ea-qBu"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="lineChartView" destination="QRc-LL-Fdj" id="md2-fj-MVo"/>
+                        <outlet property="workoutImage" destination="7hn-bg-4eV" id="d4T-W9-O1Z"/>
+                        <outlet property="workoutLabel" destination="zFE-q9-W2z" id="xZ8-3E-OZ4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehv-j4-Lwq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1813.5999999999999" y="145.27736131934034"/>
         </scene>
     </scenes>
 </document>
