@@ -16,85 +16,100 @@ import HealthKit
 
 class StartController: WKInterfaceController {
     
-    
     @IBOutlet var reuseWorkoutTable: WKInterfaceTable!
+    
     var workouts: [Workout] = []
-    var readyForWorkout: Bool = false
+    var authorizedForHeathData: Bool = false
     var healthDataAvailable: Bool = false
     
     override func awake(withContext context: Any?) {
         
-        if !HKHealthStore.isHealthDataAvailable() {
-            // tell the user that health data is not available
-            healthDataAvailable = false
-            displayNoHealthDataMessage()
-        } else {
-            let store = HKHealthStore()
-            let authorization = store.authorizationStatus(for: HKObjectType.quantityType(forIdentifier: .heartRate)!)
+        print("awake")
+        if let store = getAvailableHealthStore() {
             healthDataAvailable = true
             
-            switch authorization {
-            case .notDetermined:
-                
-                print("not determined")
-                readyForWorkout = false
-                displayNoSharingMessage()
-                
-            case .sharingDenied:
-                
-                print("sharing denied")
-                readyForWorkout = false
-                displayNoSharingMessage()
-                
-            case .sharingAuthorized:
-                
-                print("sharing authorized")
-                readyForWorkout = true
-                
-                let realm = try! Realm()
-                
-                
-                let savedWorkouts = realm.objects(DBWorkout.self)
-                print("there are \(savedWorkouts.count) saved workouts")
-                
-                savedWorkouts.forEach({ (dbw) in
-                    print("loop saved workout: ", dbw)
-                    workouts.append(Workout(dbWorkout: dbw))
+            if isAuthorizedForHealthData(store: store) {
+                authorizedForHeathData = true
 
-                })
+                do {
+                    let realm = try Realm()
+
+                    //grab all of the saved workouts and put them into the workout list
+                    let savedWorkouts = realm.objects(DBWorkout.self)
+                    savedWorkouts.forEach({ (dbw) in
+                        workouts.append(Workout(dbWorkout: dbw))
+                    })
+
+                } catch _ { print("exceptions accessing realm") }
                 
+                // if there are no workouts then move on
                 if self.workouts.count < 1 {
                     nextController()
                 } else {
-                    loadTableData()
+                    loadTableData(workouts)
                 }
+            } else {
+                authorizedForHeathData = false
             }
+        } else {
+            //health store is unavailabe
+            healthDataAvailable = false
+        }
+        
+        
+    }
+
+    /**
+     # Get Available Health Store
+     if health data is available return the health store
+     - Returns: HKHealthStore? (if data is available)
+     */
+    func getAvailableHealthStore() -> HKHealthStore? {
+        if HKHealthStore.isHealthDataAvailable() {
+            return HKHealthStore()
+        } else {
+            return nil
         }
     }
     
-    func displayNoSharingMessage() {
-        print("displaying no sharing message")
-        let errorMessage = WKAlertAction(title: "Will do!", style: .default, handler: {})
-        presentAlert(withTitle: "uhh-oh!", message: "It looks like there are no permissions for reading workout data, please enable permissions in the ___ app.", preferredStyle: .alert, actions: [errorMessage])
+    
+    /**
+     # Is Authorized For Heatlh Data
+     checks each data point that we want to use for this application. If we are authorized to use everything then authorization is true
+     - Parameter store: the heatlh store to check authorization from.
+     - Returns: Bool
+     */
+    func isAuthorizedForHealthData(store: HKHealthStore) -> Bool {
+        let types: [HKQuantityTypeIdentifier] = [.heartRate, .activeEnergyBurned]
+        
+        for type in types {
+            let auth = store.authorizationStatus(for: HKObjectType.quantityType(forIdentifier: type)!)
+            switch auth {
+            case .notDetermined, .sharingDenied:
+                return false
+            case .sharingAuthorized:
+                break;
+            }
+        }
+        return true
     }
     
-    func displayNoHealthDataMessage() {
-        print("displaying no health data message")
-        let noDataMessage = WKAlertAction(title: "Understood", style: .default, handler: {})
-        presentAlert(withTitle: "Ohh no!", message: "This device does not have access to Healthkit.", preferredStyle: .alert, actions: [noDataMessage])
-    }
-    
-    
+    //start button action
     @IBAction func startButtonWasPressed() {
         nextController()
     }
     
+    // go to the next controller if all of the dependancies are met. let the user know if something is not met
     func nextController() {
-        if !healthDataAvailable {
-            displayNoHealthDataMessage()
-        } else if !readyForWorkout {
-            displayNoSharingMessage()
-        } else {
+        
+        if !healthDataAvailable { // check if there is health data available
+            let noDataMessage = WKAlertAction(title: "Understood", style: .default, handler: {})
+            presentAlert(withTitle: "Ohh no!", message: "This app does not have access to Healthkit. Please allow access to Healthkit for futher usage.", preferredStyle: .alert, actions: [noDataMessage])
+        }
+        else if !authorizedForHeathData { // check if we are authorized for the data points necessary
+            let errorMessage = WKAlertAction(title: "Will do!", style: .default, handler: {})
+            presentAlert(withTitle: "uhh-oh!", message: "This app does not have permissions for reading workout data, please enable permissions in the Heart Up iOS App.", preferredStyle: .alert, actions: [errorMessage])
+        } else { // all is good
             let workoutConfig = Workout()
             pushController(withName: "WorkoutSelectionController", context: workoutConfig)
         }
@@ -106,24 +121,22 @@ class StartController: WKInterfaceController {
     }
     
     
-    func loadTableData() {
+    func loadTableData(_ wrkts: [Workout]) {
         reuseWorkoutTable.setNumberOfRows(workouts.count, withRowType: "ReuseWorkoutTableRowController")
         
         
-        for (index, workout) in workouts.enumerated() {
+        for (index, workout) in wrkts.enumerated() {
             let row = reuseWorkoutTable.rowController(at: index) as! ReuseWorkoutTableRowController
             
             if workout.configIndex > -1 {
-            
+                
                 let config = ApplicationData.workouts[workout.configIndex]
                 
                 let configIdx = workout.configIndex
                 let date = workout.time.start
                 
-                
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateStyle = .medium
-                
                 dateFormatter.locale = Locale(identifier: "en_US")
                 
                 row.workoutImage.setImage(config.image)
@@ -133,8 +146,6 @@ class StartController: WKInterfaceController {
                 row.minHRLabel.setText("Min: \(workout.heartRate.min)")
                 row.maxHRLabel.setText("Max: \(workout.heartRate.max)")
                 row.configIndex = configIdx
-                
-                
             }
         }
     }
