@@ -14,7 +14,7 @@
 		3213A5C71D597D54000D2455 /* CustomIntensityRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213A5C61D597D54000D2455 /* CustomIntensityRowController.swift */; };
 		3213A5C91D599279000D2455 /* HeartRateChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213A5C81D599279000D2455 /* HeartRateChartController.swift */; };
 		32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CDE1D41666C007C808E /* AppDelegate.swift */; };
-		32195CE11D41666C007C808E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CE01D41666C007C808E /* ViewController.swift */; };
+		32195CE11D41666C007C808E /* WorkoutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195CE01D41666C007C808E /* WorkoutList.swift */; };
 		32195CE41D41666C007C808E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE21D41666C007C808E /* Main.storyboard */; };
 		32195CE61D41666C007C808E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE51D41666C007C808E /* Assets.xcassets */; };
 		32195CE91D41666C007C808E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32195CE71D41666C007C808E /* LaunchScreen.storyboard */; };
@@ -32,14 +32,15 @@
 		3230E7B41D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B31D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift */; };
 		3230E7B91D4AEF8C00B3986A /* StartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B81D4AEF8C00B3986A /* StartController.swift */; };
 		3230E7BD1D4AF70800B3986A /* HeartRateRangeSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7BC1D4AF70800B3986A /* HeartRateRangeSelectionController.swift */; };
+		323391BA1DAC9908003FF419 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2E4021D52B11800FEB3BA /* ApplicationData.swift */; };
 		326E034D1DA04B290066807D /* WorkoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326E034C1DA04B290066807D /* WorkoutSender.swift */; };
 		3270B5B31D4692DB0066E186 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270B5B21D4692DB0066E186 /* HealthKit.framework */; };
 		3291C5351DAC41A7005BD160 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3291C5341DAC41A7005BD160 /* WatchCommunicator.swift */; };
 		329D9DE31D48658200BF8C51 /* HealthDataStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE21D48658200BF8C51 /* HealthDataStats.swift */; };
 		329D9DE51D486B9400BF8C51 /* HealthDataInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */; };
 		32B493571D89C3670099BE5F /* PostWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B493561D89C3670099BE5F /* PostWorkoutController.swift */; };
-		32DC444A1D89C85D00463A37 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* WorkoutSummary.swift */; };
-		32DC444B1D89C85D00463A37 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* WorkoutSummary.swift */; };
+		32DC444A1D89C85D00463A37 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* Workout.swift */; };
+		32DC444B1D89C85D00463A37 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DC44491D89C85D00463A37 /* Workout.swift */; };
 		32DCCE4D1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
 		32DCCE4E1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
 		32DCCE4F1D63FAF50089AE98 /* Yoga.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE311D63FAF50089AE98 /* Yoga.svg */; };
@@ -76,11 +77,14 @@
 		32DCCE811D640C630089AE98 /* OutdoorRunning.png in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE771D640C630089AE98 /* OutdoorRunning.png */; };
 		32DCCE821D640C630089AE98 /* OutdoorRunning.png in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE771D640C630089AE98 /* OutdoorRunning.png */; };
 		32DCCE831D640C630089AE98 /* OutdoorRunning.png in Resources */ = {isa = PBXBuildFile; fileRef = 32DCCE771D640C630089AE98 /* OutdoorRunning.png */; };
+		32DD1B9A1DAC9A6B001A2FAC /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DD1B991DAC9A6B001A2FAC /* WorkoutTableViewCell.swift */; };
+		32DD1B9E1DAC9B07001A2FAC /* WorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32DD1B9D1DAC9B07001A2FAC /* WorkoutTableViewCell.xib */; };
+		32DD1BA01DACA8AC001A2FAC /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DD1B9F1DACA8AC001A2FAC /* WorkoutSummary.swift */; };
 		32DEE21C1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2171D5D8D5B004FDE41 /* YODonutChartImage.m */; };
 		32DEE21D1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2171D5D8D5B004FDE41 /* YODonutChartImage.m */; };
 		32DEE21E1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */; };
 		32DEE21F1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */; };
-		32E2E4031D52B11800FEB3BA /* WorkoutConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2E4021D52B11800FEB3BA /* WorkoutConfig.swift */; };
+		32E2E4031D52B11800FEB3BA /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E2E4021D52B11800FEB3BA /* ApplicationData.swift */; };
 		4A1F9C5A74BB064405708064 /* Pods_Heart_Up.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2356DFD7ECA554437D5C17 /* Pods_Heart_Up.framework */; };
 		50918F8A116264D3BA5ED757 /* Pods_Heart_Up_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE51070259E44AC899098FB8 /* Pods_Heart_Up_WatchKit_App.framework */; };
 		E1D26D000A9913BE615A23EC /* Pods_Heart_Up_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9D1DA741EC899F94FFC2F5 /* Pods_Heart_Up_WatchKit_Extension.framework */; };
@@ -165,7 +169,7 @@
 		3213A5C81D599279000D2455 /* HeartRateChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateChartController.swift; sourceTree = "<group>"; };
 		32195CDB1D41666C007C808E /* Heart Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Heart Up.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32195CDE1D41666C007C808E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		32195CE01D41666C007C808E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		32195CE01D41666C007C808E /* WorkoutList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutList.swift; sourceTree = "<group>"; };
 		32195CE31D41666C007C808E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32195CE51D41666C007C808E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32195CE81D41666C007C808E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -199,7 +203,7 @@
 		329D9DE21D48658200BF8C51 /* HealthDataStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataStats.swift; sourceTree = "<group>"; };
 		329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataInterface.swift; sourceTree = "<group>"; };
 		32B493561D89C3670099BE5F /* PostWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostWorkoutController.swift; sourceTree = "<group>"; usesTabs = 0; };
-		32DC44491D89C85D00463A37 /* WorkoutSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutSummary.swift; path = "Heart Up WatchKit Extension/WorkoutSummary.swift"; sourceTree = "<group>"; };
+		32DC44491D89C85D00463A37 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Workout.swift; path = "Heart Up WatchKit Extension/Workout.swift"; sourceTree = "<group>"; };
 		32DCCE311D63FAF50089AE98 /* Yoga.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Yoga.svg; sourceTree = "<group>"; };
 		32DCCE501D640A860089AE98 /* CrossFit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CrossFit.png; path = icon/CrossFit.png; sourceTree = SOURCE_ROOT; };
 		32DCCE521D640A860089AE98 /* JumpRope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JumpRope.png; path = icon/JumpRope.png; sourceTree = SOURCE_ROOT; };
@@ -212,6 +216,9 @@
 		32DCCE751D640C630089AE98 /* IndoorRunning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IndoorRunning.png; path = icon/IndoorRunning.png; sourceTree = SOURCE_ROOT; };
 		32DCCE761D640C630089AE98 /* OutdoorCycling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OutdoorCycling.png; path = icon/OutdoorCycling.png; sourceTree = SOURCE_ROOT; };
 		32DCCE771D640C630089AE98 /* OutdoorRunning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OutdoorRunning.png; path = icon/OutdoorRunning.png; sourceTree = SOURCE_ROOT; };
+		32DD1B991DAC9A6B001A2FAC /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		32DD1B9D1DAC9B07001A2FAC /* WorkoutTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkoutTableViewCell.xib; sourceTree = "<group>"; };
+		32DD1B9F1DACA8AC001A2FAC /* WorkoutSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSummary.swift; sourceTree = "<group>"; };
 		32DEE2041D5D8C1B004FDE41 /* Heart Up WatchKit Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Heart Up WatchKit Extension-Bridging-Header.h"; path = "Libraries/Heart Up WatchKit Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		32DEE2051D5D8C1B004FDE41 /* Heart Up-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Heart Up-Bridging-Header.h"; path = "Libraries/Heart Up-Bridging-Header.h"; sourceTree = "<group>"; };
 		32DEE2151D5D8D5B004FDE41 /* YOChartImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YOChartImageKit.h; path = Libraries/YOChartImageKit/YOChartImageKit.h; sourceTree = "<group>"; };
@@ -219,7 +226,7 @@
 		32DEE2171D5D8D5B004FDE41 /* YODonutChartImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YODonutChartImage.m; path = Libraries/YOChartImageKit/YODonutChartImage.m; sourceTree = "<group>"; };
 		32DEE2181D5D8D5B004FDE41 /* YOLineChartImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YOLineChartImage.h; path = Libraries/YOChartImageKit/YOLineChartImage.h; sourceTree = "<group>"; };
 		32DEE2191D5D8D5B004FDE41 /* YOLineChartImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YOLineChartImage.m; path = Libraries/YOChartImageKit/YOLineChartImage.m; sourceTree = "<group>"; };
-		32E2E4021D52B11800FEB3BA /* WorkoutConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutConfig.swift; sourceTree = "<group>"; };
+		32E2E4021D52B11800FEB3BA /* ApplicationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApplicationData.swift; path = "Heart Up WatchKit Extension/ApplicationData.swift"; sourceTree = "<group>"; };
 		5668CBE1EB7431C4E1B915D7 /* Pods_Heart_UpTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heart_UpTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		678F295782ECF863F530BC4B /* Pods-Heart Up.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart Up.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart Up/Pods-Heart Up.release.xcconfig"; sourceTree = "<group>"; };
 		7E1B9F03D3C4BE99DEF3623D /* Pods-Heart UpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heart UpTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Heart UpTests/Pods-Heart UpTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -284,7 +291,8 @@
 		321329181D4853CA008B0951 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				32DC44491D89C85D00463A37 /* WorkoutSummary.swift */,
+				32DC44491D89C85D00463A37 /* Workout.swift */,
+				32E2E4021D52B11800FEB3BA /* ApplicationData.swift */,
 				32DEE2151D5D8D5B004FDE41 /* YOChartImageKit.h */,
 				32DEE2161D5D8D5B004FDE41 /* YODonutChartImage.h */,
 				32DEE2171D5D8D5B004FDE41 /* YODonutChartImage.m */,
@@ -326,11 +334,14 @@
 			children = (
 				32195D271D41673F007C808E /* Heart Up.entitlements */,
 				32195CDE1D41666C007C808E /* AppDelegate.swift */,
-				32195CE01D41666C007C808E /* ViewController.swift */,
+				32195CE01D41666C007C808E /* WorkoutList.swift */,
 				32195CE21D41666C007C808E /* Main.storyboard */,
 				32195CE51D41666C007C808E /* Assets.xcassets */,
 				32195CE71D41666C007C808E /* LaunchScreen.storyboard */,
 				32195CEA1D41666C007C808E /* Info.plist */,
+				32DD1B991DAC9A6B001A2FAC /* WorkoutTableViewCell.swift */,
+				32DD1B9D1DAC9B07001A2FAC /* WorkoutTableViewCell.xib */,
+				32DD1B9F1DACA8AC001A2FAC /* WorkoutSummary.swift */,
 			);
 			path = "Heart Up";
 			sourceTree = "<group>";
@@ -365,7 +376,6 @@
 				32B4E2951D5029160074774C /* Controllers */,
 				329D9DE21D48658200BF8C51 /* HealthDataStats.swift */,
 				329D9DE41D486B9400BF8C51 /* HealthDataInterface.swift */,
-				32E2E4021D52B11800FEB3BA /* WorkoutConfig.swift */,
 				32195D141D41666D007C808E /* Assets.xcassets */,
 				32195D161D41666D007C808E /* Info.plist */,
 				32195D0C1D41666D007C808E /* Supporting Files */,
@@ -632,6 +642,7 @@
 				32DCCE781D640C630089AE98 /* IndoorCycling.png in Resources */,
 				32195CE41D41666C007C808E /* Main.storyboard in Resources */,
 				32DCCE7E1D640C630089AE98 /* OutdoorCycling.png in Resources */,
+				32DD1B9E1DAC9B07001A2FAC /* WorkoutTableViewCell.xib in Resources */,
 				32DCCE811D640C630089AE98 /* OutdoorRunning.png in Resources */,
 				32DCCE681D640A860089AE98 /* Pilates.png in Resources */,
 				32DCCE591D640A860089AE98 /* CrossFit.png in Resources */,
@@ -863,11 +874,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32195CE11D41666C007C808E /* ViewController.swift in Sources */,
+				32195CE11D41666C007C808E /* WorkoutList.swift in Sources */,
+				32DD1BA01DACA8AC001A2FAC /* WorkoutSummary.swift in Sources */,
 				32DEE21C1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */,
 				32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */,
-				32DC444A1D89C85D00463A37 /* WorkoutSummary.swift in Sources */,
+				32DC444A1D89C85D00463A37 /* Workout.swift in Sources */,
 				32DEE21E1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */,
+				32DD1B9A1DAC9A6B001A2FAC /* WorkoutTableViewCell.swift in Sources */,
+				323391BA1DAC9908003FF419 /* ApplicationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,7 +906,7 @@
 				3213A5C91D599279000D2455 /* HeartRateChartController.swift in Sources */,
 				3230E7B41D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift in Sources */,
 				3230E7B91D4AEF8C00B3986A /* StartController.swift in Sources */,
-				32DC444B1D89C85D00463A37 /* WorkoutSummary.swift in Sources */,
+				32DC444B1D89C85D00463A37 /* Workout.swift in Sources */,
 				32DEE21F1D5D8D5B004FDE41 /* YOLineChartImage.m in Sources */,
 				32195D131D41666D007C808E /* NotificationController.swift in Sources */,
 				3210CF4B1D55159B009C75F7 /* WorkoutTableRowController.swift in Sources */,
@@ -901,7 +915,7 @@
 				3230E7B21D4AAA1300B3986A /* WorkoutSelectionController.swift in Sources */,
 				3213A5C71D597D54000D2455 /* CustomIntensityRowController.swift in Sources */,
 				329D9DE31D48658200BF8C51 /* HealthDataStats.swift in Sources */,
-				32E2E4031D52B11800FEB3BA /* WorkoutConfig.swift in Sources */,
+				32E2E4031D52B11800FEB3BA /* ApplicationData.swift in Sources */,
 				32195D111D41666D007C808E /* ExtensionDelegate.swift in Sources */,
 				32195D0F1D41666D007C808E /* WorkoutController.swift in Sources */,
 			);
@@ -1148,6 +1162,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Libraries/Heart Up-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1165,6 +1180,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Libraries/Heart Up-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
