@@ -157,21 +157,8 @@ class DBWorkout: Object {
     dynamic var configIndex: Int = UNSET_VALUE
     
     
-//    required init() {
-//        print("dbw 4")
-//        super.init()
-//    }
-//    required init(value: Any, schema: RLMSchema) {
-//        print("dbw 3")
-//        super.init()
-//    }
-//    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-//        print("dbw 2")
-//        super.init()
-//    }
     func importSettings(workout: Workout) {
         print("dbw 1")
-//        super.init()
         
         type = workout.type
         location = workout.location
@@ -194,31 +181,3 @@ class DBWorkout: Object {
         }
     }
 }
-
-//struct TransferableWorkout {
-//
-//    var type: Int
-//    var location: Int
-//    var intensity: Int
-//    var level: (low: Int, high: Int)
-//    var hr: (min: Int, max: Int, avg: Int)
-//    var time: TimeInterval
-//    var dates: (start: Date, end: Date)
-//    var data: [Segment]
-//    var configIdx: Int
-//
-//}
-
-//
-// This worked but in the end it was unnecessary
-//extension Array {
-//    func toList<T: Object>() -> List<T> {
-//        let list = List<T>()
-//        for e in self {
-//            list.append((e as! Object) as! T)
-//        }
-//        return list
-//    }
-//}
-//
-//
