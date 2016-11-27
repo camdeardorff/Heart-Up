@@ -98,6 +98,7 @@ class WorkoutController: WKInterfaceController {
         startWorkout()
     }
     
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
@@ -134,11 +135,13 @@ class WorkoutController: WKInterfaceController {
         
     }
     
+    
     func setAnimationToHeartRate(hr: Double) {
         //bla bla bla do stuff here
         //container.setBackgroundImageNamed("Frame ")
         //container.startAnimatingWithImages(in: NSRange(location: 1, length: 15), duration: 6, repeatCount: 0)
     }
+    
     
     func checkThresholds(_ hr: Double) {
         // if the timer is still going then dont bother
@@ -153,12 +156,11 @@ class WorkoutController: WKInterfaceController {
         }
     }
     
+    
     //turns off the timer boolean. allows the user to be notified again
     func turnNotificationTimerOff() {
         self.timerOn = false
     }
-    
-    
 }
 
 
