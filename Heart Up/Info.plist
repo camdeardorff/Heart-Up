@@ -30,9 +30,9 @@
 		<string>healthkit</string>
 	</array>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Heart rate and calorie data are vital to Heart Up. Data will be read and later written to Healthkit.</string>
+	<string>Heart rate and calorie data are vital to Heart Up, data will be read and later written to Healthkit. All data is used internally for your benefit, never sent or handled elsewhere.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Heart rate and calorie data are vital to Heart Up. Data will be read and later written to Healthkit.</string>
+	<string>Heart rate and calorie data are vital to Heart Up, data will be read and later written to Healthkit. All data is used internally for your benefit, never sent or handled elsewhere.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
