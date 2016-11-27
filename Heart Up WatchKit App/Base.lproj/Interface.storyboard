@@ -30,16 +30,6 @@
                                         <outlet property="labelIntensity" destination="nHr-E7-TvS" id="QSu-Xr-w6H"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="CustomIntensityRowController" id="aJD-od-7AM" customClass="CustomIntensityRowController" customModule="Heart_Up_WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="edK-g4-chP">
-                                        <items>
-                                            <label alignment="left" verticalAlignment="center" text="Custom Intensity" id="wSl-Xp-4B5"/>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="label" destination="wSl-Xp-4B5" id="5ef-Fv-Xit"/>
-                                    </connections>
-                                </tableRow>
                             </items>
                         </table>
                     </items>
