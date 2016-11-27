@@ -50,8 +50,6 @@ class WorkoutList: UIViewController {
         if workouts.count < 1 {
             // there are no workouts, let the user know
         }
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,7 +94,7 @@ extension WorkoutList: UITableViewDataSource {
         // create the cell and set it's properties
         let cell: WorkoutTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "workoutCell") as! WorkoutTableViewCell
         cell.selectionStyle = .none
-        cell.intensityLevel.text = ApplicationData.workouts[workout.configIndex].intensities[workout.intensity].level + " Intensity"
+        cell.intensityLevel.text = Intensity.ALL_LEVELS[workout.intensity].rawValue + " Intensity"
         cell.title.text = ApplicationData.workouts[workout.configIndex].name
         
         cell.timeInterval.text = workout.time.length.formatHourSecond()
