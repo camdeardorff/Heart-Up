@@ -17,13 +17,10 @@ class WorkoutSelectionController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         workout = context as? Workout
-        print("workout selection controller awake with workout: ", workout!)
-
         loadTableData(data: ApplicationData.workouts)
-
     }
     
-    func loadTableData(data: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType, intensities: [(level: String, min: Int, max: Int)])]) {
+    func loadTableData(data: [(name: String, image: UIImage, type: HKWorkoutActivityType, location: HKWorkoutSessionLocationType)]) {
         workoutTable.setNumberOfRows(data.count, withRowType: "WorkoutTableRowController")
         
         for (index, point) in data.enumerated() {
@@ -32,7 +29,6 @@ class WorkoutSelectionController: WKInterfaceController {
             row.workoutName.setText(point.name)
         }
     }
-    
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         let workoutType = ApplicationData.workouts[rowIndex]
@@ -44,5 +40,4 @@ class WorkoutSelectionController: WKInterfaceController {
             pushController(withName: "IntesitySelectorController", context: workout!)
         }
     }
-    
 }
