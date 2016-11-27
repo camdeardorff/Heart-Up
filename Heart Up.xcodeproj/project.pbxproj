@@ -28,6 +28,8 @@
 		32195D131D41666D007C808E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32195D121D41666D007C808E /* NotificationController.swift */; };
 		32195D151D41666D007C808E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32195D141D41666D007C808E /* Assets.xcassets */; };
 		32195D2A1D41673F007C808E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32195D291D41673F007C808E /* HealthKit.framework */; };
+		322403611DEA5021008DDD1D /* IntensityLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322403601DEA5021008DDD1D /* IntensityLevel.swift */; };
+		322403621DEA5021008DDD1D /* IntensityLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322403601DEA5021008DDD1D /* IntensityLevel.swift */; };
 		3230E7B21D4AAA1300B3986A /* WorkoutSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B11D4AAA1300B3986A /* WorkoutSelectionController.swift */; };
 		3230E7B41D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B31D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift */; };
 		3230E7B91D4AEF8C00B3986A /* StartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3230E7B81D4AEF8C00B3986A /* StartController.swift */; };
@@ -190,6 +192,7 @@
 		32195D161D41666D007C808E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32195D271D41673F007C808E /* Heart Up.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heart Up.entitlements"; sourceTree = "<group>"; };
 		32195D291D41673F007C808E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		322403601DEA5021008DDD1D /* IntensityLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntensityLevel.swift; path = "Heart Up WatchKit Extension/IntensityLevel.swift"; sourceTree = "<group>"; };
 		322F20A21D84B02000ED1D3D /* Heart Up WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Heart Up WatchKit App.entitlements"; sourceTree = "<group>"; };
 		3230E7B11D4AAA1300B3986A /* WorkoutSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSelectionController.swift; sourceTree = "<group>"; };
 		3230E7B31D4AB31D00B3986A /* ReuseWorkoutTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseWorkoutTableRowController.swift; sourceTree = "<group>"; };
@@ -292,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				32DC44491D89C85D00463A37 /* Workout.swift */,
+				322403601DEA5021008DDD1D /* IntensityLevel.swift */,
 				32E2E4021D52B11800FEB3BA /* ApplicationData.swift */,
 				32DEE2151D5D8D5B004FDE41 /* YOChartImageKit.h */,
 				32DEE2161D5D8D5B004FDE41 /* YODonutChartImage.h */,
@@ -875,6 +879,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32195CE11D41666C007C808E /* WorkoutList.swift in Sources */,
+				322403611DEA5021008DDD1D /* IntensityLevel.swift in Sources */,
 				32DD1BA01DACA8AC001A2FAC /* WorkoutSummary.swift in Sources */,
 				32DEE21C1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */,
 				32195CDF1D41666C007C808E /* AppDelegate.swift in Sources */,
@@ -897,6 +902,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				322403621DEA5021008DDD1D /* IntensityLevel.swift in Sources */,
 				3210CF4D1D552615009C75F7 /* IntesityTableRowController.swift in Sources */,
 				32DEE21D1D5D8D5B004FDE41 /* YODonutChartImage.m in Sources */,
 				326E034D1DA04B290066807D /* WorkoutSender.swift in Sources */,
